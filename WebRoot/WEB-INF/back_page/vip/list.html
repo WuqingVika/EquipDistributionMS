@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>会员-列表</title>
+    <link rel="stylesheet" type="text/css" href="../../js/easyui/themes/default/easyui.css">   
+	<link rel="stylesheet" type="text/css" href="../../js/easyui/themes/icon.css">  
+</head>
+<body style="padding:5px;">
+    <div class="easyui-layout" fit="true" border="false">
+        <div region="center" border="false">
+            <table fit="true" id="dg" class="easyui-datagrid" title="会员-列表" iconCls="icon-comment_edit"
+                   toolbar="#tb" idField="id"
+                   rownumbers="true" fitColumns="true"   data-options="selectOnCheck:true,checkOnSelect:true">
+               
+            </table>
+            <div id="tb" style="padding:5px">
+                <span>关键字:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <input id="id" class="easyui-textbox" prompt="请输入会员Id/会员名/手机号..."
+                       style="width:170px;height:26px;">&nbsp;&nbsp;
+              
+                <a href="#" iconCls="icon-search" class="easyui-linkbutton" onclick="doSearch()">条件查询</a>
+                &nbsp;&nbsp;
+                <a href="#" iconCls="icon-arrow_refresh" class="easyui-linkbutton">刷新所有</a>
+                &nbsp;&nbsp;<br />
+                  <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" onclick="newVip()"
+            		plain="true">添加</a> <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-edit"
+                onclick="editVip()" plain="true">修改</a> <a href="javascript:void(0)" class="easyui-linkbutton"
+                  onclick="delVip()"  iconcls="icon-remove" plain="true">删除</a>
+            </div>
+            
+            //会员编辑模态框---editVip
+            <div id="editDialog" class="easyui-dialog" style="width: 450px; height: 300px; padding: 10px 20px;"
+      				 closed="true" buttons="#dlg-buttons" data-options="modal: true" title="会员--修改"> 
+            	<form id="jvForm" action="edit.do" method="post">
+            		<input  name="id" hidden="true"/>
+            		  	<table cellpadding="5">
+            		  		<tr>
+				    			<td>手机号:</td><!--data-options="required:true,validType:'email'"-->
+				    			<td><input class="easyui-textbox" type="text" name="phone" data-options="required:true,validType:'phone'"></input></td>
+				    		</tr>
+            		  		<tr>
+				    			<td>会员名称:</td>
+				    			<td><input class="easyui-textbox" type="text" name="name" data-options="required:true,validType:['CHS','length[2,4]']"></input></td>
+				    		</tr>
+				    		<tr>
+				    			<td>邮箱:</td>
+				    			<td><input class="easyui-textbox" type="text" name="email" data-options="required:true,validType:'email'"></input></td>
+				    		</tr>
+				    		<tr>
+				    			<td>联系地址:</td>
+				    			<td><input class="easyui-textbox" name="address" data-options="multiline:true" style="height:60px"></input></td>
+				    		</tr>
+				    		<tr>
+				    			<td>备注:</td>
+				    			<td><input class="easyui-textbox" name="brief" data-options="multiline:true" style="height:60px"></input></td>
+				    		</tr>
+				    		<tr>
+				    			<td>注册时间:</td>
+				    			<td><input class="easyui-textbox" name="createDate" data-options="required:true" style="height:60px"></input></td>
+				    		</tr>
+	    				</table>
+	    				<div style="padding:5px;text-align:center;">
+				            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveVip()" icon="icon-ok">确认修改</a>
+				            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#editDialog').dialog('close')" icon="icon-cancel">取消</a>
+       					</div>
+				</form>
+			</div>
+            //编辑end
+            
+             //会员添加模态框---addVip
+            <div id="addDialog" class="easyui-dialog" style="width: 450px; height: 300px; padding: 10px 20px;"
+      				 closed="true" buttons="#dlg-buttons" data-options="modal: true" title="冷饮会员--添加"> 
+            	<form id="jaForm" action="add.do" method="post" enctype="multipart/form-data">
+            		  	<table cellpadding="5">
+            		  		<tr>
+				    			<td>手机号:</td>
+				    			<td><input class="easyui-textbox" type="text" name="phone" data-options="required:true,validType:'mobile'"></input></td>
+				    		</tr>
+            		  		<tr>
+				    			<td>会员名称:</td>
+				    			<td><input class="easyui-textbox" type="text" name="name" data-options="required:true,validType:['CHS','length[2,4]']"></input></td>
+				    		</tr>
+				    		<tr>
+				    			<td>邮箱:</td>
+				    			<td><input class="easyui-textbox" type="text" name="email" data-options="required:false,validType:'email'"></input></td>
+				    		</tr>
+				    		<tr>
+				    			<td>联系地址:</td>
+				    			<td><input class="easyui-textbox" name="address" data-options="multiline:true" style="height:60px"></input></td>
+				    		</tr>
+				    		<tr>
+				    			<td>备注:</td>
+				    			<td><input class="easyui-textbox" name="brief" data-options="multiline:true" style="height:60px"></input></td>
+				    		</tr>
+				    		<tr>
+				    			<td>注册时间:</td>
+				    			<td>
+				    				<input class="easyui-datetimebox" name="createDate" 
+       									 data-options="required:true,showSeconds:true" value="3/4/2010 2:3" ></input>
+				    			</td>
+				    		</tr>
+				    		
+	    				</table>
+	    				<div style="padding:5px;text-align:center;">
+				            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="addVip()" icon="icon-ok">确认添加</a>
+				            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#addDialog').dialog('close')" icon="icon-cancel">取消</a>
+       					</div>
+				</form>
+			</div>
+            //添加end
+            <script type="text/javascript" src="../../js/easyui/jquery.min.js"></script>   
+			<script type="text/javascript" src="../../js/easyui/jquery.easyui.min.js"></script> 
+			<script type="text/javascript" src="../../js/easyui/plugins/datagrid-detailview.js"></script>
+			<script type="text/javascript" src="../../js/easyui/locale/easyui-lang-zh_CN.js"></script>
+				<script type="text/javascript">
+			        $("#dg").datagrid({
+			            "url":"vips.json",
+			            "method":"get",
+			            columns:[[
+			            		{field:'ck',width:50,align:'center',checkbox:'true'},
+			                    {field:'id',width:60,align:'center',sortable:true,title:'会员ID'},
+			                    {field:'phone',width:100,align:'center',sortable:true,title:'手机号'},
+			                    {field:'name',width:100,align:'center',sortable:true,title:'会员名称'},
+			                    {field:'email',width:150,align:'center',sortable:true,title:'邮箱'},
+			                   	{field:'address',width:150,align:'center',sortable:true,title:'联系地址'},
+			                   	{field:'brief',width:150,align:'center',sortable:true,title:'备注'},
+		                   		{field:'createDate',width:150,align:'center',sortable:true,title:'注册时间'}
+			                ]]
+			        });
+			          
+			          //增删改
+				        var url;
+				        function newVip() {
+				            $("#addDialog").dialog("open") ;
+				            //url = "UserManage.aspx";
+				           // document.getElementById("hidtype").value="submit";
+				        }
+				        function addVip(){
+				        	var isValid=$('#jaForm').form('validate');
+				        	//alert(isValid);
+				        	if(isValid){
+				        		alert("添加成功！");
+				        		$("#addDialog").dialog("close");
+				        	}else{
+				        		return isValid;
+				        	}
+				        	//
+				        	//
+				        }
+				        function editVip() {
+				        	var rows=$("#dg").datagrid("getSelections");
+				        	var len=rows.length;
+				        	if(len==0){
+				        		alert('请选择任一会员进行修改!');
+				        		return false;
+				        	}else if(len>1){
+				        		alert('您选择会员数过多,请选择任一会员进行修改!');
+				        		return false;
+				        	}else{
+				        		var row = rows[0];
+					            if (row) {
+					               $("#editDialog").dialog("open");
+					                $("#jvForm").form("load", row);
+					                //url = "UserManage.aspx?id=" + row.id;
+					            }
+				        	}
+				        }
+				        function saveVip() {
+				        	alert("保存成功！");
+				        	$("#editDialog").dialog("close");
+//				            $("#fm").form("submit", {
+//				                url: url,
+//				                onsubmit: function () {
+//				                    return $(this).form("validate");
+//				                },
+//				                success: function (result) {
+//				                    if (result == "1") {
+//				                        $.messager.alert("提示信息", "操作成功");
+//				                        $("#dlg").dialog("close");
+//				                        $("#dg").datagrid("load");
+//				                    }
+//				                    else {
+//				                        $.messager.alert("提示信息", "操作失败");
+//				                    }
+//				                }
+//				            });
+				        }
+				        function delVip() {
+				        	var rows=$("#dg").datagrid("getSelections");
+				        	var len=rows.length;
+				        	if(len==0){
+				        		alert('请选择任一会员进行删除!');
+				        		return false;
+				        	}else if(len>1){
+				        		$.messager.confirm('Confirm', '您确定进行批量删除？', function (r) {
+				                    if (r) {
+				                    	alert('dels success!');
+//				                        $.post('destroy_user.php', { id: row.id }, function (result) {
+//				                            if (result.success) {
+//				                                $('#dg').datagrid('reload');    // reload the user data  
+//				                            } else {
+//				                                $.messager.show({   // show error message  
+//				                                    title: 'Error',
+//				                                    msg: result.errorMsg
+//				                                });
+//				                            }
+//				                        }, 'json');
+				                    }
+				                });
+				        	}else{
+				        		var row = rows[0];
+				        		if (row) {
+				                $.messager.confirm('Confirm', '您确定要删除'+row.name+'？', function (r) {
+				                    if (r) {
+				                    	alert('del success!');
+//				                        $.post('destroy_user.php', { id: row.id }, function (result) {
+//				                            if (result.success) {
+//				                                $('#dg').datagrid('reload');    // reload the user data  
+//				                            } else {
+//				                                $.messager.show({   // show error message  
+//				                                    title: 'Error',
+//				                                    msg: result.errorMsg
+//				                                });
+//				                            }
+//				                        }, 'json');
+				                    }
+				                });
+				           	 }
+				        	}//else end
+				        }  
+			          //end 增删改
+			          
+			          $.extend($.fn.validatebox.defaults.rules, {
+			          	//验证汉字
+					    CHS: {
+					        validator: function(value) {
+					            return /^[\u0391-\uFFE5]+$/.test(value);
+					        },
+					        message: "只能输入汉字！"
+					    },
+					    INTPlus:{
+					    	validator:function(value){
+					    		return /^[0-9]*[1-9][0-9]*$/.test(value);
+					    	},
+					    	message:"请输入正整数!"
+					    }, //移动手机号码验证  
+					    mobile: {//value值为文本框中的值  
+					        validator: function (value) {  
+					            var reg = /^1[3|4|5|8|9]\d{9}$/;  
+					            return reg.test(value);  
+					        },  
+					        message: '输入手机号码格式不准确!'  
+					    },  
+
+					});
+
+			    </script>
+        </div>
+        <div region="south" style="height:10px;" border="false">
+
+        </div>
+    </div>
+</body>
+</html>

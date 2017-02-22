@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>类别-列表</title>
+    <link rel="stylesheet" type="text/css" href="../../js/easyui/themes/default/easyui.css">   
+	<link rel="stylesheet" type="text/css" href="../../js/easyui/themes/icon.css">  
+	
+</head>
+<body style="padding:5px;">
+    <div class="easyui-layout" fit="true" border="false">
+        <div region="center" border="false">
+            <table fit="true" id="dg" class="easyui-datagrid" title="类别-列表" iconCls="icon-comment_edit"
+                   toolbar="#tb" idField="id"
+                   rownumbers="true" fitColumns="true"   data-options="selectOnCheck:true,checkOnSelect:true">
+               
+            </table>
+            <div id="tb" style="padding:5px">
+                <span>关键字:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <input id="id" class="easyui-textbox" prompt="请输入类别ID/类别名称..."
+                       style="width:170px;height:26px;">&nbsp;&nbsp;
+              
+                <a href="#" iconCls="icon-search" class="easyui-linkbutton" onclick="doSearch()">条件查询</a>
+                &nbsp;&nbsp;
+                <a href="#" iconCls="icon-arrow_refresh" class="easyui-linkbutton">刷新所有</a>
+                &nbsp;&nbsp;<br />
+                  <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" onclick="newCategory()"
+            		plain="true">添加</a> <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-edit"
+                onclick="editCategory()" plain="true">修改</a> <a href="javascript:void(0)" class="easyui-linkbutton"
+                  onclick="delCategory()"  iconcls="icon-remove" plain="true">删除</a>
+            </div>
+            
+            //类别编辑模态框---editCategory
+            <div id="editDialog" class="easyui-dialog" style="width: 450px; height: 300px; padding: 10px 20px;"
+      				 closed="true" buttons="#dlg-buttons" data-options="modal: true" title="类别--修改"> 
+            	<form id="jvForm" action="edit.do" method="post">
+            		<input  name="id" hidden="true"/>
+            		  	<table cellpadding="5">
+            		  		<tr>
+				    			<td>类别名称:</td>
+				    			<td><input class="easyui-textbox" type="text" name="name" data-options="required:true"></input></td>
+				    		</tr>
+				    		<tr>
+				    			<td>排序:</td><!--data-options="required:true,validType:'email'"-->
+				    			<td><input class="easyui-textbox" type="text" name="sort" data-options="required:true,validType:'INTPlus'"></input></td>
+				    		</tr>
+				    		
+				    		<tr>
+				    			<td>品牌描述:</td>
+				    			<td><input class="easyui-textbox" name="description" data-options="multiline:true" style="height:60px"></input></td>
+				    		</tr>
+	    				</table>
+	    				<div style="padding:5px;text-align:center;">
+				            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveCategory()" icon="icon-ok">确认修改</a>
+				            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#editDialog').dialog('close')" icon="icon-cancel">取消</a>
+       					</div>
+				</form>
+			</div>
+            //编辑end
+            
+             //类别添加模态框---addCategory
+            <div id="addDialog" class="easyui-dialog" style="width: 450px; height: 300px; padding: 10px 20px;"
+      				 closed="true" buttons="#dlg-buttons" data-options="modal: true" title="冷饮类别--添加"> 
+            	<form id="jaForm" action="add.do" method="post" enctype="multipart/form-data">
+            		  	<table cellpadding="5">
+            		  		<tr>
+				    			<td>类别名称:</td>
+				    			<td><input class="easyui-textbox" type="text" name="name" data-options="required:true"></input></td>
+				    		</tr>
+				    		<tr>
+				    			<td>排序:</td>
+				    			<td><input class="easyui-textbox" type="text" name="sort" data-options="required:true,validType:'INTPlus'"></input></td>
+				    		</tr>
+				    		
+				    		<tr>
+				    			<td>类别描述:</td>
+				    			<td><input class="easyui-textbox" name="description" data-options="multiline:true" style="height:60px"></input></td>
+				    		</tr>
+	    				</table>
+	    				<div style="padding:5px;text-align:center;">
+				            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="addCategory()" icon="icon-ok">确认添加</a>
+				            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#addDialog').dialog('close')" icon="icon-cancel">取消</a>
+       					</div>
+				</form>
+			</div>
+            //添加end
+            
+            <script type="text/javascript" src="../../js/easyui/jquery.min.js"></script>   
+			<script type="text/javascript" src="../../js/easyui/jquery.easyui.min.js"></script> 
+			<script type="text/javascript" src="../../js/easyui/plugins/datagrid-detailview.js"></script>
+			<script type="text/javascript" src="../../js/easyui/locale/easyui-lang-zh_CN.js"></script>
+				<script type="text/javascript">
+			        $("#dg").datagrid({
+			            "url":"coldCategory.json",
+			            "method":"get",
+			            columns:[[
+			            		{field:'ck',width:50,align:'center',checkbox:'true'},
+			                    {field:'id',width:60,align:'center',sortable:true,title:'品牌ID'},
+			                    {field:'name',width:100,align:'center',sortable:true,title:'品牌名称'},
+			                    {field:'description',width:150,align:'center',sortable:true,title:'品牌描述'},
+			                    {field:'sort',width:100,align:'center',sortable:true,title:'排序'}
+			                ]]
+			        });
+			          
+			          //增删改
+				        var url;
+				        function newCategory() {
+				            $("#addDialog").dialog("open") ;
+				            //url = "UserManage.aspx";
+				           // document.getElementById("hidtype").value="submit";
+				        }
+				        function addCategory(){
+				        	alert("添加成功！");
+				        	$("#addDialog").dialog("close");
+				        }
+				        function editCategory() {
+				        	var rows=$("#dg").datagrid("getSelections");
+				        	var len=rows.length;
+				        	if(len==0){
+				        		alert('请选择任一类别进行修改!');
+				        		return false;
+				        	}else if(len>1){
+				        		alert('您选择类别数过多,请选择任一类别进行修改!');
+				        		return false;
+				        	}else{
+				        		var row = rows[0];
+					            if (row) {
+					               $("#editDialog").dialog("open");
+					                $("#jvForm").form("load", row);
+					                //url = "UserManage.aspx?id=" + row.id;
+					            }
+				        	}
+				        }
+				        function saveCategory() {
+				        	alert("保存成功！");
+				        	$("#editDialog").dialog("close");
+//				            $("#fm").form("submit", {
+//				                url: url,
+//				                onsubmit: function () {
+//				                    return $(this).form("validate");
+//				                },
+//				                success: function (result) {
+//				                    if (result == "1") {
+//				                        $.messager.alert("提示信息", "操作成功");
+//				                        $("#dlg").dialog("close");
+//				                        $("#dg").datagrid("load");
+//				                    }
+//				                    else {
+//				                        $.messager.alert("提示信息", "操作失败");
+//				                    }
+//				                }
+//				            });
+				        }
+				        function delCategory() {
+				        	var rows=$("#dg").datagrid("getSelections");
+				        	var len=rows.length;
+				        	if(len==0){
+				        		alert('请选择任一类别进行删除!');
+				        		return false;
+				        	}else if(len>1){
+				        		$.messager.confirm('Confirm', '您确定进行批量删除？', function (r) {
+				                    if (r) {
+				                    	alert('dels success!');
+//				                        $.post('destroy_user.php', { id: row.id }, function (result) {
+//				                            if (result.success) {
+//				                                $('#dg').datagrid('reload');    // reload the user data  
+//				                            } else {
+//				                                $.messager.show({   // show error message  
+//				                                    title: 'Error',
+//				                                    msg: result.errorMsg
+//				                                });
+//				                            }
+//				                        }, 'json');
+				                    }
+				                });
+				        	}else{
+				        		var row = rows[0];
+				        		if (row) {
+				                $.messager.confirm('Confirm', '您确定要删除'+row.name+'？', function (r) {
+				                    if (r) {
+				                    	alert('del success!');
+//				                        $.post('destroy_user.php', { id: row.id }, function (result) {
+//				                            if (result.success) {
+//				                                $('#dg').datagrid('reload');    // reload the user data  
+//				                            } else {
+//				                                $.messager.show({   // show error message  
+//				                                    title: 'Error',
+//				                                    msg: result.errorMsg
+//				                                });
+//				                            }
+//				                        }, 'json');
+				                    }
+				                });
+				           	 }
+				        	}//else end
+				        }  
+			          //end 增删改
+			          
+			          $.extend($.fn.validatebox.defaults.rules, {
+					    INTPlus:{
+					    	validator:function(value){
+					    		return /^[0-9]*[1-9][0-9]*$/.test(value);
+					    	},
+					    	message:"请输入正整数!"
+					    }
+					});
+
+			    </script>
+        </div>
+        <div region="south" style="height:10px;" border="false">
+
+        </div>
+    </div>
+</body>
+</html>

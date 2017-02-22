@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>品牌-列表</title>
+    <link rel="stylesheet" type="text/css" href="../../js/easyui/themes/default/easyui.css">   
+	<link rel="stylesheet" type="text/css" href="../../js/easyui/themes/icon.css">  
+</head>
+<body style="padding:5px;">
+	<!--
+    	
+	<table border="0" cellpadding="0" cellspacing="0" width="100%">
+	<tbody><tr><td style="width: 5px; border-bottom: 2px solid #C0C0C0;">&nbsp;</td>
+	<td style="border-bottom: 2px solid #F3F2F2;" valign="bottom">
+	<div style="background: #F3F2F2; border-top: 1px solid #C0C0C0; border-right: 1px solid #C0C0C0; border-left: 1px solid #C0C0C0;">
+	<div style="border-top: 1px solid #FFFFFF; border-right: 1px solid #FFFFFF; border-left: 1px solid #FFFFFF; background: transparent url(../../css/TabGradientA.xhtml) repeat-x; padding: 3px 5px;\">
+	<table border="0" cellpadding="0" cellspacing="0"><tbody><tr><td nowrap="nowrap">
+	<div style="text-align: left; -webkit-appearance: none; border: 0; background: none; padding: 0; background-image: url(../../img/binocle.png); background-repeat: no-repeat; text-indent: 18px;">
+	<span>查询条件</span></div></td><td>&nbsp;</td><td> &nbsp;&nbsp;&nbsp;</td></tr></tbody></table></div></div></td>
+	<td style="width: 95%; border-bottom: 2px solid #C0C0C0; text-align:right; padding-right:20px;"></td>
+	</tr></tbody></table>
+	
+	作者：1063097139@qq.com
+    	时间：2017-02-12
+    	描述：
+    -->
+	
+	
+	
+	
+	
+	
+    <div class="easyui-layout" fit="true" border="false">
+        <div region="center" border="false">
+        	
+            <table fit="true" id="dg" class="easyui-datagrid" title="品牌-列表" iconCls="icon-comment_edit"
+                   toolbar="#tb" idField="id"
+                   rownumbers="true" fitColumns="true"   pagination="true" data-options="selectOnCheck:true,checkOnSelect:true">
+                <!--<thead>
+                <tr>
+                    <th field="ck" checkbox="true"></th>
+                    <th field="id" align="center" width="50">品牌Id</th>
+                    <th field="name" align="center" width="100">品牌名称</th>
+                    <th field="imgUrl" align="center" width="100" data-options="formatter: imgFormatter">品牌图片</th>
+                    <th field="description" align="center" width="150">品牌描述</th>
+                    <th field="sort" align="center" width="50" >排序</th>
+                    <th field="operation" align="center" width="100" data-options="formatter: opeFormatter">操作选项</th>
+                </tr>
+                </thead>-->
+            </table>
+            <div id="tb" style="padding:5px">
+                <span>关键字:&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                <input id="id" class="easyui-textbox" prompt="请输入品牌ID/品牌名称..."
+                       style="width:170px;height:26px;">&nbsp;&nbsp;
+              
+                <a href="#" iconCls="icon-search" class="easyui-linkbutton" onclick="doSearch()">条件查询</a>
+                &nbsp;&nbsp;
+                <a href="#" iconCls="icon-arrow_refresh" class="easyui-linkbutton">刷新所有</a>
+                &nbsp;&nbsp;<br />
+                  <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-add" onclick="newBrand()"
+            		plain="true">添加</a> <a href="javascript:void(0)" class="easyui-linkbutton" iconcls="icon-edit"
+                onclick="editBrand()" plain="true">修改</a> <a href="javascript:void(0)" class="easyui-linkbutton"
+                  onclick="delBrand()"  iconcls="icon-remove" plain="true">删除</a>
+            </div>
+            
+            //品牌编辑模态框---editBrand
+            <div id="editDialog" class="easyui-dialog" style="width: 450px; height: 300px; padding: 10px 20px;"
+      				 closed="true" buttons="#dlg-buttons" data-options="modal: true" title="品牌--修改"> 
+            	<form id="jvForm" action="edit.do" method="post">
+            		<input  name="id" hidden="true"/>
+            		  	<table cellpadding="5">
+            		  		<tr>
+				    			<td>品牌名称:</td>
+				    			<td><input class="easyui-textbox" type="text" name="name" data-options="required:true"></input></td>
+				    		</tr>
+				    		<tr>
+				    			<td>排序:</td><!--data-options="required:true,validType:'email'"-->
+				    			<td><input class="easyui-textbox" type="text" name="sort" data-options="required:true,validType:'INTPlus'"></input></td>
+				    		</tr>
+				    		<tr>
+				    			<td>品牌图标:</td>
+				    			<td ><img id="img" name="imgUrl" style="width:30px; height:30px" ><input type="file" /></td>
+				    		</tr>
+				    		<tr>
+				    			<td>品牌描述:</td>
+				    			<td><input class="easyui-textbox" name="description" data-options="multiline:true" style="height:60px"></input></td>
+				    		</tr>
+	    				</table>
+	    				<div style="padding:5px;text-align:center;">
+				            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveBrand()" icon="icon-ok">确认修改</a>
+				            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#editDialog').dialog('close')" icon="icon-cancel">取消</a>
+       					</div>
+				</form>
+			</div>
+            //编辑end
+            
+             //品牌添加模态框---addBrand
+            <div id="addDialog" class="easyui-dialog" style="width: 450px; height: 300px; padding: 10px 20px;"
+      				 closed="true" buttons="#dlg-buttons" data-options="modal: true" title="品牌--添加"> 
+            	<form id="jaForm" action="add.do" method="post" enctype="multipart/form-data">
+            		  	<table cellpadding="5">
+            		  		<tr>
+				    			<td>品牌名称:</td>
+				    			<td><input class="easyui-textbox" type="text" name="name" data-options="required:true"></input></td>
+				    		</tr>
+				    		<tr>
+				    			<td>排序:</td><!--data-options="required:true,validType:'email'"-->
+				    			<td><input class="easyui-textbox" type="text" name="sort" data-options="required:true,validType:'INTPlus'"></input></td>
+				    		</tr>
+				    		<tr>
+				    			<td>上传品牌图片(90x150尺寸):</td>
+				    			<td>注:该尺寸图片必须为90x150。</td>
+				    		</tr>
+				    		<tr>
+				    			<td></td>
+				    			<td ><img id="imgAdd" name="imgUrl" style="width:30px; height:30px" ><input type="file" /></td>
+				    		</tr>
+				    		<tr>
+				    			<td>品牌描述:</td>
+				    			<td><input class="easyui-textbox" name="description" data-options="multiline:true" style="height:60px"></input></td>
+				    		</tr>
+	    				</table>
+	    				<div style="padding:5px;text-align:center;">
+				            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="addBrand()" icon="icon-ok">确认添加</a>
+				            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#addDialog').dialog('close')" icon="icon-cancel">取消</a>
+       					</div>
+				</form>
+			</div>
+            //编辑end
+    <script type="text/javascript" src="../../js/easyui/jquery.min.js"></script>   
+	<script type="text/javascript" src="../../js/easyui/jquery.easyui.min.js"></script> 
+	<script type="text/javascript" src="../../js/easyui/plugins/datagrid-detailview.js"></script>
+	<script type="text/javascript" src="../../js/easyui/locale/easyui-lang-zh_CN.js"></script>
+				<script type="text/javascript">
+			        $("#dg").datagrid({
+			            "url":"brand.json",
+			            "method":"get",
+			            columns:[[
+			            		{field:'ck',width:50,align:'center',checkbox:'true'},
+			                    {field:'id',width:60,align:'center',sortable:true,title:'品牌ID'},
+			                    {field:'name',width:100,align:'center',sortable:true,title:'品牌名称'},
+			                    {field:'description',width:150,align:'center',sortable:true,title:'品牌描述'},
+			                    {field:'imgUrl',width:100,align:'center',title:'品牌图标',formatter:function(value,row,index){
+								    	if('' != value && null != value)
+								      	value = '<img style="width:30px; height:30px" src="' + value + '">';
+								      	return  value;
+							    	}
+			                  },
+			                    {field:'sort',width:100,align:'center',sortable:true,title:'排序'}
+			                ]]
+			        });
+			        //品牌图片处理
+			         function imgFormatter(value,row,index){
+				    	if('' != value && null != value)
+				      	value = '<img style="width:30px; height:30px" src="' + value + '">';
+				      	return  value;
+			    	}
+			         //操作按钮处理
+			          function opeFormatter(value,row,index){
+				    		var e='<a href="#" onclick="alert('+value+')">修改</a>';
+				    		var d='<a href="#" onclick="alert('+value+')">删除</a>';
+				    		return e+d;
+				    	
+			    	}
+			          
+			          //增删改
+				        var url;
+				        function newBrand() {
+				            $("#addDialog").dialog("open") ;
+				            //url = "UserManage.aspx";
+				           // document.getElementById("hidtype").value="submit";
+				        }
+				        function addBrand(){
+				        	alert("添加成功！");
+				        	$("#addDialog").dialog("close");
+				        }
+				        function editBrand() {
+				        	var rows=$("#dg").datagrid("getSelections");
+				        	var len=rows.length;
+				        	if(len==0){
+				        		alert('请选择任一品牌进行修改!');
+				        		return false;
+				        	}else if(len>1){
+				        		alert('您选择品牌数过多,请选择任一品牌进行修改!');
+				        		return false;
+				        	}else{
+				        		var row = rows[0];//$("#dg").datagrid("getSelected");
+					            if (row) {
+					               $("#editDialog").dialog("open");//.dialog('setTitle', '修改-品牌');
+					                $("#jvForm").form("load", row);
+					                document.getElementById("img").src=row.imgUrl;
+					                //url = "UserManage.aspx?id=" + row.id;
+					            }
+				        	}
+				        }
+				        function saveBrand() {
+				        	alert("保存成功！");
+				        	$("#editDialog").dialog("close");
+//				            $("#fm").form("submit", {
+//				                url: url,
+//				                onsubmit: function () {
+//				                    return $(this).form("validate");
+//				                },
+//				                success: function (result) {
+//				                    if (result == "1") {
+//				                        $.messager.alert("提示信息", "操作成功");
+//				                        $("#dlg").dialog("close");
+//				                        $("#dg").datagrid("load");
+//				                    }
+//				                    else {
+//				                        $.messager.alert("提示信息", "操作失败");
+//				                    }
+//				                }
+//				            });
+				        }
+				        function delBrand() {
+				        	var rows=$("#dg").datagrid("getSelections");
+				        	var len=rows.length;
+				        	if(len==0){
+				        		alert('请选择任一品牌进行删除!');
+				        		return false;
+				        	}else if(len>1){
+				        		$.messager.confirm('Confirm', '您确定进行批量删除？', function (r) {
+				                    if (r) {
+				                    	alert('dels success!');
+//				                        $.post('destroy_user.php', { id: row.id }, function (result) {
+//				                            if (result.success) {
+//				                                $('#dg').datagrid('reload');    // reload the user data  
+//				                            } else {
+//				                                $.messager.show({   // show error message  
+//				                                    title: 'Error',
+//				                                    msg: result.errorMsg
+//				                                });
+//				                            }
+//				                        }, 'json');
+				                    }
+				                });
+				        	}else{
+				        		var row = rows[0];
+				        		if (row) {
+				                $.messager.confirm('Confirm', '您确定要删除'+row.name+'？', function (r) {
+				                    if (r) {
+				                    	alert('del success!');
+//				                        $.post('destroy_user.php', { id: row.id }, function (result) {
+//				                            if (result.success) {
+//				                                $('#dg').datagrid('reload');    // reload the user data  
+//				                            } else {
+//				                                $.messager.show({   // show error message  
+//				                                    title: 'Error',
+//				                                    msg: result.errorMsg
+//				                                });
+//				                            }
+//				                        }, 'json');
+				                    }
+				                });
+				           	 }
+				        	}//else end
+				        }  
+			          //end 增删改
+			          
+			          $.extend($.fn.validatebox.defaults.rules, {
+					    //验证汉字
+					    CHS: {
+					        validator: function(value) {
+					            return /^[\u0391-\uFFE5]+$/.test(value);
+					        },
+					        message: "只能输入汉字！"
+					    },
+					    INTPlus:{
+					    	validator:function(value){
+					    		return /^[0-9]*[1-9][0-9]*$/.test(value);
+					    	},
+					    	message:"请输入正整数!"
+					    }
+					});
+
+			    </script>
+        </div>
+        <div region="south" style="height:10px;" border="false">
+
+        </div>
+    </div>
+</body>
+</html>

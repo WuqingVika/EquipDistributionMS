@@ -1,0 +1,21 @@
+[
+  {
+    "id":1,
+    "phone":15618927357,
+    "name":"吴庆",
+    "email":"wuqingvika@gmail.com",
+    "address":"江苏启东王鲍",
+    "brief":"老客户",
+    "createDate":"2016-12-27 21:18:55"
+  },
+  {
+    "id":2,
+   "phone":15618927357,
+    "name":"吴庆",
+    "email":"wuqingvika@gmail.com",
+    "address":"江苏启东王鲍",
+    "brief":"老客户",
+    "createDate":"2016-12-27 21:18:55"
+  }
+  
+]

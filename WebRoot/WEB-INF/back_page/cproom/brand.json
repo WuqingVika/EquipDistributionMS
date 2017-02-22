@@ -1,0 +1,19 @@
+[
+  {
+    "id":1,
+    "name":"特伦苏",
+    "description":"不是所有的冰棍都叫特伦苏",
+    "imgUrl":"../../css/itcast/res/img/pic/ppp0.jpg",
+    "sort":"12",
+    "operation":1
+  },
+  {
+    "id":2,
+    "name":"蒙牛",
+    "description":"老牌子 蒙牛",
+    "imgUrl":"../../css/itcast/res/img/pic/ppp0.jpg",
+    "sort":"11",
+    "operation":2
+  }
+  
+]

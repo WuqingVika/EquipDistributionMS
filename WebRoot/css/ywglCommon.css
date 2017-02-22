@@ -1,0 +1,94 @@
+table.SearchCondition {
+	width:98%;
+	line-height:20px;
+	align:left;
+}
+div.SearchCondition {
+	background: #F3F2F2; 
+	border-right: 1px solid #C0C0C0; 
+	border-bottom: 1px solid #C0C0C0; 
+	border-left: 1px solid #C0C0C0; 
+	padding: 10px;
+	text-align:left;
+	align:left;
+}
+table.SearchResult {
+	width:98%;
+	line-height:20px;
+}
+div.SearchResult {
+	background: #F3F2F2; 
+	border-right: 1px solid #C0C0C0; 
+	border-bottom: 1px solid #C0C0C0; 
+	border-left: 1px solid #C0C0C0; 
+	padding: 10px;
+}
+table.UpdatePanel {
+	width:98%;
+	align:left;
+	text-align:left;
+	border-collapse:20px;
+	line-height:20px;
+}
+div.UpdatePanel {
+	background: #F3F2F2; 
+	border-right: 1px solid #C0C0C0; 
+	border-bottom: 1px solid #C0C0C0; 
+	border-left: 1px solid #C0C0C0; 
+	padding: 10px;
+	align:left;
+	text-align:left;
+}
+div.PageDiv {
+	text-align:center;
+	margin:auto;
+}
+body.PageBody{
+	overflow:auto;
+}
+body.TabBody{
+	overflow:hidden;
+}
+.easyui-window{
+	width:800px;
+	height:350px;
+}
+.easyui-validatebox{
+	width:150px;
+}
+.easyui-datebox{
+	width:150px;
+}
+.easyui-combobox{
+	width:150px;
+	panelWidth:150px;
+	panelHeight:auto;
+}
+input.button {
+	width:70px;
+	background: #2ae;
+	BORDER-RIGHT: #7b9ebd 1px solid;
+	PADDING-RIGHT: 2px;
+	BORDER-TOP: #7b9ebd 1px solid;
+	PADDING-LEFT: 2px;
+	FONT-SIZE: 12px;
+	BORDER-LEFT: #7b9ebd 1px solid;
+	CURSOR: hand;
+	COLOR: white;
+	PADDING-TOP: 2px;
+	BORDER-BOTTOM: #7b9ebd 1px solid
+}
+input.button2 {
+	width:70px;
+	background: white;
+	BORDER-RIGHT: #7b9ebd 1px solid;
+	PADDING-RIGHT: 2px;
+	BORDER-TOP: #7b9ebd 1px solid;
+	PADDING-LEFT: 2px;
+	FONT-SIZE: 12px;
+	BORDER-LEFT: #7b9ebd 1px solid;
+	CURSOR: hand;
+	COLOR: black;
+	PADDING-TOP: 2px;
+	BORDER-BOTTOM: #7b9ebd 1px solid
+}
