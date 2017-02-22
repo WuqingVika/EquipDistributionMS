@@ -1,4 +1,4 @@
-package com.guanghua.edms.dao.user;
+package com.guanghua.edms.dao;
 
 import com.guanghua.edms.domain.User;
 

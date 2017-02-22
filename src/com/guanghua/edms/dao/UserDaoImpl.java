@@ -1,4 +1,4 @@
-package com.guanghua.edms.dao.user;
+package com.guanghua.edms.dao;
 
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,7 +11,7 @@ public class UserDaoImpl  implements UserDao{//extends HibernateDaoSupport
 	private SessionFactory sessionFactory;
 	public User getUserByUserName(String userId) {
 		//return (User)this.getHibernateTemplate().get(User.class, userName);
-		System.out.println("dao--get user");
+		System.out.println("dao--userId------------"+userId);
 		return (User) sessionFactory.getCurrentSession().get(User.class, userId);
 	}
 }

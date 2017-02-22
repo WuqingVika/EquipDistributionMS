@@ -46,24 +46,13 @@
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
             </props>
         </property>
-       <!--  <property name="packagesToScan">
-			<value>com.guanghua.edms.domain</value>
-		</property> -->
-		<!--  <property name="packagesToScan"> 
-              <list> 
-                   <value>com.guanghua.edms.domain.*</value> 
-              </list> 
-        </property> -->
-        <!-- <property name="mappingDirectoryLocations">
+         <!-- 加载hibernate中的映射文件 -->
+        <property name="mappingResources">
             <list>
-                <value>com.guanghua.edms.domain.*</value>
+                <value>com/guanghua/edms/domain/User.hbm.xml</value>
             </list>
-        </property>  -->
-        
+        </property>
     </bean>
- 
-   
-     
     <!-- 配置事务管理器 -->
     <bean id="transactionManager" class="org.springframework.orm.hibernate3.HibernateTransactionManager">
         <property name="sessionFactory" ref="sessionFactory"/>
