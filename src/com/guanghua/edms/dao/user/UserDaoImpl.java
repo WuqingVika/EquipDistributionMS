@@ -9,8 +9,9 @@ import com.guanghua.edms.domain.User;
 public class UserDaoImpl  implements UserDao{//extends HibernateDaoSupport
 	@Autowired
 	private SessionFactory sessionFactory;
-	public User getUserByUserName(String userName) {
+	public User getUserByUserName(String userId) {
 		//return (User)this.getHibernateTemplate().get(User.class, userName);
-		return (User) sessionFactory.getCurrentSession().get(User.class, userName);
+		System.out.println("dao--get user");
+		return (User) sessionFactory.getCurrentSession().get(User.class, userId);
 	}
 }

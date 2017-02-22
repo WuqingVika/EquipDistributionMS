@@ -46,7 +46,19 @@
                 <prop key="hibernate.hbm2ddl.auto">update</prop>
             </props>
         </property>
-        <!-- 加载hibernate中的映射文件 -->
+       <!--  <property name="packagesToScan">
+			<value>com.guanghua.edms.domain</value>
+		</property> -->
+		<!--  <property name="packagesToScan"> 
+              <list> 
+                   <value>com.guanghua.edms.domain.*</value> 
+              </list> 
+        </property> -->
+        <!-- <property name="mappingDirectoryLocations">
+            <list>
+                <value>com.guanghua.edms.domain.*</value>
+            </list>
+        </property>  -->
         
     </bean>
  
