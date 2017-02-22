@@ -17,10 +17,10 @@ import com.guanghua.edms.domain.User;
 @Transactional
 public class UserServiceImpl implements UserService {
 	@Autowired  
-	private UserDao userDaoImpl;
+	private UserDao userDao;
 
 	public User getUserByUserName(String userName) {
-		return userDaoImpl.getUserByUserName(userName);
+		return userDao.getUserByUserName(userName);
 	}
 
 }

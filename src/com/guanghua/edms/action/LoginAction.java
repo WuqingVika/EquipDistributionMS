@@ -24,10 +24,10 @@ import com.opensymphony.xwork2.ModelDriven;
 @Component("loginAction")
 @Scope("prototype")
 public class LoginAction extends ActionSupport  implements ModelDriven<User>{
-	/*@Autowired
-	private SessionProvider sessionProvider;*/
-	@Resource(name=UserService.SERVICE_NAME)
-	private UserService userServiceImpl;
+	@Autowired
+	private SessionProvider sessionProvider;
+	@Resource
+	private UserService userService;
 	private User user = new User();
 	/**
 	 * 登录
@@ -40,7 +40,7 @@ public class LoginAction extends ActionSupport  implements ModelDriven<User>{
 		if(null!=user && StringUtils.isNotBlank(user.getUserName())){
 			if(StringUtils.isNotBlank(user.getPassword())){
 				//判断用户密码
-				User b = userServiceImpl.getUserByUserName(user.getUserName());//用户名作Key的
+				User b = userService.getUserByUserName(user.getUserName());//用户名作Key的
 				System.out.println("haha----"+b.getWorkNo());
 				if(b!=null){
 					if(b.getPassword().equals(user.getPassword())){
