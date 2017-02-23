@@ -5,18 +5,18 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
     
 <hibernate-mapping>
-	<class name="com.guanghua.edms.domain.User" table="user_info">
-		<id name="userId"  type="java.lang.String">
+	<class name="com.guanghua.edms.domain.UserInfo" table="user_info">
+		<id name="userId"  type="java.lang.Long">
 			<column name="USER_ID" />
-			<generator class="assigned"></generator>
+			<generator class="identity"></generator>
 		</id>
-		<property name="userName"  type="java.lang.String">
+		<property name="userName" length="20" type="java.lang.String">
 			<column name="USER_NAME"  />
 		</property>
-		<property name="password"  type="java.lang.String">
+		<property name="password" length="20" type="java.lang.String">
 			<column name="PASSWORD"  />
 		</property>
-		<property name="workNo"  type="java.lang.String">
+		<property name="workNo" length="20" type="java.lang.String">
 			<column name="WORK_NO"  />
 		</property>
 	</class>

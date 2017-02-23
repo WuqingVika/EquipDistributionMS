@@ -1,13 +1,11 @@
-package com.guanghua.edms.service.user;
-
-import javax.annotation.Resource;
+package com.guanghua.edms.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.guanghua.edms.dao.UserDao;
-import com.guanghua.edms.domain.User;
+import com.guanghua.edms.domain.UserInfo;
 /**
  * 
  * @author wuqingvika
@@ -19,8 +17,8 @@ public class UserServiceImpl implements UserService {
 	@Autowired  
 	private UserDao userDao;
 
-	public User getUserByUserName(String userId) {
-		return userDao.getUserByUserName(userId);
+	public UserInfo getUserByUserName(String userName) {
+		return userDao.getUserByUserName(userName);
 	}
 
 }

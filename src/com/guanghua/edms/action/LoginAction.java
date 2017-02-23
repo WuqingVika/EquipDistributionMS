@@ -11,8 +11,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.guanghua.edms.common.web.session.SessionProvider;
-import com.guanghua.edms.domain.User;
-import com.guanghua.edms.service.user.UserService;
+import com.guanghua.edms.domain.UserInfo;
+import com.guanghua.edms.service.UserService;
 import com.guanghua.edms.util.Constants;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
@@ -23,12 +23,12 @@ import com.opensymphony.xwork2.ModelDriven;
 
 @Component("loginAction")
 @Scope("prototype")
-public class LoginAction extends ActionSupport  implements ModelDriven<User>{
+public class LoginAction extends ActionSupport  implements ModelDriven<UserInfo>{
 	@Autowired
 	private SessionProvider sessionProvider;
 	@Resource
 	private UserService userService;
-	private User user = new User();
+	private UserInfo user = new UserInfo();
 	/**
 	 * 登录
 	 * @return
@@ -40,7 +40,7 @@ public class LoginAction extends ActionSupport  implements ModelDriven<User>{
 		if(null!=user && StringUtils.isNotBlank(user.getUserName())){
 			if(StringUtils.isNotBlank(user.getPassword())){
 				//判断用户密码
-				User b = userService.getUserByUserName(user.getUserName());//用户名作Key的
+				UserInfo b = userService.getUserByUserName(user.getUserName());//用户名作Key的
 				System.out.println("haha----"+b.toString());
 				if(b!=null){
 					if(b.getPassword().equals(user.getPassword())){
@@ -52,9 +52,6 @@ public class LoginAction extends ActionSupport  implements ModelDriven<User>{
 						 ActionContext.getContext().put("error","密码输入错误");
 						//model.addAttribute("error","密码输入错误");
 					}
-				}else{
-					ActionContext.getContext().put("error", "用户名输入错误");
-					//model.addAttribute("error","用户名输入错误");
 				}
 			}else{
 				ActionContext.getContext().put("error", "请输入密码");
@@ -64,7 +61,7 @@ public class LoginAction extends ActionSupport  implements ModelDriven<User>{
 			ActionContext.getContext().put("error", "请输入用户名");
 			//model.addAttribute("error","请输入用户名");
 		}
-		return "againLogin";
+		return "error";
 	}
 	/*private static final Log logger = LogFactory.getLog(LoginAction.class);
 	private List<Object> rows;			// datagrid数据	
@@ -88,7 +85,7 @@ public class LoginAction extends ActionSupport  implements ModelDriven<User>{
 	
 	**/
 	@Override
-	public User getModel() {
+	public UserInfo getModel() {
 		// TODO Auto-generated method stub
 		return user;
 	}

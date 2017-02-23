@@ -12,28 +12,26 @@ import javax.persistence.Table;
  * @author wuqingvika
  *
  */
-
-public class User implements Serializable{
+public class UserInfo implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private String userId;
+	private Long userId;
 	private String userName;
 	private String password;
 	private String workNo;
 	
-	
 	public String getWorkNo() {
 		return workNo;
+	}
+	public Long getUserId() {
+		return userId;
+	}
+	public void setUserId(Long userId) {
+		this.userId = userId;
 	}
 	public void setWorkNo(String workNo) {
 		this.workNo = workNo;
 	}
 	
-	public String getUserId() {
-		return userId;
-	}
-	public void setUserId(String userId) {
-		this.userId = userId;
-	}
 	
 	public String getUserName() {
 		return userName;

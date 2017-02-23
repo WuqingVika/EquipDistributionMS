@@ -1,9 +1,9 @@
-package com.guanghua.edms.dao;
+package com.guanghua.edms.service;
+
 
 import com.guanghua.edms.domain.UserInfo;
 
-public interface UserDao {
-	
+public interface UserService {
 	public UserInfo getUserByUserName(String userName);
 	
 }

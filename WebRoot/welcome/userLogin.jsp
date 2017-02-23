@@ -56,12 +56,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                     <div class="easyui-panel" title="欢迎登录"  iconCls="icon-user"
                                          style="text-align: center;width:300px;height:300px;padding-top:50px;">
                                         <form id="jvForm" action="<%=path %>/user/login.action"  method="post">
-                                            <ul class="uls form">
+                                           <%--  <ul class="uls form">
                                             <li id="errorName" class="errorTip" <c:if test="${empty error }">style="display:none"</c:if> >${error}</li>
-											</ul>
+											</ul> --%>
                                             <div>
                                                 <input class="easyui-textbox" id="userName" name="userName" 
-                                                       data-options="iconCls:'icon-man',prompt:'请输入用户名'"
+                                                       data-options="iconCls:'icon-man',prompt:'请输入用户ID'"
                                                        style="width:240px;height:30px;">
                                             </div>
                                             <div style="margin-top: 20px;">
