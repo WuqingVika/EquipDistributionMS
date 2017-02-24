@@ -61,7 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 											</ul> --%>
                                             <div>
                                                 <input class="easyui-textbox" id="userName" name="userName" 
-                                                       data-options="iconCls:'icon-man',prompt:'请输入用户ID'"
+                                                       data-options="iconCls:'icon-man',prompt:'请输入用户名'"
                                                        style="width:240px;height:30px;">
                                             </div>
                                             <div style="margin-top: 20px;">

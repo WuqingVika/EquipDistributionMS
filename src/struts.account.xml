@@ -7,9 +7,10 @@
 	<package name="account" namespace="/user" extends="struts-default">
 		<action name="login" method="login" class="loginAction">
             <result name="UserInvalid">/UserInvalid.jsp</result>
-            <result name="success">/ywgl/Main.jsp</result>
+            <result name="success">/WEB-INF/back_page/main.jsp</result>
         </action>
-
-    	 
+    	 <action name="toCabinetList" method="toCabinetList" class="loginAction">
+            <result name="success">/WEB-INF/back_page/cproom/cabinetList.jsp</result>
+        </action>
     </package>
 </struts>

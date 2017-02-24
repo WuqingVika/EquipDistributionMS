@@ -82,7 +82,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     'text':'机柜管理',
                     'iconCls':'icon-application_form_edit',
                     'attributes':{
-                        'url':'../back_page/cproom/cabinetList.html'
+                        'url':'<%=path %>/user/toCabinetList.action'
                     }
                 },
                 {

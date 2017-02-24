@@ -8,12 +8,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
     <title>机柜信息</title>
-    <link rel="stylesheet" type="text/css" href="../../css/ywglCommon.css"/>
-    <link rel="stylesheet" type="text/css" href="../../js/easyui/themes/default/easyui.css">   
-		<link rel="stylesheet" type="text/css" href="../../js/easyui/themes/icon.css">  
-    <script type="text/javascript" src="../../js/easyui/jquery.min.js"></script>   
-		<script type="text/javascript" src="../../js/easyui/jquery.easyui.min.js"></script> 
-  	<script type="text/javascript" src="../../js/easyui/locale/easyui-lang-zh_CN.js"></script>
+    <link rel="stylesheet" type="text/css" href="<%=path %>/css/ywglCommon.css"/>
+    <link rel="stylesheet" type="text/css" href="<%=path %>/js/easyui/themes/default/easyui.css">   
+		<link rel="stylesheet" type="text/css" href="<%=path %>/js/easyui/themes/icon.css">  
+    <script type="text/javascript" src="<%=path %>/js/easyui/jquery.min.js"></script>   
+		<script type="text/javascript" src="<%=path %>/js/easyui/jquery.easyui.min.js"></script> 
+  	<script type="text/javascript" src="<%=path %>/js/easyui/locale/easyui-lang-zh_CN.js"></script>
 	</head> 
   
   <body style="padding:5px;">
@@ -21,8 +21,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div region="center" border="false">
 					<div id="tbar" class="SearchCondition">
 						<!--查找条件：这里到时可以替换 -->
-						<%-- <jsp:include page="../UIRef/JspRef/TeacherleftInstructor.jsp"></jsp:include>
-						 --%><!--查找条件：这里到时可以替换 end -->
+						<jsp:include page="../../../jspRef/divSearch.jsp"></jsp:include>
+						 <!--查找条件：这里到时可以替换 end -->
 							<form id="ff" action="">
 								<table class="SearchCondition"  >
 						    	<tr>

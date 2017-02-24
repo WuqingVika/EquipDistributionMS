@@ -63,6 +63,12 @@ public class LoginAction extends ActionSupport  implements ModelDriven<UserInfo>
 		}
 		return "error";
 	}
+	
+	
+	public String toCabinetList() throws Exception {
+		return SUCCESS;
+	}
+	
 	/*private static final Log logger = LogFactory.getLog(LoginAction.class);
 	private List<Object> rows;			// datagrid数据	
 	private Map<String, String> results;
