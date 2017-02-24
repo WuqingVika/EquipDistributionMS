@@ -6,7 +6,7 @@
     
 <hibernate-mapping>
 	<class name="com.guanghua.edms.domain.UserInfo" table="user_info">
-		<id name="userId"  type="java.lang.Long">
+		<id name="userId"  type="java.lang.Integer">
 			<column name="USER_ID" />
 			<generator class="identity"></generator>
 		</id>

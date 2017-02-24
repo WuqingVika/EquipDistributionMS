@@ -14,7 +14,7 @@ import javax.persistence.Table;
  */
 public class UserInfo implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private Long userId;
+	private Integer userId;
 	private String userName;
 	private String password;
 	private String workNo;
@@ -22,12 +22,15 @@ public class UserInfo implements Serializable{
 	public String getWorkNo() {
 		return workNo;
 	}
-	public Long getUserId() {
+	
+	public Integer getUserId() {
 		return userId;
 	}
-	public void setUserId(Long userId) {
+
+	public void setUserId(Integer userId) {
 		this.userId = userId;
 	}
+
 	public void setWorkNo(String workNo) {
 		this.workNo = workNo;
 	}
