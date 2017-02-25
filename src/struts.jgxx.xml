@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<package name="jgxx" namespace="/jgxx" extends="json-default">
+		<result-types>
+            <result-type name="noAction" class="com.guanghua.edms.common.NoActionResult"/>
+        </result-types>
+		<!-- 1.显示局站信息 -->
+		<action name="juzhan_list_search" method="selJiguiJuZhan"
+			class="jgxxAction">
+			<result type="json"></result>
+		</action>  
+    </package>
+</struts>

@@ -4,6 +4,8 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
+	<!-- 用户登录、导航页面跳转（机柜、设备、板卡） -->
 	<include file="struts.account.xml" />
-    
+	<!-- 机柜信息管理 -->
+    <include file="struts.jgxx.xml" />
 </struts>

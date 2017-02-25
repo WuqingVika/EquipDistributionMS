@@ -6,69 +6,34 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
 <html>
   <head>
-   <!-- <base href="<%=basePath%>">-->
-    <title>璁惧淇℃伅</title>
-    <link rel="stylesheet" type="text/css" href="../../css/ywglCommon.css"/>
-    <link rel="stylesheet" type="text/css" href="../../js/easyui/themes/default/easyui.css">   
-		<link rel="stylesheet" type="text/css" href="../../js/easyui/themes/icon.css">  
-    <script type="text/javascript" src="../../js/easyui/jquery.min.js"></script>   
-		<script type="text/javascript" src="../../js/easyui/jquery.easyui.min.js"></script> 
-  	<script type="text/javascript" src="../../js/easyui/locale/easyui-lang-zh_CN.js"></script>
-		<meta http-equiv="pragma" content="no-cache">
-		<meta http-equiv="cache-control" content="no-cache">
-		<meta http-equiv="expires" content="0">    
-		<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
-		<meta http-equiv="description" content="This is my page">
+   <title>设备信息</title>
+    <jsp:include page="../../../jspRef/MainFrameworkRef.jsp"></jsp:include>
   </head>
   
   <body style="padding:5px;">
   	<div class="easyui-layout" fit="true" border="false">
 		    <div region="center" border="false">
 					<div class="SearchCondition" id="tbar">
-								<!--鏌ユ壘鏉′欢锛氳繖閲屽埌鏃跺彲浠ユ浛鎹� -->
-								  <table border="0" cellpadding="0" cellspacing="0" width="100%">
-										<tbody>
-											<tr>
-												<td style="width: 5px; border-bottom: 2px solid #C0C0C0;">&nbsp;</td>
-												<td style="border-bottom: 2px solid #F3F2F2;" valign="bottom">
-													<div style="background: #F3F2F2; border-top: 1px solid #C0C0C0; border-right: 1px solid #C0C0C0; border-left: 1px solid #C0C0C0;">
-														<div style="border-top: 1px solid #FFFFFF; border-right: 1px solid #FFFFFF; border-left: 1px solid #FFFFFF; background: transparent url(../../css/TabGradientA.xhtml) repeat-x; padding: 3px 5px;">
-																<table border="0" cellpadding="0" cellspacing="0">
-																	<tbody>
-																		<tr>
-																				<td nowrap="nowrap"><div style="text-align: left; -webkit-appearance: none; border: 0; background: none; padding: 0; background-image: url(../../img/binocle.png); background-repeat: no-repeat; text-indent: 18px;">
-																						<span>鏌ヨ鏉′欢</span></div>
-																				</td>
-																				<td>&nbsp;</td>
-																				<td> &nbsp;&nbsp;&nbsp;</td>
-																		</tr>
-																	</tbody>
-																</table>
-														</div>
-													</div>
-												</td>
-												<td style="width: 95%; border-bottom: 2px solid #C0C0C0; text-align:right; padding-right:20px;"></td>
-											</tr>
-										</tbody>
-								  </table>
-							<!--鏌ユ壘鏉′欢锛氳繖閲屽埌鏃跺彲浠ユ浛鎹� end -->
+						<!--查找条件：这里到时可以替换 -->
+						 	<jsp:include page="../../../jspRef/divSearch.jsp"></jsp:include>
+						 <!--查找条件：这里到时可以替换 end -->
 							<form id="ff" action="">
 										<table class="SearchCondition" >
 								    		<tr>
-													<td>灞�绔欙細<input class="easyui-combobox" id="juZhan" name="juZhan" style="width:175px"></input></td>
-													<td>鏈烘埧锛�<input class="easyui-combobox" id="jiFang" name="jiFang"  style="width:175px"></td>
-													<td>鏈烘煖锛�<input class="easyui-combobox" id="cabinetId" name="cabinetId"  style="width:150px"></input></td>
+													<td>局站：<input class="easyui-combobox" id="juZhan" name="juZhan" style="width:175px"></input></td>
+													<td>机房：<input class="easyui-combobox" id="jiFang" name="jiFang"  style="width:175px"></td>
+													<td>机柜：<input class="easyui-combobox" id="cabinetId" name="cabinetId"  style="width:150px"></input></td>
 								    		</tr>
 								   		 	<tr>
-								   		 	 	<td>缃戝厓缂栧彿锛�<input id="gridId" placeHolder="璇疯緭鍏ョ綉鍏冪紪鍙�.." name="gridId"  style="width:150px"></input></td>
-													<td>璁惧鍚嶇О锛�<input id="equipmentName" placeHolder="璇疯緭鍏ヨ澶囧悕绉�.." name="equipmentName"  style="width:150px"></input></td>
+								   		 	 	<td>网元编号：<input id="gridId" placeHolder="请输入网元编号.." name="gridId"  style="width:150px"></input></td>
+													<td>设备名称：<input id="equipmentName" placeHolder="请输入设备名称.." name="equipmentName"  style="width:150px"></input></td>
 								    		</tr>
 												<tr>
 													<td colspan="8">
 														<div style="text-align:center;padding:5px">
-													    	<input type="button" class="button" id="btnSearch" value="鏌ヨ" onclick="javascript:sbxxQuery();"/>
-													    	<input type="button" class="button" id="btnClearForm" value="閲嶇疆" onclick="javascript:resert();"/>
-										    				<input type="button" class="button" id="btnClearForm" value="鎵归噺瀵煎叆" onclick="javascript:inserts();"/>
+													    	<input type="button" class="button" id="btnSearch" value="查询" onclick="javascript:sbxxQuery();"/>
+													    	<input type="button" class="button" id="btnClearForm" value="重置" onclick="javascript:resert();"/>
+										    				<input type="button" class="button" id="btnClearForm" value="批量导入" onclick="javascript:inserts();"/>
 										    			</div>
 													</td>
 													<td></td>
@@ -78,13 +43,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						    		</table>
 						  </form>
 					</div>
-					<table fit="true" style="width:1050px;" id="lstResult" class="easyui-datagrid" title="璁惧-鍒楄〃" iconCls="icon-comment_edit" pageSize="20" url="" rownumbers="true" 
+					<table fit="true" style="width:1050px;" id="lstResult" class="easyui-datagrid" title="设备-列表" iconCls="icon-comment_edit" pageSize="20" url="" rownumbers="true" 
 						striped="true" remoteSort="true" pagination="true" singleSelect="false" toolbar="#tbar">
 					</table>
 			
-					<div id="cardInfo" class="easyui-window" closed="true" title="鏉垮崱淇℃伅"  
+					<div id="cardInfo" class="easyui-window" closed="true" title="板卡信息"  
 				 	 	style="width:1100px;padding:5px;">
-						<table style="width:1060px;" id="lstCardInfos" class="easyui-datagrid" pageSize="20" url="" rownumbers="true" 
+						<table style="width:1060px;" id="lstCardInfos" class="easyui-datagrid"  pageSize="20" url="" rownumbers="true" 
 							striped="true" remoteSort="true"  pagination="true" singleSelect="false" >
 						</table>
 					</div>
@@ -97,7 +62,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	function exc(){
 		var rows = $('#lstResult').datagrid('getRows');
  		if (!rows || rows.length == 0) {
-			$.messager.alert('鎻愮ず淇℃伅','娌℃湁鍙緵瀵煎嚭鐨勬暟鎹�');
+			$.messager.alert('提示信息','没有可供导出的数据');
 			return false; 
 		}
 		var strUrl = '<%=path%>/jgxx/initJgxxListPage.do?';
@@ -106,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     /* $.messager.progress({
   		title: '',
 		msg: '',
-		text: '鍔犺浇涓紝璇风◢鍚�',
+		text: '加载中，请稍后',
 		interval:790
   	});
   	setTimeout(function(){$.messager.progress('close');},2000); */
@@ -117,12 +82,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    textField:'REGION_NAME',
 	    method:'get',
 	    
-	    onChange : function(){//灞�绔欐坊鍔爋nChange浜嬩欢銆�
+	    onChange : function(){//局站添加onChange事件。
             var regionId = $("#juZhan").combobox("getValue") ;           
-            //1.娓呯┖鍘熸潵鐨勬満鎴縞ombobox涓殑閫夐」
+            //1.清空原来的机房combobox中的选项
             $("#jiFang").combobox("clear");     
             
-            //2.鍔ㄦ�佹坊鍔�"鏈烘埧"鐨勪笅鎷夊垪琛ㄦ鐨刼ption                    
+            //2.动态添加"机房"的下拉列表框的option                    
             if( regionId != null && regionId != '' ){//2
             	//alert("rek====="+regionId);
             	$('#jiFang').combobox({
@@ -132,12 +97,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	    textField:'ROOM_NO',
              	    method:'get',
              	    //Onchange
-             	    	onChange : function(){//灞�绔欐坊鍔爋nChange浜嬩欢銆�
+             	    	onChange : function(){//局站添加onChange事件。
              	            var roomId = $("#jiFang").combobox("getValue") ;           
-             	            //1.娓呯┖鍘熸潵鐨勬満鏌渃ombobox涓殑閫夐」
+             	            //1.清空原来的机柜combobox中的选项
              	            $("#cabinetId").combobox("clear");     
              	            
-             	            //2.鍔ㄦ�佹坊鍔�"鏈烘煖"鐨勪笅鎷夊垪琛ㄦ鐨刼ption                    
+             	            //2.动态添加"机柜"的下拉列表框的option                    
              	            if( roomId != null && roomId != '' ){//2
              	            	//alert("rek====="+regionId);
              	            	$('#cabinetId').combobox({
@@ -148,18 +113,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
              	             	    method:'get'
              	            	});
              	            }//-2
-             			   }//onchange 缁撴潫
+             			   }//onchange 结束
              	    //onchange end
             	});
             }//-2
-		   }//onchange 缁撴潫
+		   }//onchange 结束
 	    });
 	
 //	<%-- $('#zhuanYe').combobox({
 //		url:'<%=path%>/jgxx/zhuanye_list_search.do',
 //	    valueField:'SPEC_ID',
 //	    textField:'SPEC_NAME',
-//	   // value:'--璇烽�夋嫨鏈烘煖涓撲笟--',
+//	   // value:'--请选择机柜专业--',
 //	    method:'get'
 //	}); --%>
 	
@@ -168,7 +133,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	 	a="";
 		var datas=$('#lstResult').datagrid('getSelections');
 		if(datas.length==0){
-			alert("璇疯嚦灏戦�夋嫨涓�琛�");
+			alert("请至少选择一行");
 			return;
 		}
 		for(var i=0;i<datas.length;i++){
@@ -176,7 +141,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			a+="-";
 		}
 		$("#batchUpdateGridDiv").dialog({
-			title:'閫夋嫨缃戞牸',
+			title:'选择网格',
 			width:300,
 			height:150,
 			closed:false,
@@ -189,11 +154,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			async:false,
 			url:'<%=path%>/ywgl/NuGridbatchAddAssGrid.do',
 			dataType:"text",
-			data: {assetNum:a,flag:"璧勪骇",gridNum:gridNum},
+			data: {assetNum:a,flag:"资产",gridNum:gridNum},
 			success:(function(data){
 				if(data==1){
 					$('#win').window({ 
-						title:"鏁版嵁鍚屾鎻愮ず",
+						title:"数据同步提示",
 						modal:true,
 						closed:false
 						//maximized:true
@@ -207,20 +172,20 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 							gridNum:gridNum
 						},
 				        columns:[[
-				             {title:'缃戝厓id',field:'NU_ID',align:'left',hidden:true},
-				             {title:'缃戞牸鍚嶇О',field:'GRID_NAME',width:'100',align:'left'},
-				             {title:'缃戝厓鍚嶇О',field:'NU_NAME',width:'200',align:'left'},
-				             {title:'缃戝厓鍦板潃',field:'NU_ADDRESS',width:'200',align:'left'},
-				             {title:'绔欑偣',field:'SITE_NAME',width:'100',align:'left'},
-				             {title:'鏈烘埧',field:'ROOM_NAME',width:'100',align:'left'},
-						     {title:'涓撲笟',field:'NU_SPEC_NAME',width:'100',align:'left'},
-				             {title:'缃戝厓鎵�鍦ㄥ尯灞�',field:'YW_REGION',width:'100',align:'left'},
-						     {title:'鍘傚晢',field:'MANUFACTURER_NAME',width:'200',align:'left'}
+				             {title:'网元id',field:'NU_ID',align:'left',hidden:true},
+				             {title:'网格名称',field:'GRID_NAME',width:'100',align:'left'},
+				             {title:'网元名称',field:'NU_NAME',width:'200',align:'left'},
+				             {title:'网元地址',field:'NU_ADDRESS',width:'200',align:'left'},
+				             {title:'站点',field:'SITE_NAME',width:'100',align:'left'},
+				             {title:'机房',field:'ROOM_NAME',width:'100',align:'left'},
+						     {title:'专业',field:'NU_SPEC_NAME',width:'100',align:'left'},
+				             {title:'网元所在区局',field:'YW_REGION',width:'100',align:'left'},
+						     {title:'厂商',field:'MANUFACTURER_NAME',width:'200',align:'left'}
 						]],
 				        method:'post'
 				    });
 				}else{
-					alert("淇濆瓨鎴愬姛");
+					alert("保存成功");
 					$('#lstResult').datagrid("reload");
 					$("#batchUpdateGridDiv").dialog({
 						closed:true
@@ -241,12 +206,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			async:false,
 			dataType:"text",
 			url:'<%=path%>/ywgl/NuGridbatchAddAssGrid.do',
-			data:{assetNum:assetNum,gridNum:gridNum,isSyn:isSyn,nuId:nuId,flag:"璧勪骇"},
+			data:{assetNum:assetNum,gridNum:gridNum,isSyn:isSyn,nuId:nuId,flag:"资产"},
 			success:(function(data){
 				$('#win').window({ 
 					closed:true
 				}); 
-				alert("淇濆瓨鎴愬姛");
+				alert("保存成功");
 				$('#lstResult').datagrid("reload");
 				$("#batchUpdateGridDiv").dialog({
 					closed:true
@@ -286,12 +251,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		$("#equipmentName").val("");
 	}
 	
-	//鎵归噺瀵煎叆杩涘叆閫� 鎷╂枃浠堕〉闈�
+	//批量导入进入选 择文件页面
 	function inserts(){
 		var cabinetId=$("#cabinetId").combobox("getValue");
 		
 		if(cabinetId==null||cabinetId==""){
-			alert("璇烽�夋嫨浠绘剰涓�涓満鏌滀负鍏舵壒閲忔坊鍔犺澶囷紒");
+			alert("请选择任意一个机柜为其批量添加设备！");
 			return ;
 		}
 		window.open('<%=path%>/ywgl/showRoom/importEquipmentList.jsp?cabinetId='+cabinetId,'newwindow','resizable=yes,scrollbars=yes,height=650,width=600,top=200,left=200');
@@ -310,8 +275,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		$('#lstResult').datagrid({
 				pageNumber:1,
-				pageSize: 20,//姣忛〉鏄剧ず鐨勮褰曟潯鏁帮紝榛樿涓�10  
-                pageList: [10, 20,50,100, 200],//鍙互璁剧疆姣忛〉璁板綍鏉℃暟鐨勫垪琛� //   ywgl/ziChanGrid_list_seach.do
+				pageSize: 20,//每页显示的记录条数，默认为10  
+                pageList: [10, 20,50,100, 200],//可以设置每页记录条数的列表 //   ywgl/ziChanGrid_list_seach.do
 		        url:'<%=path%>/sbxx/SbxxListQuery.do', 
 		         queryParams: {  		
 		        		
@@ -324,56 +289,56 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		        columns:[[
 		        	//ASSETS_NUMBER, ASSETS_DESCRIBE, ASSETS_MANUFACTURER, ADDRESS, OBJ_DEPT_DESCRIBE, DEPT_DESCRIBE
 		             //{field:'flag',checkbox:true},
-		             //{title:'搴忓彿',field:'ID',width:'200',align:'left',hidden:true},
-		             {title:'璁惧ID',field:'EQUIP_ID',width:'60',align:'left',hidden:true}, 
-		             {title:'鏈烘埧鍚嶇О',field:'ROOM_NO',width:'200',align:'left'},
-		             {title:'鏈烘煖缂栧彿',field:'CABINET_NUM',width:'60',align:'left'},
-		             {title:'鏈烘煖闈�',field:'CABINET_SURFACE',width:'100',align:'left'},
-		             {title:'缃戝厓缂栧彿',field:'NU_NUM',width:'200',align:'left'},
+		             //{title:'序号',field:'ID',width:'200',align:'left',hidden:true},
+		             {title:'设备ID',field:'EQUIP_ID',width:'60',align:'left',hidden:true}, 
+		             {title:'机房名称',field:'ROOM_NO',width:'200',align:'left'},
+		             {title:'机柜编号',field:'CABINET_NUM',width:'60',align:'left'},
+		             {title:'机柜面',field:'CABINET_SURFACE',width:'100',align:'left'},
+		             {title:'网元编号',field:'NU_NUM',width:'200',align:'left'},
 		             
-		             {title:'璁惧鍚嶇О',field:'EQUIP_NAME',width:'250',align:'left'},
-		             {title:'璁惧涓撲笟',field:'SPEC_NAME',width:'80',align:'left'},
-		             {title:'璁惧鍘傚晢',field:'MANUFACTURER',width:'150',align:'left'},
-		             {title:'璁惧绫诲瀷',field:'CATEGORY',width:'100',align:'left'},
+		             {title:'设备名称',field:'EQUIP_NAME',width:'250',align:'left'},
+		             {title:'设备专业',field:'SPEC_NAME',width:'80',align:'left'},
+		             {title:'设备厂商',field:'MANUFACTURER',width:'150',align:'left'},
+		             {title:'设备类型',field:'CATEGORY',width:'100',align:'left'},
 		             
-		             {title:'璁惧鍨嬪彿',field:'MODEL',width:'100',align:'left'},
-		             {title:'瀛愭鏁伴噺',field:'SUB_RACK_COUNT',width:'100',align:'left'},
-		             {title:'鏉垮崱淇℃伅',field:'UPDATE',width:'150',align:'left',formatter:CardInfo},
+		             {title:'设备型号',field:'MODEL',width:'100',align:'left'},
+		             {title:'子框数量',field:'SUB_RACK_COUNT',width:'100',align:'left'},
+		             {title:'板卡信息',field:'UPDATE',width:'150',align:'left',formatter:CardInfo},
 		             
 				   	]],
 		        method:'post'
 		    });
 	}
-	//鏉垮崱淇℃伅鎸夐挳
+	//板卡信息按钮
 	function CardInfo(value,rowData,rowIndex){
-    	var link="<a href='javascript:showCard(" + rowData.EQUIP_ID + ")'>"+'鏉垮崱淇℃伅'+"</a>";
+    	var link="<a href='javascript:showCard(" + rowData.EQUIP_ID + ")'>"+'板卡信息'+"</a>";
     	return link;
     }
-	//寮瑰嚭鏉垮崱淇℃伅璇︽儏
+	//弹出板卡信息详情
 	function showCard(equipId)
     {
 		//$("#cardInfo").empty();	
 		$('#lstCardInfos').datagrid('loadData', { total: 0, rows: [] });
 		$('#lstCardInfos').datagrid({
 				pageNumber:1,
-				pageSize: 10,//姣忛〉鏄剧ず鐨勮褰曟潯鏁帮紝榛樿涓�10  
-                pageList: [10,20,50],//鍙互璁剧疆姣忛〉璁板綍鏉℃暟鐨勫垪琛� //   ywgl/ziChanGrid_list_seach.do
+				pageSize: 10,//每页显示的记录条数，默认为10  
+                pageList: [10,20,50],//可以设置每页记录条数的列表 //   ywgl/ziChanGrid_list_seach.do
 		        url:'<%=path%>/sbxx/gotoCardInfo.do', 
 		         queryParams: {  		
 		        	 equipId:equipId
 				  },
 		        columns:[[
-		             {title:'鏉垮崱ID',field:'CARD_ID',width:'60',align:'left',hidden:true}, 
-		             {title:'瀛愭ID',field:'SUB_RACK_ID',width:'60',align:'left',hidden:true},
-		             {title:'鎵�鍗犳Ы浣嶆暟',field:'OCCUPY_SLOT_NUM',width:'100',align:'left'},
-		             {title:'鏉垮崱鍘傚晢',field:'MANUFACTURER',width:'150',align:'left'},
-		             {title:'鏉垮崱鐢ㄩ��',field:'PURPOSE',width:'150',align:'left'},
+		             {title:'板卡ID',field:'CARD_ID',width:'60',align:'left',hidden:true}, 
+		             {title:'子框ID',field:'SUB_RACK_ID',width:'60',align:'left',hidden:true},
+		             {title:'所占槽位数',field:'OCCUPY_SLOT_NUM',width:'100',align:'left'},
+		             {title:'板卡厂商',field:'MANUFACTURER',width:'150',align:'left'},
+		             {title:'板卡用途',field:'PURPOSE',width:'150',align:'left'},
 		             
-		             {title:'鏉垮崱绫诲瀷',field:'CATEGORY',width:'250',align:'left'},
-		             {title:'鏉垮崱鍨嬪彿',field:'MODEL',width:'100',align:'left'},
-		             {title:'鍥哄畾璧勪骇缂栧彿',field:'ASSET_NO',width:'150',align:'left'},
-		             {title:'浣嶇疆鏁�',field:'POS_IDX',width:'60',align:'left'},
-		             {title:'鏉垮崱鏇存崲鏃ユ湡',field:'CHANGE_DATE',width:'100',align:'left'},
+		             {title:'板卡类型',field:'CATEGORY',width:'250',align:'left'},
+		             {title:'板卡型号',field:'MODEL',width:'100',align:'left'},
+		             {title:'固定资产编号',field:'ASSET_NO',width:'150',align:'left'},
+		             {title:'位置数',field:'POS_IDX',width:'60',align:'left'},
+		             {title:'板卡更换日期',field:'CHANGE_DATE',width:'100',align:'left'},
 		            
 				   	]],
 		        method:'post'

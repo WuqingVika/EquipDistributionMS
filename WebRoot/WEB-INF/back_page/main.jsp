@@ -90,7 +90,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     'text':'设备管理',
                     'iconCls':'icon-ruby_gear',
                     'attributes':{
-                        'url':'../back_page/equipment/equipmentList.html'
+                        'url':'<%=path %>/user/toEquipmentList.action'
                     }
                 },
                 {
@@ -98,7 +98,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     'text':'板卡管理',
                     'iconCls':'icon-application_form_edit',
                     'attributes':{
-                        'url':'../back_page/card/cardList.html'
+                        'url':'<%=path %>/user/toCardList.action'
                     }
                 }
                 

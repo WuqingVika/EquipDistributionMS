@@ -13,7 +13,6 @@ import org.springframework.stereotype.Component;
 import com.guanghua.edms.common.web.session.SessionProvider;
 import com.guanghua.edms.domain.UserInfo;
 import com.guanghua.edms.service.UserService;
-import com.guanghua.edms.util.Constants;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -64,8 +63,22 @@ public class LoginAction extends ActionSupport  implements ModelDriven<UserInfo>
 		return "error";
 	}
 	
-	
+	/*
+	 * 跳转到机柜列表
+	 */
 	public String toCabinetList() throws Exception {
+		return SUCCESS;
+	}
+	/*
+	 * 跳转到设备列表
+	 */
+	public String toEquipmentList() throws Exception {
+		return SUCCESS;
+	}
+	/*
+	 * 跳转到板卡列表
+	 */
+	public String toCardList() throws Exception {
 		return SUCCESS;
 	}
 	

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE brick-app PUBLIC "-//GuangHua//Brick App Configuration//EN" "brick.app.dtd">
+
+<brick-app>
+	<app-db-conn class="com.guanghua.brick.db.HBSQLConnection">
+		<default-cfg>sessionFactory</default-cfg>
+	</app-db-conn>
+	<!-- sql query pager and filter -->
+	<app-db-pager>com.guanghua.brick.db.MySQLSQLPagerSection</app-db-pager>
+	<app-db-filter>com.guanghua.brick.db.MySQLDefaultSQLFilterSection</app-db-filter>
+	<!-- hibernate session factory cfg -->
+	<!-- app-hb-sf>com.guanghua.brick.db.CommonHBSessionFactory</app-hb-sf -->
+	<app-hb-sf>com.guanghua.brick.db.SpringHBSessionFactory</app-hb-sf>
+	<app-biz-container class="com.guanghua.brick.biz.SpringLocator"/>
+	<app-permission avail="true">com.guanghua.ywgl.common.YwglPermission</app-permission> 
+</brick-app>

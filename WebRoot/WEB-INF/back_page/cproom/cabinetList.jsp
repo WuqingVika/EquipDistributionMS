@@ -8,14 +8,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <html>
   <head>
     <title>机柜信息</title>
-    <link rel="stylesheet" type="text/css" href="<%=path %>/css/ywglCommon.css"/>
-    <link rel="stylesheet" type="text/css" href="<%=path %>/js/easyui/themes/default/easyui.css">   
-		<link rel="stylesheet" type="text/css" href="<%=path %>/js/easyui/themes/icon.css">  
-    <script type="text/javascript" src="<%=path %>/js/easyui/jquery.min.js"></script>   
-		<script type="text/javascript" src="<%=path %>/js/easyui/jquery.easyui.min.js"></script> 
-  	<script type="text/javascript" src="<%=path %>/js/easyui/locale/easyui-lang-zh_CN.js"></script>
-	</head> 
-  
+    <jsp:include page="../../../jspRef/MainFrameworkRef.jsp"></jsp:include>
+    </head> 
   <body style="padding:5px;">
   	<div class="easyui-layout" fit="true" border="false">
         <div region="center" border="false">
@@ -66,7 +60,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     
   	
 	$('#juZhan').combobox({
-		url:'<%=path%>/jgxx/juzhan_list_search.do',
+		url:'<%=path%>/jgxx/juzhan_list_search.action',
 	    valueField:'REGION_ID',
 	    textField:'REGION_NAME',
 	    method:'get',
