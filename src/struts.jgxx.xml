@@ -13,5 +13,21 @@
 			class="jgxxAction">
 			<result type="json"></result>
 		</action>  
+		<!-- 2.根据区局、局站显示机房 -->
+		<action name="jifang_list_search" method="selJifangByJuId"
+			class="jgxxAction">
+			<result type="json"> 
+			</result>
+		</action>
+		<!-- 3.显示机柜专业 -->
+		<action name="zhuanye_list_search" method="selJiguiZhuanYe"
+			class="jgxxAction">
+			<result type="json">  </result>
+		</action>
+		<!-- 4.查询机柜信息 -->
+		<action name="JgxxListQuery" method="selJiguiToGrid"
+			class="jgxxAction">
+			<result type="json"></result>
+		</action>
     </package>
 </struts>

@@ -5,6 +5,7 @@
     "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
     
 <hibernate-mapping>
+
 	<class name="com.guanghua.edms.domain.UserInfo" table="user_info">
 		<id name="userId" column="USER_ID">
 			<generator class="native"/>

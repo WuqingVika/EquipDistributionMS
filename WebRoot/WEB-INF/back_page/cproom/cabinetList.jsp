@@ -74,7 +74,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             if( regionId != null && regionId != '' ){//2
             	//alert("rek====="+regionId);
             	$('#jiFang').combobox({
-            		url:"<%=path%>/jgxx/jifang_list_search.do?regionId="+regionId,
+            		url:"<%=path%>/jgxx/jifang_list_search.action?regionId="+regionId,
             		
             	    valueField:'ROOM_ID',
             	    textField:'ROOM_NO',
@@ -85,105 +85,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    });
 	
 	$('#zhuanYe').combobox({
-		url:'<%=path%>/jgxx/zhuanye_list_search.do',
+		url:'<%=path%>/jgxx/zhuanye_list_search.action',
 	    valueField:'SPEC_ID',
 	    textField:'SPEC_NAME',
 	   // value:'--请选择机柜专业--',
 	    method:'get'
 	});
-	
-	var a="";
-	function batchUpdateGrid(){
-	 	a="";
-		var datas=$('#lstResult').datagrid('getSelections');
-		if(datas.length==0){
-			alert("请至少选择一行");
-			return;
-		}
-		for(var i=0;i<datas.length;i++){
-			a+=datas[i].ASSETS_NUMBER;
-			a+="-";
-		}
-		$("#batchUpdateGridDiv").dialog({
-			title:'选择网格',
-			width:300,
-			height:150,
-			closed:false,
-			modal:true
-		});
-	}
-	function batchSubUpdateGrid(){
-		var gridNum=$("#roadAddGridName1").combobox("getValue");
-		$.ajax({
-			async:false,
-			url:'<%=path%>/ywgl/NuGridbatchAddAssGrid.do',
-			dataType:"text",
-			data: {assetNum:a,flag:"资产",gridNum:gridNum},
-			success:(function(data){
-				if(data==1){
-					$('#win').window({ 
-						title:"数据同步提示",
-						modal:true,
-						closed:false
-						//maximized:true
-					}); 
-					$("#yesBut").attr("onclick","javascript:subBatchSynAddGrid(\""+a+"\",\""+gridNum+"\",1);");
-					$("#noBut").attr("onclick","javascript:subBatchSynAddGrid(\""+a+"\",\""+gridNum+"\",0);");
-					$('#nuResult').datagrid({
-				        url:'<%=path%>/ywgl/NuGridselMoreSynNu.do',
-						queryParams: {  		
-							assetNum:a,
-							gridNum:gridNum
-						},
-				        columns:[[
-				             {title:'网元id',field:'NU_ID',align:'left',hidden:true},
-				             {title:'网格名称',field:'GRID_NAME',width:'100',align:'left'},
-				             {title:'网元名称',field:'NU_NAME',width:'200',align:'left'},
-				             {title:'网元地址',field:'NU_ADDRESS',width:'200',align:'left'},
-				             {title:'站点',field:'SITE_NAME',width:'100',align:'left'},
-				             {title:'机房',field:'ROOM_NAME',width:'100',align:'left'},
-						     {title:'专业',field:'NU_SPEC_NAME',width:'100',align:'left'},
-				             {title:'网元所在区局',field:'YW_REGION',width:'100',align:'left'},
-						     {title:'厂商',field:'MANUFACTURER_NAME',width:'200',align:'left'}
-						]],
-				        method:'post'
-				    });
-				}else{
-					alert("保存成功");
-					$('#lstResult').datagrid("reload");
-					$("#batchUpdateGridDiv").dialog({
-						closed:true
-					});
-				}
-			}),
-			method:"post"
-		});
-	}
-	function subBatchSynAddGrid(assetNum,gridNum,isSyn){
-		var datas=$('#nuResult').datagrid("getRows");		
-		var nuId="";
-		for(var i=0;i<datas.length;i++){
-			nuId+=datas[i].NU_ID;
-			nuId+="-";
-		}
-		$.ajax({
-			async:false,
-			dataType:"text",
-			url:'<%=path%>/ywgl/NuGridbatchAddAssGrid.do',
-			data:{assetNum:assetNum,gridNum:gridNum,isSyn:isSyn,nuId:nuId,flag:"资产"},
-			success:(function(data){
-				$('#win').window({ 
-					closed:true
-				}); 
-				alert("保存成功");
-				$('#lstResult').datagrid("reload");
-				$("#batchUpdateGridDiv").dialog({
-					closed:true
-				});
-			})
-		});
-	}
-	
+	/* 
 	function resetJiFang(){
 		//var data=;
 		$('#jiFang').combobox({
@@ -191,14 +99,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	    textField:'ROOM_NO',
 	    data:[{ROOM_ID:-1,ROOM_NO:"" }]
 		});
-	}
+	} */
 	
 	function resert(){
 			
 		$("#jiFang").combobox("clear");    
 		$("#juZhan").combobox("setValue","");
 		$("#jiFang").combobox("setValue","");
-		resetJiFang();
+		//resetJiFang();
 		//$("#jiFang").combobox("clear");  
 		$("#zhuanYe").combobox("setValue","");
 		$("#bianOrMc").val("");
@@ -235,7 +143,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				pageNumber:1,
 				pageSize: 100,//每页显示的记录条数，默认为10  
                 pageList: [50, 100, 200],//可以设置每页记录条数的列表 //   ywgl/ziChanGrid_list_seach.do
-		        url:'<%=path%>/jgxx/JgxxListQuery.do', 
+		        url:'<%=path%>/jgxx/JgxxListQuery.action', 
 		         queryParams: {  		
 		        		
 		        	 juZhan:juZhan, 	
