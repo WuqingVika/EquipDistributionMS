@@ -26,7 +26,7 @@
      <div style="width:450px;height:460px;float:left">
      <div style="width:450px;height:430px;float:left">
         
-          <img style="height:430px;width:300px" src="/ywgl/Cabinet_QRCodeServlet?id=<%=id%>&cabinet_surface=<%=imgs[i]%>" />
+          <img style="height:430px;width:300px" src="<%=request.getContextPath() %>/Cabinet_QRCodeServlet?id=<%=id%>&cabinet_surface=<%=imgs[i]%>" />
       </div>
       <div style="width:450px;height:30px;float:left;padding-left: 150px">
       	<a ><%=imgs[i] %></a>

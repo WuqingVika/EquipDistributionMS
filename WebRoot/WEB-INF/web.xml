@@ -14,7 +14,30 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   	<param-name>contextConfigLocation</param-name>
   	<param-value>classpath:applicationContext.xml</param-value>
   </context-param> 
-  
+  <!-- 配置中文过滤器 -->
+  <filter>
+		<filter-name>encoding</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encoding</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- 配置生成二维码 -->
+	<servlet>
+		<servlet-name>Cabinet_QRCodeServlet</servlet-name>
+		<servlet-class>
+			com.guanghua.edms.service.JiGuiServlet
+		</servlet-class>
+	</servlet>
+  <servlet-mapping>
+		<servlet-name>Cabinet_QRCodeServlet</servlet-name>
+		<url-pattern>/Cabinet_QRCodeServlet</url-pattern>
+	</servlet-mapping>
   <!-- 配置struts2 的核心filter -->
 	<filter>
 		<filter-name>struts2</filter-name>
@@ -22,11 +45,11 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
 	</filter>
 	<filter-mapping>
 		<filter-name>struts2</filter-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>*.action</url-pattern>
 	</filter-mapping>
+	
+	
   <welcome-file-list>
-  
     <welcome-file>index.jsp</welcome-file>
-   
   </welcome-file-list>
 </web-app>

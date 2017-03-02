@@ -177,8 +177,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     {
 		//frame.jsp?globe.target=/selectroom/cabinetshowQRCode.jsp?cabinet_surface
 		//alert(cabinet_surface);
-		window.open("<%=path%>/ywgl/selectroom/cabinetshowQRCode.jsp?cabinet_surface="+cabinet_surface+"&id="+id);
-     	//window.top.openWindow("<%=path%>/jgxx/gotoQrcodePage.do?cabinet_surface="+cabinet_surface+"&id="+id);
+		window.open("<%=path%>/jspRef/cabinetshowQRCode.jsp?cabinet_surface="+cabinet_surface+"&id="+id);
+     	//window.top.openWindow("<%=path%>/jgxx/gotoQrcodePage.action?cabinet_surface="+cabinet_surface+"&id="+id);
     }
     
   </script>
