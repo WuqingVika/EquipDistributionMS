@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.guanghua.edms.dao.CabinetDao;
+import com.guanghua.edms.domain.AddCabinet;
 
 import net.sf.json.JSONObject;
 @Service
@@ -31,6 +32,11 @@ public class CabinetServiceImpl implements CabinetService {
 	public JSONObject selJiGuiByQuery(int pageSize, int rows, String juZhan, String jiFang, String zhuanYe,
 			String bianOrMc) {
 		return  cabinetDao.selJiGuiByQuery(pageSize, rows,juZhan,jiFang,zhuanYe,bianOrMc);
+		
+	}
+	@Override
+	public void addCabinetList(List<AddCabinet> cbs) {
+		cabinetDao.addCabinetList(cbs);
 		
 	}
 

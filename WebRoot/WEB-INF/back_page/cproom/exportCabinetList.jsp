@@ -87,38 +87,6 @@ String roomId=request.getParameter("roomId");//roomId
 			}
 			
 		}
-		/* //判断是那个页面跳转到上传文件页面的 xg:修改页面跳转，xz:新增页面跳转
-		var canshu = location.search;
-        var formCom = $("#commentUploadFileForm");   
-        var tempUplod= document.getElementById("file").value;
-        if(tempUplod==null)
-        {
-       	   alert('请选择要上传的文件!');
-          	return ;
-        }  
-        var options  = {    
-            url:"/ywgl/ImportServletOfRoomMap/upload",    
-            type:"post", 
-            contentType:"multipart/form-data",    
-            success:function(data)    
-            {    
-                var jsondata = eval("("+data+")");  
-                if(jsondata.error == "0"){  
-                	if(canshu.split("type=")[1] == "xg"){
-                    window.opener.document.getElementById("txtFileModify").value=jsondata.attachmentId;
-                	}else{
-                    window.opener.document.getElementById("txtFile").value=jsondata.attachmentId;
-                	}
-                    window.opener.setDataGridBy();
-                    window.close();
-                }else{  
-                    var message = jsondata.message;  
-                    alert(message);  
-                }  
-            }    
-        }; 
-        formCom.ajaxSubmit(options);  */
-        
     }
 	//导出模板
 	function exc(){
@@ -130,18 +98,10 @@ String roomId=request.getParameter("roomId");//roomId
 	
 </SCRIPT>
     <center>
-		<!-- <form id="commentUploadFileForm" name="commentUploadFileForm"  enctype="multipart/form-data" method="POST">
-		 -->	<table border="0" cellspacing="0" cellpadding="0" style="border:1px solid #CCCCCC;" width="350">
+			<table border="0" cellspacing="0" cellpadding="0" style="border:1px solid #CCCCCC;" width="350">
 				<tr><td height="10"></td></tr>
 				<tr>
 					<td align="center">
-					<%-- <input type="hidden" name="globe.fileupload.objectid" value="${param.objectId}"/>
-					<input type="hidden" name="globe.fileupload.objecttype" value="${param.objectType}"/>
-					<input type="hidden" name="globe.fileupload.beanid" value="${param.beanId}"/>
-					<input type="hidden" name="uploaderId" value="${param.uploaderId}"/>
-				
-					<input type="file" id="file" name="file" size="44" class="fi" onchange="javascript:validFileName(this)" /><br>
-					 --%>
 					 <form id="uploadFileForm" action="<%=path%>/jgxx/cabinetinfo_import.do?roomId=<%=roomId %>" enctype="multipart/form-data" class="form-horizontal" method="post" >
 						<div class="form-group">
 							<label for="lastname" class="col-sm-2 control-label">选择要上传的文件</label>
@@ -152,7 +112,6 @@ String roomId=request.getParameter("roomId");//roomId
 					</form>
 					<input type="button" class="btn" value="导入" style="width:60px" onclick="javascript:subimtBtn();"/>
 					
-				<!-- <input type="hidden" id="txtFile" name="txtFile"></input> -->
 					</td>
 				</tr>
 				<tr>
@@ -162,7 +121,6 @@ String roomId=request.getParameter("roomId");//roomId
 				</tr>
 				<tr><td height="10"></td></tr>
 			</table>
-		<!-- </form> -->
 		</center>
   </body>
 </html>

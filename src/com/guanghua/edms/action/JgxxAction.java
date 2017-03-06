@@ -179,5 +179,7 @@ public class JgxxAction extends BaseAction implements ServletRequestAware{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}	
+	}
+	//导入机柜信息
+	//importCabinet
 }

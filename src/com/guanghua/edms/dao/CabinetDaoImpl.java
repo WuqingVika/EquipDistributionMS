@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.guanghua.brick.db.SQLUtil;
+import com.guanghua.edms.domain.AddCabinet;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -130,6 +131,28 @@ public class CabinetDaoImpl implements CabinetDao {
 		result.put("rows", jsonArray);
 		result.put("assSql", sql.toString());
 		return result;
+	}
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public void addCabinetList(List<AddCabinet> cbs) {
+		//查找roomId,posx,posy是否有重复的记录
+				for(int i=0;i<cbs.size();i++){
+					List<Object[]> list=sessionFactory.openSession().createSQLQuery(" select * from  jfzs_cabinet_manage where room_id="+ cbs.get(i).getRoomId()+" and pos_x="+Integer.parseInt(cbs.get(i).getPos_x())+" and pos_y="+Integer.parseInt(cbs.get(i).getPos_y())).list();
+							if(list.size()==1){
+								//已经有了一条数据不做任何处理
+								continue;
+							}else{
+								//设置机柜Id
+								int cabinet_id=Integer.parseInt(sessionFactory.openSession().createSQLQuery("select max(cabinet_id)+1 from jfzs_cabinet_manage").uniqueResult().toString());
+								//插入数据库
+								sessionFactory.openSession().createSQLQuery("insert into jfzs_cabinet_manage values ("+cabinet_id+","+cbs.get(i).getRoomId()+",0,'"
+								+cbs.get(i).getCompany()+"','"+cbs.get(i).getCabinet_num()+"','"+cbs.get(i).getCabinet_name()+"','"+cbs.get(i).getCabinet_surface()+
+										"',"+cbs.get(i).getSpec_id()+",'"+cbs.get(i).getAssert_no()+"','"+cbs.get(i).getPower_a()+"','"
+								+cbs.get(i).getPower_b()+"',"+cbs.get(i).getLayerCount()+","+cbs.get(i).getPos_x()+","+cbs.get(i).getPos_y()+
+								",'"+cbs.get(i).getLabel()+"'"+")").executeUpdate();
+							}
+				}
+				return ;
 	}
 
 }

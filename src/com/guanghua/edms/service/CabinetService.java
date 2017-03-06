@@ -3,6 +3,8 @@ package com.guanghua.edms.service;
 import java.util.List;
 import java.util.Map;
 
+import com.guanghua.edms.domain.AddCabinet;
+
 import net.sf.json.JSONObject;
 
 public interface CabinetService {
@@ -27,5 +29,10 @@ public interface CabinetService {
 	 * @return
 	 */
 	public JSONObject selJiGuiByQuery(int pageSize,int rows,String juZhan,String jiFang,String zhuanYe,String bianOrMc);
+	/**
+	 * 1-5.批量添加机柜信息
+	 * @param cbs
+	 */
+	public void addCabinetList(List<AddCabinet> cbs);
 	
 }

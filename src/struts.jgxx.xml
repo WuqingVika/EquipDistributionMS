@@ -29,5 +29,23 @@
 			class="jgxxAction">
 			<result type="json"></result>
 		</action>
+		<!--5.导入机柜信息-->
+		<action name="cabinetinfo_import" class="exportCabinetAction" method="importCabinet">
+			<result name="success" >/WEB-INF/back_page/cproom/cabinetImportSuccess.jsp</result>
+			<result name="error" >/WEB-INF/back_page/cproom/cabinetImportError.jsp</result>
+			<!-- <interceptor-ref name="defaultStack">
+				设置文件的大小
+				<param name="fileUpload.maximumSize">1000000000</param>
+				设置文件的类型
+				<param name="fileUpload.allowedTypes">application/excel,application/vnd.ms-excel,text/plain</param>
+				文件的后缀
+				<param name="fileUpload.allowedExtensions">xls,xlsx</param>
+			</interceptor-ref> -->
+		</action>
+		<!--6.导出模板-->
+		<action name="doExport" method="downTemplate"
+			class="exportCabinetAction">
+			<result type="json"></result>
+		</action>
     </package>
 </struts>

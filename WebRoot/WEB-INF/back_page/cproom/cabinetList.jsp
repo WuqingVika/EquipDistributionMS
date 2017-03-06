@@ -45,20 +45,64 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					</table>
 			</div>
     </div>
+    <!-- 导入文件对话框 -->
+            <div id="addDialog" class="easyui-dialog" style="width: 450px; height: 300px; padding: 10px 20px;"
+      				 closed="true" buttons="#dlg-buttons" data-options="modal: true" title="机柜--导入"> 
+            	 <form id="uploadFileForm" action="<%=path%>/jgxx/cabinetinfo_import.do?roomId=" enctype="multipart/form-data" class="form-horizontal" method="post" >
+						<!-- <input type="hidden" id="myRoomId"/> -->
+						<div class="form-group">
+							<label for="lastname" class="col-sm-2 control-label">选择要上传的文件</label>
+							<div class="col-sm-10">
+								<input id="uploadFile" name="uploadFile" id="uploadFile" type="file" class="form-control">
+							</div>
+						</div>
+						<div class="form-group">
+						  <a href="javascript:void(0);" onclick="exc();">模板导出</a>
+						</div>
+	    				<div style="padding:5px;text-align:center;">
+				            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:subimtBtn();" icon="icon-ok">确认导入</a>
+				            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#addDialog').dialog('close')" icon="icon-cancel">取消</a>
+       					</div>
+				</form>
+			</div>
+    <!-- 导入文件对话框 结束！ -->
+    
   </body>
   
  <script type="text/javascript">
 	function exc(){
-		var rows = $('#lstResult').datagrid('getRows');
+		<%-- var rows = $('#lstResult').datagrid('getRows');
  		if (!rows || rows.length == 0) {
 			$.messager.alert('提示信息','没有可供导出的数据');
 			return false; 
 		}
 		var strUrl = '<%=path%>/jgxx/initJgxxListPage.do?';
+		window.location.href=strUrl; --%>
+		var strUrl = '<%=path%>/jgxx/doExport.action?filename='+encodeURI(encodeURI("机柜模板"));
 		window.location.href=strUrl;
 	}
     
-  	
+	function subimtBtn() {  
+		//判断是否选择了文件
+		if($("#uploadFile").val() == ""){
+			alert("请选择文件!");
+		}else{
+			//alert("daoru");
+			var filename=$("#uploadFile").val();
+			var xlss = filename.toLowerCase().substr(filename.lastIndexOf(".")); 
+			if(xlss!=".xls"&&xlss!=".xlsx"){
+				alert("请选择以.xls和.xlsx结尾的表格文件导入！");
+				return;
+			}else{
+				//alert(filename+"   "+xlss);
+				var myRoomId=$("#jiFang").combobox("getValue");
+				$("#uploadFileForm").attr("action","<%=path%>/jgxx/cabinetinfo_import.action?roomId="+myRoomId);
+				$("#uploadFileForm").submit();
+						
+			}
+			
+		}
+    }
 	$('#juZhan').combobox({
 		url:'<%=path%>/jgxx/juzhan_list_search.action',
 	    valueField:'REGION_ID',
@@ -75,7 +119,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             	//alert("rek====="+regionId);
             	$('#jiFang').combobox({
             		url:"<%=path%>/jgxx/jifang_list_search.action?regionId="+regionId,
-            		
             	    valueField:'ROOM_ID',
             	    textField:'ROOM_NO',
              	    method:'get'
@@ -91,26 +134,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	   // value:'--请选择机柜专业--',
 	    method:'get'
 	});
-	/* 
-	function resetJiFang(){
-		//var data=;
-		$('#jiFang').combobox({
-		valueField:'ROOM_ID',
-	    textField:'ROOM_NO',
-	    data:[{ROOM_ID:-1,ROOM_NO:"" }]
-		});
-	} */
 	
 	function resert(){
 			
 		$("#jiFang").combobox("clear");    
 		$("#juZhan").combobox("setValue","");
 		$("#jiFang").combobox("setValue","");
-		//resetJiFang();
-		//$("#jiFang").combobox("clear");  
 		$("#zhuanYe").combobox("setValue","");
 		$("#bianOrMc").val("");
-		
 	}
 	
 	//批量导入进入选 择文件页面
@@ -125,7 +156,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			alert("请选择任意一个机房为其批量添加机柜");
 			return ;
 		}
-		window.open('<%=path%>/ywgl/selectroom/exportCabinetList.jsp?roomId='+roomId,'newwindow','resizable=yes,scrollbars=yes,height=650,width=600,top=200,left=200');
+		$("#addDialog").dialog("open") ;
+		//window.open('<%=path%>/WEB-INF/back_page/cproom/exportCabinetList.jsp?roomId='+roomId,'newwindow','resizable=yes,scrollbars=yes,height=650,width=600,top=200,left=200');
 	}
 	
 	
@@ -145,22 +177,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 pageList: [50, 100, 200],//可以设置每页记录条数的列表 //   ywgl/ziChanGrid_list_seach.do
 		        url:'<%=path%>/jgxx/JgxxListQuery.action', 
 		         queryParams: {  		
-		        		
 		        	 juZhan:juZhan, 	
 		        	 jiFang:jiFang,
 		        	 zhuanYe:zhuanYe,
 		        	 bianOrMc:bianOrMc
 				  },
 		        columns:[[
-		        	//ASSETS_NUMBER, ASSETS_DESCRIBE, ASSETS_MANUFACTURER, ADDRESS, OBJ_DEPT_DESCRIBE, DEPT_DESCRIBE
-		             //{field:'flag',checkbox:true},
-		             //{title:'序号',field:'ID',width:'200',align:'left',hidden:true},
-		              {title:'机柜ID',field:'ID',width:'200',align:'left',hidden:true}, 
+		             {title:'机柜ID',field:'ID',width:'200',align:'left',hidden:true}, 
 		             {title:'机房名称',field:'ROOM_NO',width:'200',align:'left'},
 		             {title:'机柜编号',field:'CABINET_NUM',width:'200',align:'left'},
 		             {title:'机柜名称',field:'CABINET_NAME',width:'250',align:'left'},
 		             {title:'机柜面',field:'CABINET_SURFACE',width:'200',align:'left'},
-		             //{title:'机柜二维码',field:'CABINET_SURFACE',width:'200',align:'left'}	
 		             {title:'机柜二维码',field:'UPDATE',width:'200',align:'left',formatter:formatQrcode},
 		             
 				   	]],
@@ -175,12 +202,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	//
 	function doQrcode(cabinet_surface,id)
     {
-		//frame.jsp?globe.target=/selectroom/cabinetshowQRCode.jsp?cabinet_surface
-		//alert(cabinet_surface);
 		window.open("<%=path%>/jspRef/cabinetshowQRCode.jsp?cabinet_surface="+cabinet_surface+"&id="+id);
-     	//window.top.openWindow("<%=path%>/jgxx/gotoQrcodePage.action?cabinet_surface="+cabinet_surface+"&id="+id);
     }
     
   </script>
-	
 </html>

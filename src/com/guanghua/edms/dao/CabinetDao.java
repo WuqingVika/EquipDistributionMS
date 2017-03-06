@@ -6,6 +6,8 @@ import java.util.Map;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.guanghua.edms.domain.AddCabinet;
+
 import net.sf.json.JSONObject;
 /**
  * 2017/2/25 15:17
@@ -38,5 +40,11 @@ public interface CabinetDao {
 	 */
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 	public JSONObject selJiGuiByQuery(int pageSize,int rows,String juZhan,String jiFang,String zhuanYe,String bianOrMc);
+	/**
+	 * 1-5.批量添加机柜信息
+	 * @param cbs
+	 */
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public void addCabinetList(List<AddCabinet> cbs);
 	
 }

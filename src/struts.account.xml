@@ -18,7 +18,7 @@
     	 <action name="toEquipmentList" method="toEquipmentList" class="loginAction">
             <result name="success">/WEB-INF/back_page/equipment/equipmentList.jsp</result>
         </action>
-        <!-- 跳转到设备列表 -->
+        <!-- 跳转到板卡列表 -->
     	 <action name="toCardList" method="toCardList" class="loginAction">
             <result name="success">/WEB-INF/back_page/card/cardList.jsp</result>
         </action>
