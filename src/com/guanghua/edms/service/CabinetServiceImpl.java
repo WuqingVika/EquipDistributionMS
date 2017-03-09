@@ -35,8 +35,8 @@ public class CabinetServiceImpl implements CabinetService {
 		
 	}
 	@Override
-	public void addCabinetList(List<AddCabinet> cbs) {
-		cabinetDao.addCabinetList(cbs);
+	public int addCabinetList(List<AddCabinet> cbs) {
+		return cabinetDao.addCabinetList(cbs);
 		
 	}
 

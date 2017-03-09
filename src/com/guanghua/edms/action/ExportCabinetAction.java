@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.List;
@@ -96,8 +97,9 @@ public class ExportCabinetAction extends ActionSupport{
 		
 	}
 	//1.导入机柜信息
-	public String importCabinet(){
+	public String importCabinet() {
 		System.out.println("wq--导入机柜信息");
+		int myres=0;
 		String errMsg="";
 		HttpServletResponse res=ServletActionContext.getResponse();
 		HttpServletRequest req=ServletActionContext.getRequest();
@@ -299,16 +301,26 @@ public class ExportCabinetAction extends ActionSupport{
 				//jiGuiBean.addCabinetList(roomId, type, company, cabinet_num, cabinet_name, cabinet_surface, spec_name, assert_no, power_a, power_b, layerCount, pos_x, pos_y, label);
 			}
 			System.out.println("错误信息：\n"+errMsg );
+			
 			if(nullFlag!=-1){
 				req.setAttribute("errMsg",errMsg);
 				return ERROR;
 			}else{
 				//JiGuiXinxiGuanLi jiGuiBean=(JiGuiXinxiGuanLi)BizUtil.getBizBean("jigui_xinxi");
-				cabinetService.addCabinetList(cbs);
+				myres=cabinetService.addCabinetList(cbs);
+				
 			}
 		}catch(Exception e){
 			return ERROR;
-		}		
+		}	
+		if(myres==0){
+			req.setAttribute("errMsg","请检查横纵向位置的重复机柜！");
+			return ERROR;
+		}
 		return SUCCESS;
+		/*PrintWriter out=ServletActionContext.getResponse().getWriter();
+		out.print(myres);
+		out.flush();
+		out.close();*/
 	}
 }

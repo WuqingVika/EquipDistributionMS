@@ -27,7 +27,7 @@ public class CabinetDaoImpl implements CabinetDao {
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 	public List<Map<String, String>> selJuZhan() {
 		//查询局站
-		Connection conn = this.sessionFactory.openSession().connection();
+		Connection conn = this.sessionFactory.getCurrentSession().connection();
 		StringBuffer sql = new StringBuffer();
 		sql.append("select region_id,region_name from  region where district=20");
 		try {
@@ -44,7 +44,7 @@ public class CabinetDaoImpl implements CabinetDao {
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 	public List<Map<String, String>> selJiFangByJuZhanId(int regionId) {
 		//根据局站查询机房
-		Connection conn = this.sessionFactory.openSession().connection();
+		Connection conn = this.sessionFactory.getCurrentSession().connection();
 		StringBuffer sql = new StringBuffer();
 		sql.append("select room_id,room_no from room where district=20 and region_id=").append(regionId);
 		try {
@@ -60,7 +60,7 @@ public class CabinetDaoImpl implements CabinetDao {
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 	public List<Map<String, String>> selZhuanYes() {
 		//显示机柜专业
-		Connection conn = this.sessionFactory.openSession().connection();
+		Connection conn = this.sessionFactory.getCurrentSession().connection();
 		StringBuffer sql = new StringBuffer();
 		sql.append("select spec_id,spec_name from  jfzs_spec_manage");
 		try {
@@ -107,12 +107,12 @@ public class CabinetDaoImpl implements CabinetDao {
 		}
 		
 		//org.hibernate.classic.Session session = this.sessionFactory.openSession();
-		List<Object[]> list=sessionFactory.openSession().createSQLQuery(sql.toString()).setFirstResult((pageSize - 1) * rows).setMaxResults(rows).list();
+		List<Object[]> list=sessionFactory.getCurrentSession().createSQLQuery(sql.toString()).setFirstResult((pageSize - 1) * rows).setMaxResults(rows).list();
 		countSql.append(") aa");
 		JSONObject result = new JSONObject();
 		if(pageSize==1){
 			System.out.println();
-			String str=sessionFactory.openSession().createSQLQuery(countSql.toString()).uniqueResult().toString();
+			String str=sessionFactory.getCurrentSession().createSQLQuery(countSql.toString()).uniqueResult().toString();
 			int count=Integer.parseInt(str);
 			result.put("total", count);
 		}
@@ -134,25 +134,27 @@ public class CabinetDaoImpl implements CabinetDao {
 	}
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public void addCabinetList(List<AddCabinet> cbs) {
+	public int addCabinetList(List<AddCabinet> cbs) {
 		//查找roomId,posx,posy是否有重复的记录
 				for(int i=0;i<cbs.size();i++){
-					List<Object[]> list=sessionFactory.openSession().createSQLQuery(" select * from  jfzs_cabinet_manage where room_id="+ cbs.get(i).getRoomId()+" and pos_x="+Integer.parseInt(cbs.get(i).getPos_x())+" and pos_y="+Integer.parseInt(cbs.get(i).getPos_y())).list();
+					List<Object[]> list=sessionFactory.getCurrentSession().createSQLQuery(" select * from  jfzs_cabinet_manage where room_id="+ cbs.get(i).getRoomId()+" and pos_x="+Integer.parseInt(cbs.get(i).getPos_x())+" and pos_y="+Integer.parseInt(cbs.get(i).getPos_y())).list();
 							if(list.size()==1){
 								//已经有了一条数据不做任何处理
+								System.out.println("is has");
 								continue;
 							}else{
 								//设置机柜Id
-								int cabinet_id=Integer.parseInt(sessionFactory.openSession().createSQLQuery("select max(cabinet_id)+1 from jfzs_cabinet_manage").uniqueResult().toString());
+								int cabinet_id=Integer.parseInt(sessionFactory.getCurrentSession().createSQLQuery("select max(cabinet_id)+1 from jfzs_cabinet_manage").uniqueResult().toString());
 								//插入数据库
-								sessionFactory.openSession().createSQLQuery("insert into jfzs_cabinet_manage values ("+cabinet_id+","+cbs.get(i).getRoomId()+",0,'"
+								int res = sessionFactory.getCurrentSession().createSQLQuery("insert into jfzs_cabinet_manage values ("+cabinet_id+","+cbs.get(i).getRoomId()+",0,'"
 								+cbs.get(i).getCompany()+"','"+cbs.get(i).getCabinet_num()+"','"+cbs.get(i).getCabinet_name()+"','"+cbs.get(i).getCabinet_surface()+
 										"',"+cbs.get(i).getSpec_id()+",'"+cbs.get(i).getAssert_no()+"','"+cbs.get(i).getPower_a()+"','"
 								+cbs.get(i).getPower_b()+"',"+cbs.get(i).getLayerCount()+","+cbs.get(i).getPos_x()+","+cbs.get(i).getPos_y()+
 								",'"+cbs.get(i).getLabel()+"'"+")").executeUpdate();
+								return res;
 							}
 				}
-				return ;
+				return 0;
 	}
 
 }

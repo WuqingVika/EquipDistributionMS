@@ -33,6 +33,6 @@ public interface CabinetService {
 	 * 1-5.批量添加机柜信息
 	 * @param cbs
 	 */
-	public void addCabinetList(List<AddCabinet> cbs);
+	public int addCabinetList(List<AddCabinet> cbs);
 	
 }

@@ -45,6 +45,6 @@ public interface CabinetDao {
 	 * @param cbs
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public void addCabinetList(List<AddCabinet> cbs);
+	public int addCabinetList(List<AddCabinet> cbs);
 	
 }

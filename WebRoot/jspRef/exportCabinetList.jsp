@@ -8,8 +8,8 @@ String roomId=request.getParameter("roomId");//roomId
 <html>
   <head>
     <base href="<%=basePath%>">
-     <script  type="text/javascript" src="<%=path %>/ywgl/script/jquery-1.7.2.js"></script>
-    <script  type="text/javascript" src="<%=path %>/ywgl/script/jquery.form.js"></script>
+     <script  type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.7.2.js"></script>
+    <script  type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.form.js"></script>
     <title>export cabinet list</title>
 	<style type="text/css">
 	.btn {
@@ -91,9 +91,10 @@ String roomId=request.getParameter("roomId");//roomId
 	//导出模板
 	function exc(){
 		
-		//var strUrl = '<%=path%>/jgxx/exportExcelOfCabinet.do?';
+		var strUrl = '<%=path%>/jgxx/doExport.action?filename='+encodeURI(encodeURI("机柜模板"));
+		window.location.href=strUrl;
 		//window.location.href=strUrl;///ywgl20161209/WebRoot/ywgl/platform/机柜信息导入模板.xls
-		window.location='${pageContext.request.contextPath}/ywgl/platform/cabinetResourceInfo.xls';
+		//window.location='${pageContext.request.contextPath}/ywgl/platform/cabinetResourceInfo.xls';
 	}
 	
 </SCRIPT>
@@ -102,7 +103,7 @@ String roomId=request.getParameter("roomId");//roomId
 				<tr><td height="10"></td></tr>
 				<tr>
 					<td align="center">
-					 <form id="uploadFileForm" action="<%=path%>/jgxx/cabinetinfo_import.do?roomId=<%=roomId %>" enctype="multipart/form-data" class="form-horizontal" method="post" >
+					 <form id="uploadFileForm" action="<%=path%>/jgxx/cabinetinfo_import.action?roomId=<%=roomId %>" enctype="multipart/form-data" class="form-horizontal" method="post" >
 						<div class="form-group">
 							<label for="lastname" class="col-sm-2 control-label">选择要上传的文件</label>
 							<div class="col-sm-10">

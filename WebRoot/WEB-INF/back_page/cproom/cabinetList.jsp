@@ -156,8 +156,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			alert("请选择任意一个机房为其批量添加机柜");
 			return ;
 		}
-		$("#addDialog").dialog("open") ;
-		//window.open('<%=path%>/WEB-INF/back_page/cproom/exportCabinetList.jsp?roomId='+roomId,'newwindow','resizable=yes,scrollbars=yes,height=650,width=600,top=200,left=200');
+		//$("#addDialog").dialog("open") ;
+		window.open('<%=path%>/jspRef/exportCabinetList.jsp?roomId='+roomId,'newwindow','resizable=yes,scrollbars=yes,height=650,width=600,top=200,left=200');
 	}
 	
 	
