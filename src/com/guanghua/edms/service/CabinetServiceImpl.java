@@ -39,5 +39,26 @@ public class CabinetServiceImpl implements CabinetService {
 		return cabinetDao.addCabinetList(cbs);
 		
 	}
+	@Override
+	public List<Map<String, String>> selCabinetByJiFangId(int roomId) {
+		// 1设备管理中：根据机房显示当前的机柜
+		return cabinetDao.selCabinetByJiFangId(roomId);
+	}
+	@Override
+	public JSONObject selEquipmentsByQuery(int pageSize, int rows, String juZhan, String jiFang, String cabinetId,
+			String gridId, String equipmentName) {
+		// 2设备管理中：显示设备列表
+		return cabinetDao.selEquipmentsByQuery(pageSize, rows,juZhan,jiFang,cabinetId,gridId,equipmentName);
+	}
+	@Override
+	public JSONObject selCardByequipID(int mypageSize, int myrows, int equipId) {
+		//3 设备管理中：显示某一设备关联板卡
+		return cabinetDao.selCardByequipID(mypageSize,myrows,equipId);
+	}
+	@Override
+	public void addEquipmentList(List<String[]> stringList, int cabinetId) {
+		//3 设备管理中：批量添加设备信息
+		 cabinetDao.addEquipmentList(stringList,cabinetId);
+	}
 
 }

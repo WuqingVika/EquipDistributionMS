@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+
+	<class name="com.guanghua.edms.domain.JfzsEquipment" table="JFZS_EQUIPMENT_MANAGE">
+		<id name="equipId" column="EQUIP_ID" >
+			<generator class="native"/>
+		</id>
+		<property name="cabinetId" column="CABINET_ID"  />
+		<property name="cabinetLayerNum" column="CABINET_LAYER_NUM" />
+		<property name="occupyLayerNum" column="OCCUPY_LAYER_NUM" />
+		<property name="nuNum" column="NU_NUM" />
+		<property name="equipName" column="EQUIP_NAME" />
+		<property name="manufacturer" column="MANUFACTURER"  />
+		<property name="cabinetSurface" column="CABINET_SURFACE" />
+		<property name="specId" column="SPEC_ID" />
+		<property name="category" column="CATEGORY" />
+		<property name="model" column="MODEL"  />
+		<property name="assertNo" column="ASSET_NO" />
+		<property name="subRackCount" column="SUB_RACK_COUNT"  />
+		<property name="versionInfo" column="VERSION_INFO"  />
+	</class>
+</hibernate-mapping>

@@ -71,13 +71,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
  <script type="text/javascript">
 	function exc(){
-		<%-- var rows = $('#lstResult').datagrid('getRows');
- 		if (!rows || rows.length == 0) {
-			$.messager.alert('提示信息','没有可供导出的数据');
-			return false; 
-		}
-		var strUrl = '<%=path%>/jgxx/initJgxxListPage.do?';
-		window.location.href=strUrl; --%>
 		var strUrl = '<%=path%>/jgxx/doExport.action?filename='+encodeURI(encodeURI("机柜模板"));
 		window.location.href=strUrl;
 	}

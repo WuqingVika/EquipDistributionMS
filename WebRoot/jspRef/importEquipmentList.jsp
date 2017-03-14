@@ -8,8 +8,8 @@ String cabinetId=request.getParameter("cabinetId");//cabinetId
 <html>
   <head>
     <base href="<%=basePath%>">
-     <script  type="text/javascript" src="<%=path %>/ywgl/script/jquery-1.7.2.js"></script>
-    <script  type="text/javascript" src="<%=path %>/ywgl/script/jquery.form.js"></script>
+    <script  type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.7.2.js"></script>
+    <script  type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.form.js"></script>
     <title>导入设备</title>
 	<style type="text/css">
 	.btn {
@@ -42,8 +42,6 @@ String cabinetId=request.getParameter("cabinetId");//cabinetId
   
   <body>
   <SCRIPT type="text/javascript">
-  
- 	
 	function addFileInput(obj) {
 		obj.insertAdjacentHTML("beforeBegin", "<input type='file' name='file' size='36' class='fi' onchange='javascript:validFileName(this)'/><input type='button' style='width:40px;height:20px' value='去除' class='btn' onclick='javascript:removeFileInput(this)'/><br>");
 	}
@@ -70,19 +68,16 @@ String cabinetId=request.getParameter("cabinetId");//cabinetId
 		} 
 
 	function subimtBtn() {  
-		
 		//判断是否选择了文件
 		if($("#uploadFile").val() == ""){
 			alert("请选择文件!");
 		}else{
-			//alert("daoru");
 			var filename=$("#uploadFile").val();
 			var xlss = filename.toLowerCase().substr(filename.lastIndexOf(".")); 
 			if(xlss!=".xls"&&xlss!=".xlsx"){
 				alert("请选择以.xls和.xlsx结尾的表格文件导入！");
 				return;
 			}else{
-				//alert(filename+"   "+xlss);
 				$("#uploadFileForm").submit();
 			}
 			
@@ -90,7 +85,8 @@ String cabinetId=request.getParameter("cabinetId");//cabinetId
     }
 	//导出模板
 	function exc(){
-		window.location='${pageContext.request.contextPath}/ywgl/platform/equipmentResourceInfo.xls';
+		var strUrl = '<%=path%>/jgxx/doExport.action?filename='+encodeURI(encodeURI("设备模板"));
+		window.location.href=strUrl;
 	}
 	
 </SCRIPT>
@@ -100,14 +96,7 @@ String cabinetId=request.getParameter("cabinetId");//cabinetId
 				<tr><td height="10"></td></tr>
 				<tr>
 					<td align="center">
-					<%-- <input type="hidden" name="globe.fileupload.objectid" value="${param.objectId}"/>
-					<input type="hidden" name="globe.fileupload.objecttype" value="${param.objectType}"/>
-					<input type="hidden" name="globe.fileupload.beanid" value="${param.beanId}"/>
-					<input type="hidden" name="uploaderId" value="${param.uploaderId}"/>
-				
-					<input type="file" id="file" name="file" size="44" class="fi" onchange="javascript:validFileName(this)" /><br>
-					 --%>
-					 <form id="uploadFileForm" action="<%=path%>/sbxx/equipmentinfo_import.do?cabinetId=<%=cabinetId %>" enctype="multipart/form-data" class="form-horizontal" method="post" >
+					 <form id="uploadFileForm" action="<%=path%>/sbxx/equipmentinfo_import.action?cabinetId=<%=cabinetId %>" enctype="multipart/form-data" class="form-horizontal" method="post" >
 						<div class="form-group">
 							<label for="lastname" class="col-sm-2 control-label">选择要上传的文件</label>
 							<div class="col-sm-10">

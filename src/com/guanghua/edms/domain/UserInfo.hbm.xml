@@ -13,18 +13,5 @@
 		<property name="userName" column="USER_NAME" length="20" />
 		<property name="workNo" column="WORK_NO" length="20" />
 		<property name="password" column="PASSWORD" length="20" />
-		<!-- <id name="userId"  type="java.lang.Integer">
-			<column name="USER_ID" />
-			<generator class="identity"></generator>
-		</id>
-		<property name="userName" length="20" type="java.lang.String">
-			<column name="USER_NAME"  />
-		</property>
-		<property name="password" length="20" type="java.lang.String">
-			<column name="PASSWORD"  />
-		</property>
-		<property name="workNo" length="20" type="java.lang.String">
-			<column name="WORK_NO"  />
-		</property> -->
 	</class>
 </hibernate-mapping>

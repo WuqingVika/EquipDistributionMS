@@ -8,7 +8,7 @@ String roomId=request.getParameter("roomId");//roomId
 <html>
   <head>
     <base href="<%=basePath%>">
-     <script  type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.7.2.js"></script>
+    <script  type="text/javascript" src="${pageContext.request.contextPath }/js/jquery-1.7.2.js"></script>
     <script  type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.form.js"></script>
     <title>export cabinet list</title>
 	<style type="text/css">

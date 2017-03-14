@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+
+	<class name="com.guanghua.edms.domain.JfzsSubRack" table="jfzs_sub_rack_manage">
+		<id name="subRackId" column="SUB_RACK_ID" >
+			<generator class="native"/>
+		</id>
+		<property name="equipId" column="EQUIP_ID"  />
+		<property name="orderNo" column="ORDER_NO" />
+		<property name="slotCount" column="SLOT_COUNT" />
+		<property name="label" column="LABEL" />
+	</class>
+</hibernate-mapping>

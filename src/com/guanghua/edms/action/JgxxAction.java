@@ -21,7 +21,6 @@ import com.guanghua.edms.common.web.CustomException;
 import com.guanghua.edms.common.web.BaseAction;
 import com.guanghua.edms.dao.CabinetDao;
 import com.guanghua.edms.service.CabinetService;
-
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -180,6 +179,78 @@ public class JgxxAction extends BaseAction implements ServletRequestAware{
 			e.printStackTrace();
 		}
 	}
-	//导入机柜信息
-	//importCabinet
+	/**
+	 * 2-1.下拉框显示机柜信息
+	 */
+	public void selCabinet(){
+		System.out.println("wq--------下拉框机柜请求");
+		HttpServletResponse res=ServletActionContext.getResponse();
+		HttpServletRequest req=ServletActionContext.getRequest();
+		res.setCharacterEncoding("utf-8");
+		int roomId = Integer.parseInt(req.getParameter("roomId"));
+		List<Map<String, String>> list =cabinetService.selCabinetByJiFangId(roomId);
+		JSONArray jsonArray = JSONArray.fromObject( list );
+		try {
+			PrintWriter out=res.getWriter();
+			jsonArray.write(out);
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * 2-2.显示设备列表
+	 */
+	public void selEquipmentsTogrid() throws CustomException {
+		System.out.println("wq------查询设备--信息请求");
+		HttpServletResponse res=ServletActionContext.getResponse();
+		HttpServletRequest req=ServletActionContext.getRequest();
+		res.setCharacterEncoding("utf-8");
+		try {
+			int pageSize = Integer.parseInt(req.getParameter("page"));
+		    int rows = Integer.parseInt(req.getParameter("rows"));
+			String juZhan = req.getParameter("juZhan").trim();
+			String jiFang = req.getParameter("jiFang").trim();
+			String cabinetId = req.getParameter("cabinetId").trim();
+			String gridId = req.getParameter("gridId").trim();
+			String equipmentName= req.getParameter("equipmentName").trim();
+			JSONObject result=cabinetService.selEquipmentsByQuery(pageSize, rows,juZhan,jiFang,cabinetId,gridId,equipmentName);
+			String assSql=(String)result.get("assSql");
+			req.getSession().setAttribute("assSql", assSql);
+			PrintWriter out=res.getWriter();
+			out.println(result.toString());
+			out.flush();
+			out.close();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}	
+	/**
+	 * 2-3.根据设备ID查询板卡信息
+	 */
+	public void selCardInfo(){
+		System.out.println("wq--------根据设备ID查询板卡信息请求");
+		HttpServletResponse res=ServletActionContext.getResponse();
+		HttpServletRequest req=ServletActionContext.getRequest();
+		res.setCharacterEncoding("utf-8");
+		try {
+			int equipId = Integer.parseInt(req.getParameter("equipId"));
+			int mypageSize = Integer.parseInt(req.getParameter("page"));
+		    int myrows = Integer.parseInt(req.getParameter("rows"));
+			JSONObject result =cabinetService.selCardByequipID(mypageSize,myrows,equipId);
+			String assSql=(String)result.get("myassSql");
+			req.getSession().setAttribute("myassSql", assSql);
+			PrintWriter out=res.getWriter();
+			out.println(result.toString());
+			out.flush();
+			out.close();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

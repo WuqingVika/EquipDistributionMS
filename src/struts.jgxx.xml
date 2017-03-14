@@ -4,6 +4,7 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
+	<!-- 机柜信息 -->
 	<package name="jgxx" namespace="/jgxx" extends="json-default">
 		<result-types>
             <result-type name="noAction" class="com.guanghua.edms.common.NoActionResult"/>
@@ -48,4 +49,39 @@
 			<result type="json"></result>
 		</action>
     </package>
+    
+    <!-- 设备信息 -->
+	<package name="sbxx" namespace="/sbxx"
+		extends="json-default">
+		<result-types>
+            <result-type name="noAction" class="com.guanghua.edms.common.NoActionResult"/>
+        </result-types>
+        <!-- 1.下拉列表显示机柜信息 -->
+		<action name="cabinet_list_search" method="selCabinet"
+			class="jgxxAction">
+			<result type="json"></result>
+		</action>
+		<!-- 2.设备信息列表 -->
+		<action name="SbxxListQuery" method="selEquipmentsTogrid" 
+			class="jgxxAction">
+			<result type="json"></result>
+		</action>
+		<!-- 3.弹出板卡信息列表 -->
+		<action name="gotoCardInfo" method="selCardInfo" 
+			class="jgxxAction">
+			<result type="json"></result>
+		</action>
+		<action name="equipmentinfo_import" class="exportCabinetAction" method="importEquipment">
+			<result name="success" >/WEB-INF/back_page/cproom/cabinetImportSuccess.jsp</result>
+			<result name="error" >/WEB-INF/back_page/cproom/cabinetImportError.jsp</result>
+			<!-- <interceptor-ref name="defaultStack">
+				设置文件的大小
+				<param name="fileUpload.maximumSize">1000000000</param>
+				设置文件的类型
+				<param name="fileUpload.allowedTypes">application/excel,application/vnd.ms-excel,text/plain</param>
+				文件的后缀
+				<param name="fileUpload.allowedExtensions">xls,xlsx</param>
+			</interceptor-ref> -->
+		</action>
+	</package>
 </struts>

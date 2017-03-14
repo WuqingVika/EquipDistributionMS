@@ -14,6 +14,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.guanghua.brick.db.SQLUtil;
 import com.guanghua.edms.domain.AddCabinet;
+import com.guanghua.edms.domain.JfzsEquipment;
+import com.guanghua.edms.domain.JfzsSubRack;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -155,6 +157,212 @@ public class CabinetDaoImpl implements CabinetDao {
 							}
 				}
 				return 0;
+	}
+	@Override
+	public List<Map<String, String>> selCabinetByJiFangId(int roomId) {
+		//根据机房 显示机柜
+		Connection conn = sessionFactory.getCurrentSession().connection();
+		StringBuffer sql = new StringBuffer();
+		sql.append("select cabinet_id,cabinet_name from jfzs_cabinet_manage where room_id=").append(roomId).append(" order by cabinet_name");;
+		try {
+			List<Map<String, String>> list = SQLUtil
+					.query(conn, sql.toString());
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	@Override
+	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
+	public JSONObject selEquipmentsByQuery(int pageSize, int rows, String juZhan, String jiFang, String cabinetId,
+			String gridId, String equipmentName) {
+		// TODO Auto-generated method stub
+		System.out.println("查询设备-信息dao");
+		System.out.println("psize:"+pageSize+"  rows:"+rows+"  juzhan:"+juZhan+" jiFang:"+jiFang+" cabinetId:"+cabinetId+" gridId:"+gridId+" equipmentName:"+equipmentName);
+		StringBuffer sql=new StringBuffer();
+		StringBuffer countSql=new StringBuffer();
+		sql.append(" select a.equip_id,c.room_no,b.cabinet_num,a.cabinet_surface,a.nu_num,a.equip_name,d.spec_name,a.Manufacturer,a.CATEGORY,a.model,a.SUB_RACK_COUNT "+
+				" from jfzs_equipment_manage a,jfzs_cabinet_manage b,room c,jfzs_spec_manage d "+
+				"where a.cabinet_id=b.cabinet_id and b.room_id=c.room_id and a.spec_id=d.spec_id and c.district=20");
+		
+		countSql.append("  select count(*) from (select a.equip_id,c.room_no,b.cabinet_num,a.cabinet_surface,a.nu_num,a.equip_name,d.spec_name,a.Manufacturer,a.CATEGORY,a.model,a.SUB_RACK_COUNT "+
+				" from jfzs_equipment_manage a,jfzs_cabinet_manage b,room c,jfzs_spec_manage d "+
+				"where a.cabinet_id=b.cabinet_id and b.room_id=c.room_id and a.spec_id=d.spec_id and c.district=20 ");
+		if(!"".equals(juZhan)){
+			int regionId=Integer.parseInt(juZhan.trim());
+			sql.append(" and c.region_id="+regionId);
+			countSql.append(" and c.region_id="+regionId);
+		}
+		if(!"".equals(jiFang)){
+			int roomId=Integer.parseInt(jiFang.trim());
+			sql.append(" and c.room_id="+roomId );
+			countSql.append(" and c.room_id="+roomId);
+		}
+		if(!"".equals(cabinetId)){
+			int caId=Integer.parseInt(cabinetId.trim());
+			sql.append(" and a.cabinet_id="+caId);
+			countSql.append("  and a.cabinet_id="+caId);
+		}
+		if(!"".equals(gridId)){
+			sql.append("  and a.nu_num like '%"+gridId+"%' ");
+			countSql.append("  and a.nu_num like '%"+gridId+"%' ");
+		}
+		if(!"".equals(equipmentName)){
+			sql.append(" and a.equip_name like '%"+equipmentName+"%' ");
+			countSql.append("  and a.equip_name like '%"+equipmentName+"%' ");
+		}
+		
+		List<Object[]> list=sessionFactory.getCurrentSession().createSQLQuery(sql.toString()).setFirstResult((pageSize - 1) * rows).setMaxResults(rows).list();
+		countSql.append(") aa");
+		JSONObject result = new JSONObject();
+		if(pageSize==1){
+			System.out.println();
+			String str=sessionFactory.getCurrentSession().createSQLQuery(countSql.toString()).uniqueResult().toString();
+			int count=Integer.parseInt(str);
+			result.put("total", count);
+		}
+		JSONArray jsonArray=new JSONArray();
+		for (Object[] objects  : list) {
+			JSONObject jsonObject=new JSONObject();
+			jsonObject.put("EQUIP_ID", objects[0]);
+			jsonObject.put("ROOM_NO", objects[1]);
+			jsonObject.put("CABINET_NUM", objects[2]);
+			jsonObject.put("CABINET_SURFACE", objects[3]);
+			jsonObject.put("NU_NUM", objects[4]);
+			jsonObject.put("EQUIP_NAME", objects[5]);
+			
+			jsonObject.put("SPEC_NAME", objects[6]);
+			jsonObject.put("MANUFACTURER", objects[7]);
+			jsonObject.put("CATEGORY", objects[8]);
+			jsonObject.put("MODEL", objects[9]);
+			jsonObject.put("SUB_RACK_COUNT", objects[10]);
+			jsonArray.add(jsonObject);
+		}
+		result.put("rows", jsonArray);
+		result.put("assSql", sql.toString());
+		return result;
+	}
+	@Override
+	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
+	public JSONObject selCardByequipID(int mypageSize, int myrows, int equipId) {
+		StringBuffer sql=new StringBuffer();
+		StringBuffer countSql=new StringBuffer();
+		sql.append(" select card_id,sub_rack_id,occupy_slot_num,manufacturer,purPose,CATEGORY,model,ASSET_NO,POS_IDX,CHANGE_DATE from JFZS_BOARD_CARD_MANAGE where SUB_RACK_ID in (select SUB_RACK_ID from JFZS_SUB_RACK_MANAGE where equip_id="+equipId+")");
+		countSql.append("  select count(*) from (select card_id,sub_rack_id,occupy_slot_num,manufacturer,purPose,CATEGORY,model,ASSET_NO,POS_IDX,CHANGE_DATE from JFZS_BOARD_CARD_MANAGE where SUB_RACK_ID in (select SUB_RACK_ID from JFZS_SUB_RACK_MANAGE where equip_id="+equipId+")) aa");
+		List<Object[]> list=sessionFactory.getCurrentSession().createSQLQuery(sql.toString()).setFirstResult((mypageSize - 1) * myrows).setMaxResults(myrows).list();
+		JSONObject result = new JSONObject();
+		if(mypageSize==1){
+			System.out.println();
+			String str=sessionFactory.getCurrentSession().createSQLQuery(countSql.toString()).uniqueResult().toString();
+			int count=Integer.parseInt(str);
+			result.put("total", count);
+		}
+		JSONArray jsonArray=new JSONArray();
+		for (Object[] objects  : list) {
+			JSONObject jsonObject=new JSONObject();
+			jsonObject.put("CARD_ID", objects[0]);
+			jsonObject.put("SUB_RACK_ID", objects[1]);
+			jsonObject.put("OCCUPY_SLOT_NUM", objects[2]);
+			jsonObject.put("MANUFACTURER", objects[3]);
+			jsonObject.put("PURPOSE", objects[4]);
+			jsonObject.put("CATEGORY", objects[5]);
+			
+			jsonObject.put("MODEL", objects[6]);
+			jsonObject.put("ASSET_NO", objects[7]);
+			jsonObject.put("POS_IDX", objects[8]);
+			jsonObject.put("CHANGE_DATE", objects[9]);
+			
+			jsonArray.add(jsonObject);
+		}
+		result.put("rows", jsonArray);
+		result.put("myassSql", sql.toString());
+		return result;
+	}
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public void addEquipmentList(List<String[]> equips, int cabinetId) {
+		Long equipId=Long.parseLong(sessionFactory.getCurrentSession().createSQLQuery("select max(equip_id)+1 from tlmanage.jfzs_equipment_manage").uniqueResult().toString());
+		Long subRackId=Long.parseLong(sessionFactory.getCurrentSession().createSQLQuery("select max(sub_rack_id)+1 from Tlmanage.Jfzs_Sub_Rack_Manage").uniqueResult().toString());
+			
+		for(int i=0;i<equips.size();i++){
+				//设置设备Id
+				//插入数据库
+				String[] a=equips.get(i);
+				JfzsEquipment ep=new JfzsEquipment();
+				ep.setCabinetLayerNum(Integer.parseInt(a[0]));
+				ep.setOccupyLayerNum(Integer.parseInt(a[1]));
+				ep.setNuNum(a[2]);
+				ep.setEquipName(a[3]);
+				ep.setManufacturer(a[4]);
+				ep.setCabinetSurface(a[5]);
+				ep.setSpecId(Integer.parseInt(a[6]));
+				/**
+				 * 更新需求：
+				 * 如果设备导入：
+				 * 1. 专业跟当前机柜不一致，则需要更新当前机柜的专业；
+				 * 2. 机柜面不在当前机柜的机柜面里的需要扩充当前机柜的机柜面；
+				 * 	       如（设备插入A面，机柜只有B面，则机柜需要更新为A面，B面）
+				 */
+				String spName=(sessionFactory.getCurrentSession().createSQLQuery(" select cabinet_surface from tlmanage.jfzs_cabinet_manage where cabinet_id="+cabinetId).uniqueResult().toString());
+				//插入数据库
+				if(spName.indexOf(a[5])!=-1){//包含
+					sessionFactory.getCurrentSession().createSQLQuery("update tlmanage.jfzs_cabinet_manage set spec_id="+Integer.parseInt(a[6])+" where cabinet_id="+cabinetId).executeUpdate();
+				}else{
+					//不包含
+					spName+=","+a[5];
+					sessionFactory.getCurrentSession().createSQLQuery("update tlmanage.jfzs_cabinet_manage set cabinet_surface='"+spName+"',spec_id="+Integer.parseInt(a[6])+" where cabinet_id="+cabinetId).executeUpdate();
+				}
+				//end 2017/2/13
+				ep.setCategory(a[7]);
+				ep.setModel(a[8]);
+				ep.setAssertNo(a[9]);
+				ep.setVersionInfo(a[10]);
+				ep.setSubRackCount(Integer.parseInt(a[11]));//子框数
+				
+				ep.setCabinetId(Long.parseLong(cabinetId+""));
+				ep.setEquipId(equipId+i);
+				
+				//1.插入设备数据信息
+				sessionFactory.getCurrentSession().save(ep);
+				
+				int c=Integer.parseInt(a[11]);//子框数
+				int flag=4;
+				if(a[13].equals("ABCD")){
+					flag=1;
+				}else if(a[13].equals("1234")){
+					flag=2;
+				}else if(a[13].equals("01234")){//01234
+					flag=3;
+				}
+				//2.根据子框数n添加n条子框记录
+				int myoder=c;
+				for(int j=0;j<c;j++){
+					JfzsSubRack sr=new JfzsSubRack();
+					sr.setEquipId(equipId+i);
+					sr.setSlotCount(Integer.parseInt(a[12]));
+					if(flag==1){
+						int x=65+j;
+						char lb=(char)x;
+						sr.setLabel(lb+"");
+						sr.setOrderNo(myoder--);
+						
+					}else if(flag==2){
+						sr.setLabel((j+1)+"");
+						sr.setOrderNo(j+1);
+					}else if(flag==3){
+						sr.setLabel(j+"");
+						sr.setOrderNo(j+1);
+					}
+					System.out.println("Label:"+sr.getLabel()+""+"----order:"+sr.getOrderNo());
+					//设置设备Id
+					sr.setSubRackId(subRackId++);
+					System.out.println("small---"+sr.toString());
+					sessionFactory.getCurrentSession().save(sr);
+				}//for end
+				System.out.println("big---"+ep.toString());
+			}
+		return ;
 	}
 
 }

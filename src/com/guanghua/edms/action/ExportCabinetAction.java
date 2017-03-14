@@ -9,6 +9,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,11 +18,14 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang.StringUtils;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
+import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.struts2.ServletActionContext;
 import org.hibernate.Session;
@@ -323,4 +328,257 @@ public class ExportCabinetAction extends ActionSupport{
 		out.flush();
 		out.close();*/
 	}
+	//2.导入设备信息
+	public String importEquipment(){
+		System.out.println("wq--导入设备信息");
+		String errMsg="";
+		HttpServletResponse res=ServletActionContext.getResponse();
+		HttpServletRequest req=ServletActionContext.getRequest();
+		int cabinetId=Integer.parseInt(req.getParameter("cabinetId").trim());
+		// 获取到上传的文件
+		FileInputStream fis;
+		try {
+			fis = new FileInputStream(getUploadFile());
+			Workbook wb = WorkbookFactory.create(fis);
+			fis.close();
+			List<String[]> stringList = new ArrayList<String[]>();
+			
+			int sheetIndex = 0;
+			int columnNum = 0;
+			Sheet sheet = wb.getSheetAt(sheetIndex);// 获取到Excel文档中的第一个表单
+			if (sheet.getRow(1) != null) {//表格的第一行数据行不为空
+				columnNum = sheet.getRow(1).getLastCellNum() - sheet.getRow(1).getFirstCellNum();
+			}
+
+			if (columnNum <= 0) {
+				return null;
+			}
+			//for (Row row : sheet) {
+			for (int l = 1; l <= sheet.getLastRowNum(); l++) {
+				// 获取第i行
+				Row row = sheet.getRow(l);
+				String[] singleRow = new String[columnNum];
+				int n = 0;
+				for (int i = 0; i < columnNum; i++) {
+					Cell cell = row.getCell(i, Row.CREATE_NULL_AS_BLANK);
+					switch (cell.getCellType()) {
+					case Cell.CELL_TYPE_STRING:
+						singleRow[n] = cell.getStringCellValue().trim();
+						break;
+					case Cell.CELL_TYPE_NUMERIC: // 数值
+						if (DateUtil.isCellDateFormatted(cell)) {
+							singleRow[n] = String.valueOf(cell.getDateCellValue());
+						} else {
+							cell.setCellType(Cell.CELL_TYPE_STRING);
+							String temp = cell.getStringCellValue();
+
+							if (temp.indexOf(".") > -1) { // 判断是否包含小数点，如果不含小数点，则以字符串读取，如果含小数点，则转换为Double类型的字符串
+								singleRow[n] = String.valueOf(new Double(temp)).trim();
+							} else {
+								singleRow[n] = temp.trim();
+							}
+						}
+						break;
+					default:
+						singleRow[n] = "";
+						break;
+					}
+					n++;
+				}
+				/*if ("".equals(singleRow[0])) {
+					continue;
+				}*/
+				stringList.add(singleRow);
+				
+			}
+			int nullFlag=-1;
+			for(int c=0;c<stringList.size();c++){
+				for(int j=0;j<columnNum;j++){
+					
+					String a=stringList.get(c)[j];//9 10
+					if(j!=9&&j!=10){//设备厂商和版本信息可以为空，如果为空，默认为"暂无"
+						if(StringUtils.isEmpty(a)){
+							errMsg+="第"+(c+1)+"行,第"+j+"列不能为空！ ";
+							nullFlag=c;
+						}else{//不为空的情况下，判断具体列是否为数字
+							if(j==0||j==1||j==11||j==12){
+								if(StringUtils.isNumeric(a)==false){
+									errMsg+="第"+(c+1)+"行,第"+j+"列必须为数字类型！ ";
+									nullFlag=c;
+								}
+							}
+							if(j==6){//专业
+								if(a.equals("其他")){
+									stringList.get(c)[j]="0";
+								}else if(a.equals("传输")){
+									stringList.get(c)[j]="1";
+								}else if(a.equals("数据")){
+									stringList.get(c)[j]="2";
+								}else if(a.equals("电源")){
+									stringList.get(c)[j]="3";
+								}
+							}
+							
+						}
+							
+							
+					}
+					else{
+						if(a.equals("")||a.trim().equals("")){
+							stringList.get(c)[j]="暂无";
+						}
+					}
+					
+					System.out.print(stringList.get(c)[j]+"--");
+				}
+				if(nullFlag==c){//当前行有错，加个换行。
+					errMsg+="<br>";
+				}
+				System.out.println();
+			}
+			if(nullFlag!=-1){
+				req.setAttribute("errMsg",errMsg);
+				System.out.println(errMsg);
+				return ERROR;
+			}else{
+				cabinetService.addEquipmentList(stringList,cabinetId);
+			}
+			return "success";
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ERROR;
+		}
+			
+			
+	}
+	/*//导入板卡信息
+	public String importCard(){
+			System.out.println("wq--导入板卡信息");
+			String errMsg="";
+			HttpServletResponse res=ServletActionContext.getResponse();
+			HttpServletRequest req=ServletActionContext.getRequest();
+			int equipId=Integer.parseInt(req.getParameter("equipId").trim());
+			// 获取到上传的文件
+			FileInputStream fis;
+			
+			try {
+				fis = new FileInputStream(getUploadFile());
+				Workbook wb = WorkbookFactory.create(fis);
+				fis.close();
+				List<String[]> stringList = new ArrayList<String[]>();
+				
+				int sheetIndex = 0;
+				int columnNum = 0;
+				Sheet sheet = wb.getSheetAt(sheetIndex);// 获取到Excel文档中的第一个表单
+				if (sheet.getRow(1) != null) {//表格的第一行数据行不为空
+					columnNum = sheet.getRow(1).getLastCellNum() - sheet.getRow(1).getFirstCellNum();
+				}
+				if (columnNum <= 0) {
+					return null;
+				}
+				//for (Row row : sheet) {
+				for (int l = 1; l <= sheet.getLastRowNum(); l++) {
+					// 获取第i行
+					Row row = sheet.getRow(l);
+					String[] singleRow = new String[columnNum];
+					int n = 0;
+					for (int i = 0; i < columnNum; i++) {
+						Cell cell = row.getCell(i, Row.CREATE_NULL_AS_BLANK);
+						switch (cell.getCellType()) {
+						case Cell.CELL_TYPE_STRING:
+							singleRow[n] = cell.getStringCellValue().trim();
+							break;
+						case Cell.CELL_TYPE_NUMERIC: // 数值
+							if (DateUtil.isCellDateFormatted(cell)) {
+								DateFormat  sdf3=new SimpleDateFormat("yyyy/MM/dd");
+								String ssDate=sdf3.format(cell.getDateCellValue());
+								singleRow[n] =ssDate;
+							} else {
+								cell.setCellType(Cell.CELL_TYPE_STRING);
+								String temp = cell.getStringCellValue();
+								if (temp.indexOf(".") > -1) { // 判断是否包含小数点，如果不含小数点，则以字符串读取，如果含小数点，则转换为Double类型的字符串
+									singleRow[n] = String.valueOf(new Double(temp)).trim();
+								} else {
+									singleRow[n] = temp.trim();
+								}
+							}
+							break;
+						default:
+							singleRow[n] = "";
+							break;
+						}
+						n++;
+					}
+					stringList.add(singleRow);
+					
+				}
+				int nullFlag=-1;
+				System.out.println("string list size is---"+stringList.size());
+				for(int c=0;c<stringList.size();c++){
+					for(int j=0;j<columnNum;j++){
+						String a=stringList.get(c)[j];
+						if(StringUtils.isEmpty(a)){
+							errMsg+="第"+(c+1)+"行,第"+(j+1)+"列不能为空！ ";
+							nullFlag=c;
+						}else{//不为空的情况下，判断具体列
+							if(j==1||j==6){//
+								if(StringUtils.isNumeric(a)==false){
+									errMsg+="第"+(c+1)+"行,第"+(j+1)+"列必须为数字类型！ ";
+									nullFlag=c;
+								}
+							}
+							else if(j==7){//如果是第8列判断是否为
+								Row row = sheet.getRow(c+1);
+								Cell cell = row.getCell(7, Row.CREATE_NULL_AS_BLANK);
+								if(cell.getCellType()!=Cell.CELL_TYPE_NUMERIC){
+									errMsg+="第"+(c+1)+"行,第"+(j+1)+"列日期格式不为yyyy/MM/dd或日期不对！ ";
+									nullFlag=c;
+								}else{
+									if(!DateUtil.isCellDateFormatted(cell)){
+										errMsg+="第"+(c+1)+"行,第"+(j+1)+"列日期格式不为yyyy/MM/dd或日期不对！ ";
+										nullFlag=c;
+									}
+								}
+								
+							}else if(j==0){
+								stringList.get(c)[j]=a.toUpperCase();
+								
+								if(a.trim().length()>1){
+									errMsg+="第"+(c+1)+"行,第"+(j+1)+"列子框标志格式错误！ ";
+									nullFlag=c;
+								}else {
+									
+									if(cabinetService.getSubrackId(equipId, a)==0){
+										errMsg+="第"+(c+1)+"行,第"+(j+1)+"列子框标志不存在！ ";
+										nullFlag=c;
+									}
+								}
+							}
+							
+						}
+					
+						System.out.print(stringList.get(c)[j]+"--");
+					}
+					if(nullFlag==c){//当前行有错，加个换行。
+						errMsg+="<br>";
+					}
+					System.out.println();
+				}
+				if(nullFlag!=-1){
+					req.setAttribute("errMsg",errMsg);
+					System.out.println(errMsg);
+					return ERROR;
+				}else{
+					
+					cabinetService.addCardList(stringList,equipId);
+					
+				}
+				return "success";
+				
+			} catch (Exception e) {
+				e.printStackTrace();
+				return ERROR;
+			}
+		}*/
 }

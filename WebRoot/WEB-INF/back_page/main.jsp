@@ -171,7 +171,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <!-- 版权部分 -->
 <div region="south" style="text-align: center;height:40px;
 background:url(../img/mainbottombg.jpg);line-height: 40px;overflow:hidden;color:white;" border="false">
-    版权所有@冷饮批发管理系统  Copyright 2016-2017
+    版权所有@上海电信机房设备分布管理系统  Copyright 2016-2017
 </div>
 <!-- 创建菜单 -->
 <div id="mm" class="easyui-menu" style="width:120px;">
