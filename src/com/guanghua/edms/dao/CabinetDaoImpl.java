@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
+import org.hibernate.SQLQuery;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -282,9 +283,16 @@ public class CabinetDaoImpl implements CabinetDao {
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void addEquipmentList(List<String[]> equips, int cabinetId) {
-		Long equipId=Long.parseLong(sessionFactory.getCurrentSession().createSQLQuery("select max(equip_id)+1 from tlmanage.jfzs_equipment_manage").uniqueResult().toString());
-		Long subRackId=Long.parseLong(sessionFactory.getCurrentSession().createSQLQuery("select max(sub_rack_id)+1 from Tlmanage.Jfzs_Sub_Rack_Manage").uniqueResult().toString());
-			
+		Long equipId=Long.parseLong(sessionFactory.getCurrentSession().createSQLQuery("select max(equip_id)+1 from jfzs_equipment_manage").uniqueResult().toString());
+		Long subRackId=1L;
+		//Long subRackId=Long.parseLong(sessionFactory.getCurrentSession().createSQLQuery("select max(sub_rack_id)+1 from Jfzs_Sub_Rack_Manage").uniqueResult().toString());
+		List<Object> list  =  sessionFactory.getCurrentSession()
+				.createSQLQuery("select max(sub_rack_id)+1 from Jfzs_Sub_Rack_Manage").list();
+		if(list.get(0)!=null){
+			 subRackId=Long.parseLong(sessionFactory.getCurrentSession()
+					 .createSQLQuery("select max(sub_rack_id)+1 from Jfzs_Sub_Rack_Manage").uniqueResult().toString());
+		}
+		
 		for(int i=0;i<equips.size();i++){
 				//设置设备Id
 				//插入数据库
@@ -304,14 +312,14 @@ public class CabinetDaoImpl implements CabinetDao {
 				 * 2. 机柜面不在当前机柜的机柜面里的需要扩充当前机柜的机柜面；
 				 * 	       如（设备插入A面，机柜只有B面，则机柜需要更新为A面，B面）
 				 */
-				String spName=(sessionFactory.getCurrentSession().createSQLQuery(" select cabinet_surface from tlmanage.jfzs_cabinet_manage where cabinet_id="+cabinetId).uniqueResult().toString());
+				String spName=(sessionFactory.getCurrentSession().createSQLQuery(" select cabinet_surface from jfzs_cabinet_manage where cabinet_id="+cabinetId).uniqueResult().toString());
 				//插入数据库
 				if(spName.indexOf(a[5])!=-1){//包含
-					sessionFactory.getCurrentSession().createSQLQuery("update tlmanage.jfzs_cabinet_manage set spec_id="+Integer.parseInt(a[6])+" where cabinet_id="+cabinetId).executeUpdate();
+					sessionFactory.getCurrentSession().createSQLQuery("update jfzs_cabinet_manage set spec_id="+Integer.parseInt(a[6])+" where cabinet_id="+cabinetId).executeUpdate();
 				}else{
 					//不包含
 					spName+=","+a[5];
-					sessionFactory.getCurrentSession().createSQLQuery("update tlmanage.jfzs_cabinet_manage set cabinet_surface='"+spName+"',spec_id="+Integer.parseInt(a[6])+" where cabinet_id="+cabinetId).executeUpdate();
+					sessionFactory.getCurrentSession().createSQLQuery("update jfzs_cabinet_manage set cabinet_surface='"+spName+"',spec_id="+Integer.parseInt(a[6])+" where cabinet_id="+cabinetId).executeUpdate();
 				}
 				//end 2017/2/13
 				ep.setCategory(a[7]);

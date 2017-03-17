@@ -50,6 +50,8 @@
 		<property name="mappingResources" >
 			<list>
 				<value>com/guanghua/edms/domain/UserInfo.hbm.xml</value>
+				<value>com/guanghua/edms/domain/JfzsEquipment.hbm.xml</value>
+				<value>com/guanghua/edms/domain/JfzsSubRack.hbm.xml</value>
 			</list>
 		</property>
     </bean>

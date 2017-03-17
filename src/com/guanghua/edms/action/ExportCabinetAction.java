@@ -347,7 +347,7 @@ public class ExportCabinetAction extends ActionSupport{
 			int columnNum = 0;
 			Sheet sheet = wb.getSheetAt(sheetIndex);// 获取到Excel文档中的第一个表单
 			if (sheet.getRow(1) != null) {//表格的第一行数据行不为空
-				columnNum = sheet.getRow(1).getLastCellNum() - sheet.getRow(1).getFirstCellNum();
+				columnNum = sheet.getRow(0).getLastCellNum() - sheet.getRow(0).getFirstCellNum();
 			}
 
 			if (columnNum <= 0) {
