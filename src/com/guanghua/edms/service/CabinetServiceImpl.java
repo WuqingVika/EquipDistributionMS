@@ -60,5 +60,16 @@ public class CabinetServiceImpl implements CabinetService {
 		//3 设备管理中：批量添加设备信息
 		 cabinetDao.addEquipmentList(stringList,cabinetId);
 	}
+	@Override
+	public JSONObject selCardsByQuery(int pageSize, int rows, String juZhan, String jiFang, String cabinetId,
+			String gridId, String equipmentName) {
+		// TODO 板卡管理中：显示板卡信息
+		return cabinetDao.selCardsByQuery(pageSize, rows,juZhan,jiFang,cabinetId,gridId,equipmentName);
+	}
+	@Override
+	public List<Map<String, String>> selEquipmentByCabinetId(int cabinetId) {
+		// TODO 板卡管理 中：查看某个机柜中的设备列表
+		return cabinetDao.selEquipmentByCabinetId(cabinetId);
+	}
 
 }

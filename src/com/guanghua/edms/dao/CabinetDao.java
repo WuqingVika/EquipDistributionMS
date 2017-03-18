@@ -74,5 +74,24 @@ public interface CabinetDao {
 	 */
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public void addEquipmentList(List<String[]> equips,int cabinetId);
+	/**
+	 * 3-1.查询板卡信息
+	 * @param pageSize
+	 * @param rows
+	 * @param juZhan
+	 * @param jiFang
+	 * @param cabinetId
+	 * @param gridId
+	 * @param equipmentName
+	 * @return
+	 */
+	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
+	public JSONObject selCardsByQuery(int pageSize,int rows,String juZhan,String jiFang,String cabinetId,String gridId,String equipmentName);
 
+	/**
+	 * 3-2.根据机柜显示设备列表
+	 * @return 
+	 */
+	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
+	public List<Map<String, String>> selEquipmentByCabinetId(int cabinetId);
 }

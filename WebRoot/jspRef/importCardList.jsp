@@ -10,9 +10,8 @@ String cabinetId=request.getParameter("cabinetId");//cabinetId
 <html>
   <head>
     <base href="<%=basePath%>">
-    
-     <h:header/>	
-    <script language="javascript" src="/ywgl/ywgl/js/locale/easyui-lang-zh_CN.js"></script>
+    <jsp:include page="/jspRef/MainFrameworkRef.jsp"></jsp:include>
+    <script  type="text/javascript" src="${pageContext.request.contextPath }/js/jquery.form.js"></script>
     <title>导入板卡</title>
      
 	<style type="text/css">
@@ -88,7 +87,7 @@ String cabinetId=request.getParameter("cabinetId");//cabinetId
 					return;
 				}else{
 					//alert(filename+"   "+xlss);
-					$("#uploadFileForm").attr('action','<%=path%>/bkxx/cardinfo_import.do?equipId='+equipId);
+					$("#uploadFileForm").attr('action','<%=path%>/bkxx/cardinfo_import.action?equipId='+equipId);
 					$("#uploadFileForm").submit();
 				}
 			}
@@ -144,7 +143,7 @@ String cabinetId=request.getParameter("cabinetId");//cabinetId
    <SCRIPT type="text/javascript">
   
   $('#equipId').combobox({
-		url:'<%=path%>/bkxx/equipment_list_search.do?cabinetId=<%=cabinetId%>',
+		url:'<%=path%>/bkxx/equipment_list_search.action?cabinetId=<%=cabinetId%>',
 	    valueField:'EQUIP_ID',
 	    textField:'equipname',
 	   //select equip_id,concat(equip_name,concat('--',cabinet_surface)) from tlmanage.jfzs_equipment_manage where cabinet_id=4

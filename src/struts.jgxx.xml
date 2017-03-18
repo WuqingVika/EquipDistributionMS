@@ -74,14 +74,34 @@
 		<action name="equipmentinfo_import" class="exportCabinetAction" method="importEquipment">
 			<result name="success" >/WEB-INF/back_page/cproom/cabinetImportSuccess.jsp</result>
 			<result name="error" >/WEB-INF/back_page/cproom/cabinetImportError.jsp</result>
-			<!-- <interceptor-ref name="defaultStack">
-				设置文件的大小
-				<param name="fileUpload.maximumSize">1000000000</param>
-				设置文件的类型
-				<param name="fileUpload.allowedTypes">application/excel,application/vnd.ms-excel,text/plain</param>
-				文件的后缀
-				<param name="fileUpload.allowedExtensions">xls,xlsx</param>
-			</interceptor-ref> -->
 		</action>
+	</package>
+	
+	<!-- 3.板卡信息 -->
+	<package name="bkxx" namespace="/bkxx"
+		extends="json-default">
+		<result-types>
+            <result-type name="noAction" class="com.guanghua.edms.common.NoActionResult"/>
+        </result-types>
+        <!--3-1.下拉列表显示设备信息-->
+        <action name="bkxxListQuery" method="selCardsTogrid" 
+			class="jgxxAction">
+			<result type="json"></result>
+		</action>
+		<!-- 3-2.下拉列表显示设备信息-->
+		<action name="equipment_list_search" method="selEquipment"
+			class="jgxxAction">
+			<result type="json"></result>
+		</action>
+		<!-- 3-3.判断该机柜有没有设备信息-->
+		<action name="equipment_list_judge" method="judgeEquipment"
+			class="jgxxAction">
+			<result type="json"></result>
+		</action>
+		<!-- 3-4.判断该机柜有没有设备信息-->
+		<!-- <action name="cardinfo_import" class="exportCabinetAction" method="importCard">
+			<result name="success" >/WEB-INF/back_page/cproom/cabinetImportSuccess.jsp</result>
+			<result name="error" >/WEB-INF/back_page/cproom/cabinetImportError.jsp</result>
+		</action>  -->
 	</package>
 </struts>

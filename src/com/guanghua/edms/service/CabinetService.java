@@ -61,5 +61,24 @@ public interface CabinetService {
 	 * @param cabinetId
 	 */
 	public void addEquipmentList(List<String[]> stringList, int cabinetId);
+	/**
+	 * 3-1.查询板卡信息
+	 * @param pageSize
+	 * @param rows
+	 * @param juZhan
+	 * @param jiFang
+	 * @param cabinetId
+	 * @param gridId
+	 * @param equipmentName
+	 * @return
+	 */
+	public JSONObject selCardsByQuery(int pageSize, int rows, String juZhan, String jiFang, String cabinetId,
+			String gridId, String equipmentName);
+	/**
+	 * 3-2.下拉框显示设备信息 根据机柜查询设备
+	 * @param cabinetId
+	 * @return
+	 */
+	public List<Map<String, String>> selEquipmentByCabinetId(int cabinetId);
 	
 }

@@ -372,5 +372,92 @@ public class CabinetDaoImpl implements CabinetDao {
 			}
 		return ;
 	}
+	@Override
+	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
+	public JSONObject selCardsByQuery(int pageSize, int rows, String juZhan, String jiFang, String cabinetId,
+			String gridId, String equipmentName) {
+		StringBuffer sql=new StringBuffer();
+		StringBuffer countSql=new StringBuffer();
+		sql.append("  select a.card_id,e.room_no,d.cabinet_num,c.cabinet_surface,c.nu_num,c.equip_name,a.manufacturer,a.category,a.model,a.purpose,c.sub_rack_count,b.label,a.pos_idx"+
+		 " from jfzs_board_card_manage a,jfzs_sub_rack_manage b,jfzs_equipment_manage c,jfzs_cabinet_manage d,room e"+
+		" where a.sub_rack_id =b.sub_rack_id and b.equip_id=c.equip_id and c.cabinet_id=d.cabinet_id and d.room_id=e.room_id and e.district=20");
+		countSql.append(" select count(*) from ( select a.card_id,e.room_no,d.cabinet_num,c.cabinet_surface,c.nu_num,c.equip_name,a.manufacturer,a.category,a.model,a.purpose,c.sub_rack_count,b.label,a.pos_idx"+
+				 " from jfzs_board_card_manage a,jfzs_sub_rack_manage b,jfzs_equipment_manage c,jfzs_cabinet_manage d,room e"+
+				" where a.sub_rack_id =b.sub_rack_id and b.equip_id=c.equip_id and c.cabinet_id=d.cabinet_id and d.room_id=e.room_id and e.district=20");
+		System.out.println("psize:"+pageSize+"  rows:"+rows+"  juzhan:"+juZhan+" jiFang:"+jiFang+" cabinetId:"+cabinetId+" gridId:"+gridId+" equipmentName:"+equipmentName);
+		if(!"".equals(juZhan)){
+			int regionId=Integer.parseInt(juZhan.trim());
+			sql.append(" and e.region_id="+regionId);
+			countSql.append(" and e.region_id="+regionId);
+		}
+		if(!"".equals(jiFang)){
+			int roomId=Integer.parseInt(jiFang.trim());
+			sql.append(" and e.room_id="+roomId );
+			countSql.append(" and e.room_id="+roomId);
+		}
+		if(!"".equals(cabinetId)){
+			int caId=Integer.parseInt(cabinetId.trim());
+			sql.append(" and d.cabinet_id="+caId);
+			countSql.append("  and d.cabinet_id="+caId);
+		}
+		if(!"".equals(gridId)){
+			sql.append("  and c.nu_num like '%"+gridId+"%' ");
+			countSql.append("  and c.nu_num like '%"+gridId+"%' ");
+		}
+		if(!"".equals(equipmentName)){
+			sql.append(" and c.equip_name like '%"+equipmentName+"%' ");
+			countSql.append("  and c.equip_name like '%"+equipmentName+"%' ");
+		}
+		
+		List<Object[]> list=sessionFactory.getCurrentSession().createSQLQuery(sql.toString()).setFirstResult((pageSize - 1) * rows).setMaxResults(rows).list();
+		countSql.append(") aa");
+		JSONObject result = new JSONObject();
+		if(pageSize==1){
+			System.out.println();
+			String str=sessionFactory.getCurrentSession().createSQLQuery(countSql.toString()).uniqueResult().toString();
+			int count=Integer.parseInt(str);
+			result.put("total", count);
+		}
+		JSONArray jsonArray=new JSONArray();
+		for (Object[] objects  : list) {
+			JSONObject jsonObject=new JSONObject();
+			jsonObject.put("CARD_ID", objects[0]);
+			jsonObject.put("ROOM_NO", objects[1]);
+			jsonObject.put("CABINET_NUM", objects[2]);
+			jsonObject.put("CABINET_SURFACE", objects[3]);
+			jsonObject.put("NU_NUM", objects[4]);
+			jsonObject.put("EQUIP_NAME", objects[5]);
+			
+			jsonObject.put("MANUFACTURER", objects[6]);
+			jsonObject.put("CATEGORY", objects[7]);
+			jsonObject.put("MODEL", objects[8]);
+			jsonObject.put("PURPOSE", objects[9]);
+			jsonObject.put("SUB_RACK_COUNT", objects[10]);
+			
+			jsonObject.put("LABEL",objects[11]);
+			jsonObject.put("POS_X", objects[12]);
+			jsonArray.add(jsonObject);
+		}
+		result.put("rows", jsonArray);
+		result.put("assSql", sql.toString());
+		return result;
+	}
+	@Override
+	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
+	public List<Map<String, String>> selEquipmentByCabinetId(int cabinetId) {
+		//根据机柜查询设备
+		/*Connection conn = this.session.connection();*/
+		Connection conn = this.sessionFactory.getCurrentSession().connection();
+		StringBuffer sql = new StringBuffer();
+		sql.append("select equip_id,concat(equip_name,concat('--',cabinet_surface)) as \"equipname\"  from jfzs_equipment_manage where cabinet_id=").append(cabinetId);
+		try {
+			List<Map<String, String>> list = SQLUtil
+					.query(conn, sql.toString());
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
 
 }
