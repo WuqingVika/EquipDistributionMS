@@ -99,9 +99,9 @@
 			<result type="json"></result>
 		</action>
 		<!-- 3-4.判断该机柜有没有设备信息-->
-		<!-- <action name="cardinfo_import" class="exportCabinetAction" method="importCard">
+		<action name="cardinfo_import" class="exportCabinetAction" method="importCard">
 			<result name="success" >/WEB-INF/back_page/cproom/cabinetImportSuccess.jsp</result>
 			<result name="error" >/WEB-INF/back_page/cproom/cabinetImportError.jsp</result>
-		</action>  -->
+		</action> 
 	</package>
 </struts>

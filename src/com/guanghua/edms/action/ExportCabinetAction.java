@@ -452,7 +452,7 @@ public class ExportCabinetAction extends ActionSupport{
 			
 			
 	}
-	/*//导入板卡信息
+	//导入板卡信息
 	public String importCard(){
 			System.out.println("wq--导入板卡信息");
 			String errMsg="";
@@ -461,13 +461,11 @@ public class ExportCabinetAction extends ActionSupport{
 			int equipId=Integer.parseInt(req.getParameter("equipId").trim());
 			// 获取到上传的文件
 			FileInputStream fis;
-			
 			try {
 				fis = new FileInputStream(getUploadFile());
 				Workbook wb = WorkbookFactory.create(fis);
 				fis.close();
 				List<String[]> stringList = new ArrayList<String[]>();
-				
 				int sheetIndex = 0;
 				int columnNum = 0;
 				Sheet sheet = wb.getSheetAt(sheetIndex);// 获取到Excel文档中的第一个表单
@@ -543,7 +541,6 @@ public class ExportCabinetAction extends ActionSupport{
 								
 							}else if(j==0){
 								stringList.get(c)[j]=a.toUpperCase();
-								
 								if(a.trim().length()>1){
 									errMsg+="第"+(c+1)+"行,第"+(j+1)+"列子框标志格式错误！ ";
 									nullFlag=c;
@@ -557,7 +554,6 @@ public class ExportCabinetAction extends ActionSupport{
 							}
 							
 						}
-					
 						System.out.print(stringList.get(c)[j]+"--");
 					}
 					if(nullFlag==c){//当前行有错，加个换行。
@@ -570,9 +566,7 @@ public class ExportCabinetAction extends ActionSupport{
 					System.out.println(errMsg);
 					return ERROR;
 				}else{
-					
 					cabinetService.addCardList(stringList,equipId);
-					
 				}
 				return "success";
 				
@@ -580,5 +574,5 @@ public class ExportCabinetAction extends ActionSupport{
 				e.printStackTrace();
 				return ERROR;
 			}
-		}*/
+		}
 }

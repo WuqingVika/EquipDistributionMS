@@ -52,6 +52,7 @@
 				<value>com/guanghua/edms/domain/UserInfo.hbm.xml</value>
 				<value>com/guanghua/edms/domain/JfzsEquipment.hbm.xml</value>
 				<value>com/guanghua/edms/domain/JfzsSubRack.hbm.xml</value>
+				<value>com/guanghua/edms/domain/JfzsBoardCardManage.hbm.xml</value>
 			</list>
 		</property>
     </bean>

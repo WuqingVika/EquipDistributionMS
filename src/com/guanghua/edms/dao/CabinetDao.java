@@ -94,4 +94,17 @@ public interface CabinetDao {
 	 */
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 	public List<Map<String, String>> selEquipmentByCabinetId(int cabinetId);
+	/**
+	 * 3-3.指量添加板卡信息
+	 */
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public void addCardList(List<String[]> cards,int equipId);
+	/**
+	 * 3-4.根据设备Id和子框显示标志，查询子框Id是否存在 
+	 * @param equipId 设备id
+	 * @param label 子框显示标志
+	 * @return
+	 */
+	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
+	public int getSubrackId(int equipId,String label);
 }

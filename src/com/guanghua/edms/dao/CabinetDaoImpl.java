@@ -15,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.guanghua.brick.db.SQLUtil;
 import com.guanghua.edms.domain.AddCabinet;
+import com.guanghua.edms.domain.JfzsBoardCardManage;
 import com.guanghua.edms.domain.JfzsEquipment;
 import com.guanghua.edms.domain.JfzsSubRack;
 
@@ -459,5 +460,53 @@ public class CabinetDaoImpl implements CabinetDao {
 		}
 		return null;
 	}
-
+	/**
+	 * 批量导入板卡信息
+	 */
+	@Override
+	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
+	public void addCardList(List<String[]> cards, int equipId) {
+		//Long cardId=Long.parseLong(sessionFactory.getCurrentSession().createSQLQuery("select max(card_id)+1 from jfzs_board_card_manage").uniqueResult().toString());
+		Long cardId=1L;
+		//Long subRackId=Long.parseLong(sessionFactory.getCurrentSession().createSQLQuery("select max(sub_rack_id)+1 from Jfzs_Sub_Rack_Manage").uniqueResult().toString());
+		List<Object> list  =  sessionFactory.getCurrentSession()
+				.createSQLQuery("select max(card_id)+1 from jfzs_board_card_manage").list();
+		if(list.get(0)!=null){
+			cardId=Long.parseLong(sessionFactory.getCurrentSession().createSQLQuery("select max(card_id)+1 from jfzs_board_card_manage").uniqueResult().toString());
+		}
+		for(int i=0;i<cards.size();i++){
+				//设置设备Id
+				//插入数据库
+				String[] a=cards.get(i);
+					JfzsBoardCardManage bcm=new JfzsBoardCardManage();
+					bcm.setCardId(cardId+i);//板卡Id
+					
+					//查询子框Id(根据标志和设备Id得到子框Id)
+					Long subRackId=Long.parseLong(sessionFactory.getCurrentSession().createSQLQuery("select sub_rack_id from JFZS_SUB_RACK_MANAGE where equip_id="+equipId+" and label='"+a[0]+"'").uniqueResult().toString());
+					bcm.setSubRackId(subRackId);//子框Id
+					
+					bcm.setOccupySlotNum(Integer.parseInt(a[1]));//所占槽位数
+					bcm.setManufacturer(a[2]);
+					bcm.setPurpose(a[3]);
+					bcm.setCategory(a[4]);
+					bcm.setModel(a[5]);
+					bcm.setAssetNo("");
+					bcm.setPosIdx(Integer.parseInt(a[6]));
+					bcm.setChangeDate(a[7]);
+					//1.插入设备数据信息
+					sessionFactory.getCurrentSession().save(bcm);
+		}
+			return ;
+	}
+    //根据用户输入的子框标志和传入的设备Id，查询对应的子框Id
+	@Override
+	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
+	public int getSubrackId(int equipId, String label) {
+		System.out.println("hahha"+equipId+label);
+		List<Object[]> list=sessionFactory.getCurrentSession().createSQLQuery("select sub_rack_id from JFZS_SUB_RACK_MANAGE where equip_id="+equipId+" and label='"+label+"'").list();
+		if(list.size()>0){
+			return 1;
+		}
+		return 0;
+	}
 }

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE hibernate-mapping PUBLIC 
+    "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+    "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+    
+<hibernate-mapping>
+
+	<class name="com.guanghua.edms.domain.JfzsBoardCardManage" table="jfzs_board_card_manage">
+		<id name="cardId" column="CARD_ID" >
+			<generator class="native"/>
+		</id>
+		<property name="subRackId" column="SUB_RACK_ID"  />
+		<property name="occupySlotNum" column="OCCUPY_SLOT_NUM" />
+		<property name="manufacturer" column="MANUFACTURER" />
+		<property name="purpose" column="PURPOSE" />
+		<property name="category" column="CATEGORY"  />
+		<property name="model" column="MODEL" />
+		<property name="assetNo" column="ASSET_NO" />
+		<property name="posIdx" column="POS_IDX" />
+		<property name="changeDate" column="CHANGE_DATE" />
+	</class>
+</hibernate-mapping>

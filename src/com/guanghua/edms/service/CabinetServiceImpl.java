@@ -71,5 +71,16 @@ public class CabinetServiceImpl implements CabinetService {
 		// TODO 板卡管理 中：查看某个机柜中的设备列表
 		return cabinetDao.selEquipmentByCabinetId(cabinetId);
 	}
+	@Override
+	public void addCardList(List<String[]> cards, int equipId) {
+		//板卡管理中：批量添加板卡信息
+		cabinetDao.addCardList(cards, equipId);
+		
+	}
+	@Override
+	public int getSubrackId(int equipId, String label) {
+		//找到关联的子框。
+		return cabinetDao.getSubrackId(equipId, label);
+	}
 
 }

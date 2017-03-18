@@ -96,7 +96,9 @@ String cabinetId=request.getParameter("cabinetId");//cabinetId
     }
 	//导出模板
 	function exc(){
-		window.location='${pageContext.request.contextPath}/ywgl/platform/cardResourceInfo.xls';
+		//window.location='${pageContext.request.contextPath}/ywgl/platform/cardResourceInfo.xls';
+		var strUrl = '<%=path%>/jgxx/doExport.action?filename='+encodeURI(encodeURI("板卡模板"));
+		window.location.href=strUrl;
 	}
 	
 </SCRIPT>

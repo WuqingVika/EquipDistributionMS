@@ -3,6 +3,9 @@ package com.guanghua.edms.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.guanghua.edms.domain.AddCabinet;
 
 import net.sf.json.JSONObject;
@@ -80,5 +83,17 @@ public interface CabinetService {
 	 * @return
 	 */
 	public List<Map<String, String>> selEquipmentByCabinetId(int cabinetId);
+	
+	/**
+	 * 3-3.指量添加板卡信息
+	 */
+	public void addCardList(List<String[]> cards,int equipId);
+	/**
+	 * 3-4.根据设备Id和子框显示标志，查询子框Id是否存在 
+	 * @param equipId 设备id
+	 * @param label 子框显示标志
+	 * @return
+	 */
+	public int getSubrackId(int equipId,String label);
 	
 }
