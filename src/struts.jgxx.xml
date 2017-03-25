@@ -104,4 +104,17 @@
 			<result name="error" >/WEB-INF/back_page/cproom/cabinetImportError.jsp</result>
 		</action> 
 	</package>
+	<!-- 4.专业信息 -->
+	<package name="spec" namespace="/spec"
+		extends="json-default">
+		<result-types>
+            <result-type name="noAction" class="com.guanghua.edms.common.NoActionResult"/>
+        </result-types>
+        <!--7-1.下拉列表显示设备信息-->
+        <action name="SpecListQuery" method="selSpecsTogrid" 
+			class="jgxxAction">
+			<result type="json"></result>
+		</action>
+		
+	</package>
 </struts>

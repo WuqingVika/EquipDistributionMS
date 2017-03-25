@@ -509,4 +509,38 @@ public class CabinetDaoImpl implements CabinetDao {
 		}
 		return 0;
 	}
+	//4-1.查询专业列表
+	@Override
+	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
+	public JSONObject selSpecsByQuery(int pageSize, int rows,String specName) {
+		StringBuffer sql=new StringBuffer();
+		StringBuffer countSql=new StringBuffer();
+		sql.append(" select  spec_id,spec_name from jfzs_spec_manage ");
+		countSql.append(" select count(*) from (select  spec_id,spec_name from jfzs_spec_manage");
+		
+		if(!"".equals(specName)){
+			sql.append(" where  spec_name  like '%"+specName+"%' ");
+			countSql.append(" where spec_name like '%"+specName+"%' ");
+		}
+		countSql.append(" ) aa");
+		
+		List<Object[]> list=sessionFactory.getCurrentSession().createSQLQuery(sql.toString()).setFirstResult((pageSize - 1) * rows).setMaxResults(rows).list();
+		JSONObject result = new JSONObject();
+		if(pageSize==1){
+			System.out.println();
+			String str=sessionFactory.getCurrentSession().createSQLQuery(countSql.toString()).uniqueResult().toString();
+			int count=Integer.parseInt(str);
+			result.put("total", count);
+		}
+		JSONArray jsonArray=new JSONArray();
+		for (Object[] objects  : list) {
+			JSONObject jsonObject=new JSONObject();
+			jsonObject.put("specId", objects[0]);
+			jsonObject.put("specName", objects[1]);
+			jsonArray.add(jsonObject);
+		}
+		result.put("rows", jsonArray);
+		result.put("specSql", sql.toString());
+		return result;
+	}
 }

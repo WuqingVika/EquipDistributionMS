@@ -95,5 +95,12 @@ public interface CabinetService {
 	 * @return
 	 */
 	public int getSubrackId(int equipId,String label);
+	/**
+	 * 4-1.查询专业列表
+	 * @param pageSize
+	 * @param rows
+	 * @return
+	 */
+	public JSONObject selSpecsByQuery(int pageSize, int rows,String specName);
 	
 }

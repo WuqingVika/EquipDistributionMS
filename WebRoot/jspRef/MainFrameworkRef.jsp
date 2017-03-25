@@ -10,3 +10,4 @@
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/easyui/jquery.min.js"></script>   
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/easyui/jquery.easyui.min.js"></script> 
 <script type="text/javascript" src="${pageContext.request.contextPath }/js/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript" src="${pageContext.request.contextPath }/js/easyui/plugins/datagrid-detailview.js"></script>

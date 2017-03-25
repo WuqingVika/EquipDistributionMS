@@ -114,7 +114,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     'text':'专业管理',
                     'iconCls':'icon-search',
                     'attributes':{
-                        'url':'fm/documentInquiry.html'
+                        'url':'<%=path %>/user/toSpecList.action'
                     }
                 },
                 {

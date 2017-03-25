@@ -82,5 +82,9 @@ public class CabinetServiceImpl implements CabinetService {
 		//找到关联的子框。
 		return cabinetDao.getSubrackId(equipId, label);
 	}
+	@Override
+	public JSONObject selSpecsByQuery(int pageSize, int rows,String specName) {
+		return cabinetDao.selSpecsByQuery( pageSize,  rows,specName);
+	}
 
 }

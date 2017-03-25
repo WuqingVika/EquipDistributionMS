@@ -344,4 +344,30 @@ public class JgxxAction extends BaseAction implements ServletRequestAware{
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * 4-1.查询专业列表
+	 * @throws CustomException
+	 */
+	public void selSpecsTogrid() throws CustomException {
+		System.out.println("wq--4-1.---查询专业列表--信息请求");
+		HttpServletResponse res=ServletActionContext.getResponse();
+		HttpServletRequest req=ServletActionContext.getRequest();
+		res.setCharacterEncoding("utf-8");
+		try {
+			int pageSize = Integer.parseInt(req.getParameter("page"));
+		    int rows = Integer.parseInt(req.getParameter("rows"));
+		    String specName = req.getParameter("specName").trim();
+			JSONObject result=cabinetService.selSpecsByQuery(pageSize, rows,specName);
+			String specSql=(String)result.get("specSql");
+			req.getSession().setAttribute("specSql", specSql);
+			PrintWriter out=res.getWriter();
+			out.println(result.toString());
+			out.flush();
+			out.close();
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}	
 }

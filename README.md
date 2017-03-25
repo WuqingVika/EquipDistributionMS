@@ -1,4 +1,4 @@
-# EquipDistributionMS 《那些年屎香香走过的坑》
+# EquipDistributionMS 《那些年屎香香填过的坑》
 屎香香的毕业设计-机房设备分布管理系统
 
 ## 2017年2月25号跳的如下哈哈哈
@@ -13,3 +13,12 @@
 ## 2017年3月18号跳的如下哈哈哈
 + getCurrentSession与 openSession区别。
 + 【Field 'CARD_ID' doesn't have a default value】mysql注意主键设为自动递增，我把decimal改成bigint就ok.
+
+## 2017年3月25号跳的如下哈哈哈
++ 【一个很坑的低级的 就是datagrid判断获取行数时，当前页面如果选勾，再刷新数据就会把之前勾上的条数累加】 idField="specId"是这个字段。
++ 修改已有记录的mysql数据表的主键为自动增长时,报出以下错误
+【ALTER TABLE causes auto_increment resequencing, resulting in duplicate entry ’1′ for key ‘PRIMARY’】
+ ``` 第1步：将主键字段值为0的那条记录值改为其他大于0且不重复的任意数
+ 第2步：修改主键字段为auto_increment
+第3步：把刚才修改过的那条记录的值还原
+ ``` 

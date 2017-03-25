@@ -81,7 +81,12 @@ public class LoginAction extends ActionSupport  implements ModelDriven<UserInfo>
 	public String toCardList() throws Exception {
 		return SUCCESS;
 	}
-	
+	/*
+	 * 跳转到专业列表
+	 */
+	public String toSpecList() throws Exception {
+		return SUCCESS;
+	}
 	/*private static final Log logger = LogFactory.getLog(LoginAction.class);
 	private List<Object> rows;			// datagrid数据	
 	private Map<String, String> results;

@@ -107,4 +107,12 @@ public interface CabinetDao {
 	 */
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 	public int getSubrackId(int equipId,String label);
+	/**
+	 * 4-1.查询专业列表
+	 * @param pageSize
+	 * @param rows
+	 * @return
+	 */
+	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
+	public JSONObject selSpecsByQuery(int pageSize, int rows,String specName);
 }

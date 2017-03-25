@@ -22,6 +22,9 @@
     	 <action name="toCardList" method="toCardList" class="loginAction">
             <result name="success">/WEB-INF/back_page/card/cardList.jsp</result>
         </action>
-        
+        <!-- 跳转到专业列表 -->
+    	 <action name="toSpecList" method="toSpecList" class="loginAction">
+            <result name="success">/WEB-INF/back_page/spec/specList.jsp</result>
+        </action>
     </package>
 </struts>
