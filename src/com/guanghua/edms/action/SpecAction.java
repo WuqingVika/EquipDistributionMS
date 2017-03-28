@@ -50,6 +50,7 @@ public class SpecAction extends BaseAction implements ServletRequestAware, Model
 		//将标记传给前台
 		Map<String, String> msg=new HashMap<String, String>();
 		msg.put("msg",addFlag+"");
+		System.out.println("----------------"+msg.get("msg").toString());
 		List<Map<String, String>> flags=new ArrayList<Map<String,String>>();
 		flags.add(msg);
 		JSONArray jsonArray = JSONArray.fromObject( flags );
@@ -69,6 +70,7 @@ public class SpecAction extends BaseAction implements ServletRequestAware, Model
 		System.out.println("wq--------2.修改专业请求");
 		HttpServletResponse res=ServletActionContext.getResponse();
 		res.setCharacterEncoding("utf-8");
+		
 		int editFlag=0;
 		if(spec!=null){
 			editFlag=specService.editSpec(spec);

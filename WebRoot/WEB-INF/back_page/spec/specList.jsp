@@ -37,7 +37,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             <div id="myDialog" class="easyui-dialog" style="width: 450px; height: 300px; padding: 10px 20px;"
       				 closed="true" buttons="#dlg-buttons" data-options="modal: true" title="专业--修改"> 
             	<form id="jvForm"  method="post">
-            		<input id="specId"  name="specId" hidden="true"/>
+            		<input id="specId"  name="specId" hidden="true" />
             		  	<table cellpadding="5">
             		  		<tr>
 				    			<td>专业名称:</td>
@@ -45,7 +45,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    		</tr>
 	    				</table>
 	    				<div style="padding:5px;text-align:center;">
-				            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveSpec()" icon="icon-ok">确认修改</a>
+				            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="saveSpec()" icon="icon-ok">保存</a>
 				            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="javascript:$('#myDialog').dialog('close')" icon="icon-cancel">取消</a>
        					</div>
 				</form>
@@ -107,12 +107,12 @@ function loadSearchData(specName){
       var myurl='';
       function newSpec() {//弹出添加窗口
     	//变更url
-    	myurl = '<%=path%>/spec/SpecAdd.action';
+    	myurl = '<%=path%>/mySpec/addMySpec.action';
       	// 重置表单
  		$("#jvForm").form("reset");
         $("#myDialog").dialog("open").dialog('setTitle','添加专业'); 
-          //;
          // document.getElementById("hidtype").value="submit";
+         
       }
        
      function editSpec() {//弹出修改窗口
@@ -131,31 +131,30 @@ function loadSearchData(specName){
             if (row) {
                $("#myDialog").dialog("open").dialog('setTitle','修改专业');
             	 //变更url
-            	myurl = '<%=path%>/spec/SpecAdd.action?specId='+ row.specId;
+            	myurl = '<%=path%>/mySpec/editMySpec.action';//?specId='+ row.specId;
                 $("#jvForm").form("load", row);
             }
        	}
        }
-      	  function saveSpec() {//保存修改记录
-				        	alert("保存成功！");
-				        	$("#myDialog").dialog("close");
-//				            $("#fm").form("submit", {
-//				                url: url,
-//				                onsubmit: function () {
-//				                    return $(this).form("validate");
-//				                },
-//				                success: function (result) {
-//				                    if (result == "1") {
-//				                        $.messager.alert("提示信息", "操作成功");
-//				                        $("#dlg").dialog("close");
-//				                        $("#dg").datagrid("load");
-//				                    }
-//				                    else {
-//				                        $.messager.alert("提示信息", "操作失败");
-//				                    }
-//				                }
-//				            });
-				        }
+  function saveSpec() {//保存修改记录
+    $("#jvForm").form("submit", {
+           url: myurl,
+           onsubmit: function () {
+               return $(this).form("validate");
+           },
+           success: function (result) {
+              if (JSON.parse(result)[0].msg=="1") {
+                   $.messager.alert("提示信息", "操作成功");
+                   $("#myDialog").dialog("close");
+                   $("#dg").datagrid("load");
+               }
+               else {
+               	$("#myDialog").dialog("close");
+                  	$.messager.alert("提示信息", "操作失败");
+              	} 
+          	}
+      });
+  }
        function delSpec() {
        	var rows=$("#dg").datagrid("getSelections");
        	var len=rows.length;

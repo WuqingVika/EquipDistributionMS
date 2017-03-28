@@ -34,7 +34,7 @@ public class SpecDaoImpl implements SpecDao {
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public int editSpec(Spec spec) {
 		try {
-			sessionFactory.getCurrentSession().createSQLQuery("update Jfzs_spec_Manage set spec_name='"+spec.getSpecName()+"' where cabinet_id="+spec.getSpecId()).executeUpdate();
+			sessionFactory.getCurrentSession().createSQLQuery("update Jfzs_spec_Manage set spec_name='"+spec.getSpecName()+"' where spec_id="+spec.getSpecId()).executeUpdate();
 		} catch (HibernateException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

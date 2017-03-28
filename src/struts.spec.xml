@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<!-- 1.专业信息管理 -->
+	<package name="mySpec" namespace="/mySpec"
+		extends="json-default">
+		<result-types>
+            <result-type name="noAction" class="com.guanghua.edms.common.NoActionResult"/>
+        </result-types>
+        <!--1-1.增加新专业-->
+        <action name="addMySpec" method="addMySpec" 
+			class="specAction">
+			<result type="json"></result>
+		</action>
+		<!-- 1-2.修改专业信息-->
+		<action name="editMySpec" method="editMySpec"
+			class="specAction">
+			<result type="json"></result>
+		</action>
+		
+	</package>
+
+</struts>
