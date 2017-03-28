@@ -1,4 +1,4 @@
-# EquipDistributionMS 《那些年屎香香填过的坑》:blush:
+# EquipDistributionMS 《那些年:smirk:屎香香填过的坑》
 屎香香的毕业设计-机房设备分布管理系统   
 
 ## :blush: 2017年2月25号跳的如下哈哈哈
