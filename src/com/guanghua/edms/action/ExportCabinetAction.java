@@ -416,6 +416,8 @@ public class ExportCabinetAction extends ActionSupport{
 									stringList.get(c)[j]="2";
 								}else if(a.equals("电源")){
 									stringList.get(c)[j]="3";
+								}else{//就是其他
+									stringList.get(c)[j]="0";
 								}
 							}
 							

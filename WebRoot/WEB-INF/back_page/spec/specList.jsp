@@ -80,7 +80,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 /* $(function(){
 	var s="";
 	loadSearchData(s);
-}); */
+});  */
 function loadWqData(){
 	var specName=document.getElementById("specName").value; 
 	loadSearchData(specName);
@@ -144,13 +144,13 @@ function loadSearchData(specName){
            },
            success: function (result) {
               if (JSON.parse(result)[0].msg=="1") {
-                   $.messager.alert("提示信息", "操作成功");
+                   $.messager.alert("提示信息", "操作成功!");
                    $("#myDialog").dialog("close");
                    $("#dg").datagrid("load");
                }
                else {
                	$("#myDialog").dialog("close");
-                  	$.messager.alert("提示信息", "操作失败");
+                  	$.messager.alert("提示信息", "操作失败!");
               	} 
           	}
       });
@@ -158,23 +158,26 @@ function loadSearchData(specName){
        function delSpec() {
        	var rows=$("#dg").datagrid("getSelections");
        	var len=rows.length;
+       	var ids='';//要删除的id列表;
        	if(len==0){
        		alert('请选择任一专业进行删除!');
        		return false;
        	}else if(len>1){
        		$.messager.confirm('Confirm', '您确定进行批量删除？', function (r) {
                    if (r) {
-				                    	alert('dels success!');
-//				                        $.post('destroy_user.php', { id: row.id }, function (result) {
-//				                            if (result.success) {
-//				                                $('#dg').datagrid('reload');    // reload the user data  
-//				                            } else {
-//				                                $.messager.show({   // show error message  
-//				                                    title: 'Error',
-//				                                    msg: result.errorMsg
-//				                                });
-//				                            }
-//				                        }, 'json');
+                	   for(var x=0;x<len;x++){
+                		   ids+=rows[x].specId+",";
+                	   }
+                       $.post('<%=path%>/mySpec/delMySpecs.action', { ids: ids }, function (result) {
+                          if (result[0].msg=="1") {//JSON.parse(result)[0]  result[0].msg
+                              $('#dg').datagrid('reload');   
+                          } else if(result[0].msg=="2"){
+                        		$.messager.alert("提示信息", "本次操作已为您过滤正在使用的专业项,仅删除未使用专业！");
+                        		$('#dg').datagrid('reload');
+                           }else{
+                        		$.messager.alert("提示信息", "操作失败!");
+                           }
+                      }, 'json');
                     }
                 });
         	}else{
@@ -182,17 +185,17 @@ function loadSearchData(specName){
         		if (row) {
                 $.messager.confirm('Confirm', '您确定要删除'+row.specName+'？', function (r) {
                     if (r) {
-                    	alert('del success!');
-//				                        $.post('destroy_user.php', { id: row.id }, function (result) {
-//				                            if (result.success) {
-//				                                $('#dg').datagrid('reload');    // reload the user data  
-//				                            } else {
-//				                                $.messager.show({   // show error message  
-//				                                    title: 'Error',
-//				                                    msg: result.errorMsg
-//				                                });
-//				                            }
-//				                        }, 'json');
+                    	ids=row.specId;
+                    	$.post('<%=path%>/mySpec/delMySpecs.action', { ids: ids }, function (result) {
+                            if (result[0].msg=="1") {
+                                $('#dg').datagrid('reload');   
+                            } else if(result[0].msg=="2"){
+                          		$.messager.alert("提示信息", "本次操作已为您过滤正在使用的专业项,仅删除未使用专业！");
+                          		$('#dg').datagrid('reload');
+                             }else{
+                          		$.messager.alert("提示信息", "操作失败");
+                             }
+                        }, 'json');
                     }
                 });
            	 }
@@ -212,5 +215,6 @@ function loadSearchData(specName){
   	 function refresh(){
   		 $("#dg").datagrid("reload");
   	 }
+
    </script>
 </html>

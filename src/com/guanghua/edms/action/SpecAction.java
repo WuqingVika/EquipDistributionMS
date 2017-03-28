@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import javax.annotation.Resource;
@@ -90,6 +91,52 @@ public class SpecAction extends BaseAction implements ServletRequestAware, Model
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * 3.移除专业
+	 */
+	public void delMySpecs(){
+		System.out.println("wq--------3.删除专业请求");
+		HttpServletResponse res=ServletActionContext.getResponse();
+		HttpServletRequest req=ServletActionContext.getRequest();
+		res.setCharacterEncoding("utf-8");
+		List<Spec> specs=new ArrayList<Spec>();
+		/**
+		 * 分割 ids
+		 */
+		String ids=req.getParameter("ids");
+		String[] idArray = ids.split(","); 
+		if (idArray != null && idArray.length > 0) {  
+             //List<Long> uploadIds = new LinkedList<Long>(); 
+             for (String id : idArray) {  
+            	 Spec newSpec=new Spec();
+            	 newSpec.setSpecId(Long.valueOf(id));
+            	 specs.add(newSpec);
+             }
+         }  
+		/* 分割 end*/
+		
+		int delFlag=0;
+		if(specs!=null&&specs.size()!=0){
+			System.out.println("4-1**---------------ids:"+ids+"-----------sepcsize:"+specs.size());
+			delFlag=specService.removeSpecs(specs);
+		}
+		//将标记传给前台
+		Map<String, String> msg=new HashMap<String, String>();
+		msg.put("msg",delFlag+"");
+		System.out.println("del----------------"+msg.get("msg").toString());
+		List<Map<String, String>> flags=new ArrayList<Map<String,String>>();
+		flags.add(msg);
+		JSONArray jsonArray = JSONArray.fromObject( flags );
+		try {
+			PrintWriter out=res.getWriter();
+			jsonArray.write(out);
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	@Override
 	public void setServletRequest(HttpServletRequest request) {
 		this.request = request;

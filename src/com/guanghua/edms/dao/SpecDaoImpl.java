@@ -6,6 +6,7 @@ import java.util.List;
 import org.hibernate.HibernateException;
 import org.hibernate.SQLQuery;
 import org.hibernate.SessionFactory;
+import org.hibernate.classic.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Propagation;
@@ -47,14 +48,16 @@ public class SpecDaoImpl implements SpecDao {
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public int removeSpecs(List<Spec> specs) {
 		//
+		Session currentSession = sessionFactory.getCurrentSession();
 		int res=0;
 		for(int i=0;i<specs.size();i++){
 			//判断每个专业下是否有数据。如果有不能删除，如果没有则可以删除
-			List<Object[]> list=sessionFactory.getCurrentSession().createSQLQuery("select * from jfzs_cabinet_manage where spec_id="+specs.get(i).getSpecId()).list();;
+			List<Object[]> list=currentSession.createSQLQuery("select * from jfzs_cabinet_manage where spec_id="+specs.get(i).getSpecId()).list();;
 			if(list.size()==0){
 				//可以删
-			  try {
-				sessionFactory.getCurrentSession().createSQLQuery("delete  from Jfzs_spec_Manage where spec_id="+specs.get(i).getSpecId());
+				System.out.println("-------------可以删！");
+			  try {//saveOrUpdate
+				currentSession.createSQLQuery("delete  from Jfzs_spec_Manage where spec_id="+specs.get(i).getSpecId()).executeUpdate();
 			} catch (HibernateException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -62,9 +65,14 @@ public class SpecDaoImpl implements SpecDao {
 			}
 				
 			}else{
-				res=2;//代表有没删的
+				System.out.println("不能删");
+				res=2;//代表不能删的
 				continue;//跳过
 			}
+		}
+		if(res==2){
+			//说明有不能删的
+			return res;
 		}
 		res=1;
 		return res;

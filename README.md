@@ -28,3 +28,6 @@
 + 修改mysql递增的id
 
 ![image](https://github.com/WuqingVika/EquipDistributionMS/blob/master/WebRoot/img/helpOne.jpg)
+
++ 删除sql未执行
+记得加上.executeUpdate();
