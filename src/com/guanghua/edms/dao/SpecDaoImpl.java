@@ -42,6 +42,13 @@ public class SpecDaoImpl implements SpecDao {
 			return 0;
 		}
 		return 1;
+		//+region.getAddress()+"','"+
+		//region.getPropertyRight()+"',
+		//"+region.getReFloor()+",'
+		//"+region.getReUsage()+
+		//"',"+region.getReState()+",
+		//'"+region.getReAddress()+"')").executeUpdate();
+		
 	}
 
 	@Override
@@ -57,7 +64,7 @@ public class SpecDaoImpl implements SpecDao {
 				//可以删
 				System.out.println("-------------可以删！");
 			  try {//saveOrUpdate
-				currentSession.createSQLQuery("delete  from Jfzs_spec_Manage where spec_id="+specs.get(i).getSpecId()).executeUpdate();
+				 currentSession.createSQLQuery("delete  from Jfzs_spec_Manage where spec_id="+specs.get(i).getSpecId()).executeUpdate();
 			} catch (HibernateException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

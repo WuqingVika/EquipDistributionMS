@@ -26,5 +26,9 @@
     	 <action name="toSpecList" method="toSpecList" class="loginAction">
             <result name="success">/WEB-INF/back_page/spec/specList.jsp</result>
         </action>
+         <!-- 跳转到专业列表 -->
+    	 <action name="toRegionList" method="toRegionList" class="loginAction">
+            <result name="success">/WEB-INF/back_page/region/regionList.jsp</result>
+        </action>
     </package>
 </struts>

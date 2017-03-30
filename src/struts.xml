@@ -10,4 +10,6 @@
     <include file="struts.jgxx.xml" />
     <!-- 3.专业信息管理 -->
     <include file="struts.spec.xml" />
+    <!-- 4.局站信息管理 -->
+    <include file="struts.region.xml" />
 </struts>

@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+	"-//Apache Software Foundation//DTD Struts Configuration 2.3//EN"
+	"http://struts.apache.org/dtds/struts-2.3.dtd">
+
+<struts>
+	<!-- 4.局站信息管理 -->
+	<package name="myRegion" namespace="/myRegion"
+		extends="json-default">
+		<result-types>
+            <result-type name="noAction" class="com.guanghua.edms.common.NoActionResult"/>
+        </result-types>
+        <!-- 1.查询局站信息列表 -->
+        <action name="regionListQuery" method="listMyRegions" 
+			class="regionAction">
+			<result type="json"></result>
+		</action>
+        <!--2.增加局站-->
+        <action name="addMyregion" method="addMyRegion" 
+			class="regionAction">
+			<result type="json"></result>
+		</action>
+		<!-- 3.修改专业信息-->
+		<action name="editMyregion" method="editMyRegion"
+			class="regionAction">
+			<result type="json"></result>
+		</action>
+		<!-- 4.删除专业信息-->
+		<action name="delMyregions" method="delMyRegions"
+			class="regionAction">
+			<result type="json"></result>
+		</action>
+	</package>
+
+</struts>

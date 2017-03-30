@@ -523,7 +523,6 @@ public class CabinetDaoImpl implements CabinetDao {
 			countSql.append(" where spec_name like '%"+specName+"%' ");
 		}
 		countSql.append(" ) aa");
-		
 		List<Object[]> list=sessionFactory.getCurrentSession().createSQLQuery(sql.toString()).setFirstResult((pageSize - 1) * rows).setMaxResults(rows).list();
 		JSONObject result = new JSONObject();
 		if(pageSize==1){

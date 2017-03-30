@@ -110,7 +110,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div title="&nbsp;&nbsp;&nbsp;&nbsp;基础数据管理">
             <ul class="easyui-tree tr" data-options="data:[
                 {
-                    'id':301,
+                    'id':201,
                     'text':'专业管理',
                     'iconCls':'icon-search',
                     'attributes':{
@@ -118,11 +118,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     }
                 },
                 {
-                    'id':302,
+                    'id':202,
                     'text':'局站管理',
                     'iconCls':'icon-page_word',
                     'attributes':{
-                        'url':'fm/purchasingDocMana.html'
+                        'url':'<%=path %>/user/toRegionList.action'
                     }
                 }
             ]">
@@ -132,7 +132,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
         <div title="&nbsp;&nbsp;&nbsp;&nbsp;系统维护">
             <ul class="easyui-tree tr" data-options="data:[
                 {
-                    'id':501,
+                    'id':301,
                     'text':'系统用户管理',
                     'iconCls':'icon-user',
                     'attributes':{
@@ -140,7 +140,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     }
                 },
                 {
-                    'id':502,
+                    'id':302,
                     'text':'修改密码',
                     'iconCls':'icon-textfield_key',
                     'attributes':{
