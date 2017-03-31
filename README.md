@@ -31,3 +31,24 @@
 
 + 删除sql未执行
 记得加上.executeUpdate();
+
+---
+---
+---
+
+## 系统截图 
++ 1登录界面
+![image](https://github.com/WuqingVika/EquipDistributionMS/blob/master/WebRoot/img/showLogin.jpg)
++ 2系统主页面
+![image](https://github.com/WuqingVika/EquipDistributionMS/blob/master/WebRoot/img/showMain.jpg)
++ 3机柜管理页面
+![image](https://github.com/WuqingVika/EquipDistributionMS/blob/master/WebRoot/img/showCabinet.jpg)
++ 4设备管理页面
+![image](https://github.com/WuqingVika/EquipDistributionMS/blob/master/WebRoot/img/showEqu.jpg)
++ 5板卡管理页面
+![image](https://github.com/WuqingVika/EquipDistributionMS/blob/master/WebRoot/img/showCard.jpg)
++ 6专业管理页面
+![image](https://github.com/WuqingVika/EquipDistributionMS/blob/master/WebRoot/img/showSpec.jpg)
++ 7局站管理页面
+![image](https://github.com/WuqingVika/EquipDistributionMS/blob/master/WebRoot/img/showRegion.jpg)
++ 【系统维护页面略，功能还在拼命完善中！】
