@@ -1,4 +1,4 @@
-package com.guanghua.edms.dao;
+package com.guanghua.edms.service;
 
 import java.util.List;
 
@@ -10,15 +10,7 @@ import com.guanghua.edms.domain.Room;
 
 import net.sf.json.JSONObject;
 
-/**
- * 2017/03/30 21:26
- * @author wuqingvika
- * 1.查询列表（带条件：机房ID+机房名称）
- * 2.增加机房（可选机房）
- * 3.删除机房（判断下面有机柜）
- * 4.编辑机房（绑定当前机房，加载可选机房）
- */
-public interface RoomDao {
+public interface RoomService {
 	/**
 	 * 0.查询机房列表
 	 * @param pageSize

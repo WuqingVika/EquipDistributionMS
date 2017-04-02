@@ -12,4 +12,6 @@
     <include file="struts.spec.xml" />
     <!-- 4.局站信息管理 -->
     <include file="struts.region.xml" />
+    <!-- 5.机房信息管理 -->
+    <include file="struts.room.xml" />
 </struts>

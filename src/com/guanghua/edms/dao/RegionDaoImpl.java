@@ -70,7 +70,7 @@ public class RegionDaoImpl implements RegionDao {
 		//插入数据库
 		int res = sessionFactory.getCurrentSession().createSQLQuery("insert into region (district,region_id,region_name,address,property_right,re_floor,re_usage,re_state,re_addrress) values (20,"+region.getRegionId()+",'"+region.getRegionName()+"','"
 		+region.getAddress()+"','"+region.getPropertyRight()+"',"+region.getReFloor()+",'"+region.getReUsage()+
-				"',"+region.getReState()+",'"+region.getReAddress()+"')").executeUpdate();
+				"','"+region.getReState()+"','"+region.getReAddress()+"')").executeUpdate();
 		return res;
 	}
 

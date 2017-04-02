@@ -17,21 +17,22 @@ public class RoomDaoImpl implements RoomDao {
 	@Autowired
 	private SessionFactory sessionFactory;
 	@Override
-	public JSONObject listRooms(int pageSize, int rows, Long regionId, String roomName) {
+	public JSONObject listRooms(int pageSize, int rows, String regionId, String roomName) {
 		//select room_id,room_name,room_no,ro_floor,ro_usage,a.property_right,ro_state from room a , room b
 		//where  a.room_id=b.room_id
 		StringBuffer sql=new StringBuffer();
 		StringBuffer countSql=new StringBuffer();
-		sql.append(" select  room_id,region_name,room_no,ro_floor,ro_usage,a.property_right,ro_state from room a , room where  a.room_id=b.room_id");
-		countSql.append(" select count(*) from (select room_id,region_name,room_no,ro_floor,ro_usage,a.property_right,ro_state from room a , room where  a.region_id=b.region_id");
+		sql.append(" select  room_id,region_name,room_no,ro_floor,ro_usage,a.property_right,ro_state from room a , region b where  a.region_id=b.region_id");
+		countSql.append(" select count(*) from (select room_id,region_name,room_no,ro_floor,ro_usage,a.property_right,ro_state from room a , region b where  a.region_id=b.region_id");
 		
 		if(!"".equals(roomName)){
 			sql.append(" and   room_no  like '%"+roomName+"%' ");
 			countSql.append(" and  room_no like '%"+roomName+"%' ");
 		}
 		if(!"".equals(regionId)){
-			sql.append(" and   region_id  = "+regionId);
-			countSql.append(" and  region_id = "+regionId);
+			Long regId=Long.parseLong(regionId);
+			sql.append(" and   a.region_id  = "+regId);
+			countSql.append(" and  a.region_id = "+regId);
 		}
 		countSql.append(" ) aa");
 		
@@ -66,7 +67,7 @@ public class RoomDaoImpl implements RoomDao {
 		Long roomId=Long.parseLong(sessionFactory.getCurrentSession().createSQLQuery("select max(room_id)+1 from room").uniqueResult().toString());
 		room.setRoomId(roomId);
 		//插入数据库
-		int res = sessionFactory.getCurrentSession().createSQLQuery("insert into room (district,room_id,region_id,room_no,ro_floor,ro_usage,property_right,ro_state) values (20,"+room.getRegionId()+","+room.getRoomId()+",'"+room.getRoomNo()
+		int res = sessionFactory.getCurrentSession().createSQLQuery("insert into room (district,room_id,region_id,room_no,ro_floor,ro_usage,property_right,ro_state) values (20,"+room.getRoomId()+","+room.getRegionId()+",'"+room.getRoomNo()
 					+"',"+room.getRoFloor()+",'"+room.getRoUsage()+"','"+room.getPropertyRight()+"','"+room.getRoState()+"')").executeUpdate();
 		return res;
 	}
@@ -84,13 +85,13 @@ public class RoomDaoImpl implements RoomDao {
 		Session currentSession = sessionFactory.getCurrentSession();
 		int res=0;
 		for(int i=0;i<rooms.size();i++){
-			//判断每个专业下是否有数据。如果有不能删除，如果没有则可以删除
-			List<Object[]> list=currentSession.createSQLQuery("select * from room where region_id="+rooms.get(i).getRegionId()).list();
+			//判断每个机房下是否有机柜。如果有不能删除，如果没有则可以删除
+			List<Object[]> list=currentSession.createSQLQuery("select * from jfzs_cabinet_manage where room_id="+rooms.get(i).getRoomId()).list();
 			if(list.size()==0){
 				//可以删
 				System.out.println("-------------可以删！");
 			  try {//saveOrUpdate
-				 currentSession.createSQLQuery("delete from region where region_id="+rooms.get(i).getRegionId()).executeUpdate();
+				 currentSession.createSQLQuery("delete from room where room_id="+rooms.get(i).getRoomId()).executeUpdate();
 			} catch (HibernateException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();

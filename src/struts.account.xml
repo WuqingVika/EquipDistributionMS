@@ -30,5 +30,9 @@
     	 <action name="toRegionList" method="toRegionList" class="loginAction">
             <result name="success">/WEB-INF/back_page/region/regionList.jsp</result>
         </action>
+         <!-- 跳转到机房列表 -->
+    	 <action name="toRoomList" method="toRoomList" class="loginAction">
+            <result name="success">/WEB-INF/back_page/comRoom/comroomList.jsp</result>
+        </action>
     </package>
 </struts>

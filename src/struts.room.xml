@@ -4,32 +4,33 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
-	<!-- 4.局站信息管理 -->
-	<package name="myRegion" namespace="/myRegion"
+	<!-- 4.信息管理 -->
+	<package name="myRoom" namespace="/myRoom"
 		extends="json-default">
 		<result-types>
             <result-type name="noAction" class="com.guanghua.edms.common.NoActionResult"/>
         </result-types>
-        <!-- 1.查询局站信息列表 -->
-        <action name="regionListQuery" method="listMyRegions" 
-			class="regionAction">
+        <!-- 1.查询机房信息列表 -->
+        <action name="roomListQuery" method="listMyRooms" 
+			class="roomAction">
 			<result type="json"></result>
 		</action>
-        <!--2.增加局站-->
-        <action name="addMyregion" method="addMyRegion" 
-			class="regionAction">
+        <!--2.增加机房-->
+        <action name="addMyroom" method="addMyroom" 
+			class="roomAction">
 			<result type="json"></result>
 		</action>
-		<!-- 3.修改局站信息-->
-		<action name="editMyregion" method="editMyRegion"
-			class="regionAction">
+		<!-- 3.修改机房信息-->
+		<action name="editMyroom" method="editMyroom"
+			class="roomAction">
 			<result type="json"></result>
 		</action>
-		<!-- 4.删除局站信息-->
-		<action name="delMyregions" method="delMyRegions"
-			class="regionAction">
+		<!-- 4.删除机房信息-->
+		<action name="delMyrooms" method="delMyrooms"
+			class="roomAction">
 			<result type="json"></result>
 		</action>
+		
 	</package>
 
 </struts>

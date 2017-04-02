@@ -124,6 +124,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     'attributes':{
                         'url':'<%=path %>/user/toRegionList.action'
                     }
+                },
+                {
+                    'id':203,
+                    'text':'机房管理',
+                    'iconCls':'icon-application_form_edit',
+                    'attributes':{
+                        'url':'<%=path %>/user/toRoomList.action'
+                    }
                 }
             ]">
             </ul>
