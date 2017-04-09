@@ -41,7 +41,6 @@
  ``` 
 + 发送邮件验证码授权码问题
 ```  
- //datagrid用了idField,建议google easyui idField作用;
  MailUtil中的return new PasswordAuthentication("aa@qq.com", "abcxxxxxxxxxx"); // 发件人邮箱账号、授权码
 	//注：授权码不是邮箱密码，可以看如何获取授权码，复制粘贴就Ok.			
  ``` 

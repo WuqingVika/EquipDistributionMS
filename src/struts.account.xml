@@ -10,7 +10,7 @@
         </result-types>
 		 <!-- 1.1登录-->
 		<action name="login" method="login" class="loginAction">
-            <result name="UserInvalid">/UserInvalid.jsp</result>
+            <result name="loginAgain">/welcome/userLogin.jsp</result>
             <result name="success">/WEB-INF/back_page/main.jsp</result>
         </action>
         <!-- 跳转到机柜列表 -->

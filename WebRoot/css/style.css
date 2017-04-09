@@ -1,5 +1,5 @@
 @charset "utf-8";
-/*public*/
+/*public cds*/
 html{overflow-x:auto;overflow-y:scroll;zoom:expression(function(ele){ele.style.zoom = "1";document.execCommand("BackgroundImageCache",false,true);}(this))}
 body{margin:0;padding:0;background-color:#fff;color:#333;font:12px/1.5 Arial,'宋体',Tahoma,Helvetica,sans-serif;word-wrap:break-word;word-break:break-all}
 body div{margin-right:auto;margin-left:auto}
@@ -234,7 +234,7 @@ ul.form dl dd a:hover{text-decoration:none;background-color:#f2f2f2}
 ul.form li{float:left;width:100%;margin:8px auto 0}
 ul.form li.first{margin-top:0}
 ul.form li img{vertical-align:middle}
-ul.form li.okTip,ul.form li.errorTip{width:97%;margin-top:4px;padding:4px 1%;line-height:20px;text-align:center;background-color:#ffc}
+ul.form li.okTip,ul.form li.errorTip{width:90%;margin-top:4px;margin-left:12px;padding:4px 4%;line-height:20px;text-align:center;background-color:#ffc}
 ul.form li.dev{position:absolute;left:21px;bottom:44px;padding:8px 0;background:url("../img/shop/dev.gif") repeat-x}
 ul.form li.dev samp{margin:0 4px}
 ul.form li.okTip{color:#14b22a;border:1px solid #14b22a}

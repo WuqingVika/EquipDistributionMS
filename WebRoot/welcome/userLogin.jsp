@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix="s" uri="/struts-tags" %>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -9,7 +10,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<head>
 		<meta charset="UTF-8">
 		<title>上海电信机房设备管理系统/用户登录</title>
-		<link rel="stylesheet" href="../css/style.css" />
+		<link rel="stylesheet" href="../css/style.css" /> 
 		<link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css">   
 		<link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css">  
 		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
@@ -19,6 +20,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript">
 			function formSub() {
 				$("#jvForm").submit();
+			}
+			function showMsg(){
+				$("#winMsg").dialog("open");
 			}
 		</script>
 	</head>
@@ -62,23 +66,45 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                             <div>
                                                 <input class="easyui-textbox" id="userName" name="userName" 
                                                        data-options="iconCls:'icon-man',prompt:'请输入用户名'"
-                                                       style="width:240px;height:30px;">
+                                                       style="width:240px;height:30px;"/>
                                             </div>
                                             <div style="margin-top: 20px;">
                                                 <input class="easyui-textbox" type="password" id="password" name="password"
                                                        data-options="iconCls:'icon-lock',prompt:'请输入密码'"
-                                                       style="width:240px;height:30px;">
+                                                       style="width:240px;height:30px;"/>
                                             </div>
-                                            <div style="margin-top: 30px;">
+                                            <c:if test="${!empty error}">
+                                             <div style="margin-top: 10px;">
+                                            	<ul class="uls form">
+													<li id="errorName" class="errorTip" >${error}</li>
+												</ul>
+                                            </div>
+                                            </c:if>
+                                            <div style="margin-top: 60px;">
                                                 <p>
                                                     <a href="javascript:void(0)" onclick="formSub()" style="width:160px;height:30px;" class="easyui-linkbutton" iconCls="icon-accept">登录</a>
-                                                    <a style="margin-left:10px;width:80px;height:30px;" href="#"  >忘记密码?</a>
+                                                    <a style="margin-left:10px;width:80px;height:30px;"  href="<%=path %>/jspRef/forgetPwd.jsp"  >忘记密码?</a>
                                                 </p>
                                             </div>
-                                            
+                                           
                                         </form>
                                     </div>
                                 </div>
+                                <!-- 忘记密码友情提醒！ -->
+                                <div id="winMsg" class="easyui-window" data-options="modal: true"  title="忘记密码" closed="true" style="width:300px;height:200px;padding:5px;">
+										<!-- <ul class="uls form">
+											<li id="errorName" class="errorTip" >1.通过邮箱找回</li>
+											<li id="errorName" class="errorTip" >2.人工找回[联系公司系统管理员，请求密码重置]</li>
+										</ul> -->
+										<div class="uls form">
+											<h5>1.快速找回</h5><br>
+											<a class="errorTip" >通过邮箱找回</a>
+											<h5>2.人工找回</h5><br>
+											<font class="errorTip" >联系公司系统管理员，请求密码重置</font>
+										</div>
+									
+								</div>
+                                <!-- 友情提醒end -->
                                 <div region="east" style="width:20px;" border="false">
                                 </div>
                                 <div region="south" style="height:10px;" border="false">

@@ -61,19 +61,22 @@ public class LoginAction extends ActionSupport  implements ModelDriven<UserInfo>
 						System.out.println("登录成功---跳转到后台");
 						return SUCCESS;
 					}else{
-						 ActionContext.getContext().put("error","密码输入错误");
-						//model.addAttribute("error","密码输入错误");
+						 //ActionContext.getContext().put("error","密码输入错误");
+						//登陆失败
+			            //this.addActionError("用户名或密码错误！");
+						request.setAttribute("error", "用户名或密码错误！");
 					}
 				}
 			}else{
-				ActionContext.getContext().put("error", "请输入密码");
-				//model.addAttribute("error","请输入密码");
+				//ActionContext.getContext().put("error", "请输入密码");
+				 //this.addActionError("请输入密码！");
+				 request.setAttribute("error", "请输入密码！");
 			}
 		}else{//如果用户名为空
-			ActionContext.getContext().put("error", "请输入用户名");
-			//model.addAttribute("error","请输入用户名");
+			//this.addActionError("请输入用户名！");
+			request.setAttribute("error", "请输入用户名！");
 		}
-		return "error";
+		return "loginAgain";
 	}
 	
 	/*

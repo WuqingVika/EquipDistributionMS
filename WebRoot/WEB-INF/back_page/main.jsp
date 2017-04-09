@@ -61,7 +61,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
          <p style="color:white;font-family:'微软雅黑';margin-top:18px;">
             <span style="font-size:21px;font-weight: 800;">上海电信机房设备分布管理系统</span>
             <br>
-            <span style="font-size:9px;"><i>Cold Drinks Wholesale Management System</i></span>
+            <span style="font-size:9px;"><i>Shanghai Telecom Room Equipment Distribution Management System</i></span>
         </p>
     </div>
     <div>
