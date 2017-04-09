@@ -66,4 +66,7 @@
 ![image](https://github.com/WuqingVika/EquipDistributionMS/blob/master/WebRoot/img/comroomManage.png)
 + 9用户管理页面
 ![image](https://github.com/WuqingVika/EquipDistributionMS/blob/master/WebRoot/img/showUser.png)
++ 10忘记密码页面
+![image](https://github.com/WuqingVika/EquipDistributionMS/blob/master/WebRoot/img/showForgetPwd.png)
+---
 【功能还在拼命完善中！:blush:】
