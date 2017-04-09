@@ -32,9 +32,21 @@
 + 删除sql未执行
 记得加上.executeUpdate();
 
+## :blush: 2017年4月9号跳的如下哈哈哈
++ easyui复选框刷新累计问题
+```  
+ //datagrid用了idField,建议google easyui idField作用;
+ $('#dg').datagrid('clearSelections');//每次加载datagrid需要清空
+ 原文参考：http://blog.csdn.net/isea533/article/details/50929752
+ ``` 
++ 发送邮件验证码授权码问题
+```  
+ //datagrid用了idField,建议google easyui idField作用;
+ MailUtil中的return new PasswordAuthentication("aa@qq.com", "abcxxxxxxxxxx"); // 发件人邮箱账号、授权码
+	//注：授权码不是邮箱密码，可以看如何获取授权码，复制粘贴就Ok.			
+ ``` 
 ---
----
----
+
 
 ## 系统截图 
 + 1登录界面
@@ -51,4 +63,8 @@
 ![image](https://github.com/WuqingVika/EquipDistributionMS/blob/master/WebRoot/img/showSpec.jpg)
 + 7局站管理页面
 ![image](https://github.com/WuqingVika/EquipDistributionMS/blob/master/WebRoot/img/showRegion.jpg)
-+ 【系统维护页面略，功能还在拼命完善中！】
++ 8机房管理页面
+![image](https://github.com/WuqingVika/EquipDistributionMS/blob/master/WebRoot/img/comroomManage.png)
++ 9用户管理页面
+![image](https://github.com/WuqingVika/EquipDistributionMS/blob/master/WebRoot/img/showUser.png)
+【功能还在拼命完善中！:blush:】

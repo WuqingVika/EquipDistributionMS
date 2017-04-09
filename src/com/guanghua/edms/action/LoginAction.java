@@ -1,8 +1,13 @@
 package com.guanghua.edms.action;
 
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.ServletActionContext;
@@ -10,12 +15,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
+import com.guanghua.edms.common.encode.Md5Pwd;
+import com.guanghua.edms.common.web.CustomException;
 import com.guanghua.edms.common.web.session.SessionProvider;
 import com.guanghua.edms.domain.UserInfo;
 import com.guanghua.edms.service.UserService;
+import com.guanghua.edms.util.Constants;
 import com.opensymphony.xwork2.ActionContext;
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+
+import net.sf.json.JSONObject;
 
 
 
@@ -25,6 +35,8 @@ import com.opensymphony.xwork2.ModelDriven;
 public class LoginAction extends ActionSupport  implements ModelDriven<UserInfo>{
 	@Autowired
 	private SessionProvider sessionProvider;
+	@Autowired
+	private Md5Pwd md5Pwd;
 	@Resource
 	private UserService userService;
 	private UserInfo user = new UserInfo();
@@ -41,11 +53,12 @@ public class LoginAction extends ActionSupport  implements ModelDriven<UserInfo>
 				//判断用户密码
 				UserInfo b = userService.getUserByUserName(user.getUserName());//用户名作Key的
 				System.out.println("haha----"+b.toString());
-				if(b!=null){
-					if(b.getPassword().equals(user.getPassword())){
+				if(b!=null){//md5Pwd.encode(userInfo.getPassword())
+					if(b.getPassword().equals(md5Pwd.encode(user.getPassword()))){
 						//登录成功！！-------把用户对象放入session中--------
-						//sessionProvider.setAttribute(request, Constants.USER_SESSION, b);
+						sessionProvider.setAttribute(request, Constants.USER_SESSION, b);
 						//跳转到个人中心
+						System.out.println("登录成功---跳转到后台");
 						return SUCCESS;
 					}else{
 						 ActionContext.getContext().put("error","密码输入错误");
@@ -99,6 +112,14 @@ public class LoginAction extends ActionSupport  implements ModelDriven<UserInfo>
 	public String toRoomList() throws Exception {
 		return SUCCESS;
 	}
+	/*
+	 * 跳转到管理员列表
+	 */
+	public String toVipList() throws Exception {
+		return SUCCESS;
+	}
+	
+	
 	
 	
 	/*private static final Log logger = LogFactory.getLog(LoginAction.class);

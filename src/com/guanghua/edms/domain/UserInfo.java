@@ -14,20 +14,55 @@ import javax.persistence.Table;
  */
 public class UserInfo implements Serializable{
 	private static final long serialVersionUID = 1L;
-	private Integer userId;
+	private Long userId;
 	private String userName;
 	private String password;
 	private String workNo;
+	private Integer sp;//是否为超级管理员
+	private String code;//验证码
+	private String email;//邮箱
+	public String getCode() {
+		return code;
+	}
+
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getuState() {
+		return uState;
+	}
+
+	public void setuState(String uState) {
+		this.uState = uState;
+	}
+	private String uState;//状态
 	
+	public Integer getSp() {
+		return sp;
+	}
+
+	public void setSp(Integer sp) {
+		this.sp = sp;
+	}
+
 	public String getWorkNo() {
 		return workNo;
 	}
 	
-	public Integer getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(Integer userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 

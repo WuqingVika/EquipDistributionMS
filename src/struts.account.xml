@@ -4,8 +4,11 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
-	<package name="account" namespace="/user" extends="struts-default">
-		 <!-- 登录-->
+	<package name="account" namespace="/user" extends="json-default">
+		<result-types>
+            <result-type name="noAction" class="com.guanghua.edms.common.NoActionResult"/>
+        </result-types>
+		 <!-- 1.1登录-->
 		<action name="login" method="login" class="loginAction">
             <result name="UserInvalid">/UserInvalid.jsp</result>
             <result name="success">/WEB-INF/back_page/main.jsp</result>
@@ -33,6 +36,27 @@
          <!-- 跳转到机房列表 -->
     	 <action name="toRoomList" method="toRoomList" class="loginAction">
             <result name="success">/WEB-INF/back_page/comRoom/comroomList.jsp</result>
+        </action>
+        <!-- 跳转到管理员列表 -->
+    	 <action name="toVipList" method="toVipList" class="loginAction">
+            <result name="success">/WEB-INF/back_page/vip/userList.jsp</result>
+        </action>
+        
+        <!-- 1.2查询用户列表  -->
+         <action name="userListQuery" method="userListQuery" class="vipAction">
+            <result type="json"></result>
+        </action>
+         <!-- 1.2增加管理员  -->
+         <action name="addMyUser" method="addMyvip" class="vipAction">
+            <result type="json"></result>
+        </action>
+         <!-- 1.3删除管理员  -->
+         <action name="delMyUsers" method="delMyvips" class="vipAction">
+            <result type="json"></result>
+        </action>
+         <!-- 1.4修改管理员  -->
+         <action name="editMyUser" method="editMyvip" class="vipAction">
+            <result type="json"></result>
         </action>
     </package>
 </struts>

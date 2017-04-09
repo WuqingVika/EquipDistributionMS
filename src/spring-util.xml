@@ -17,4 +17,6 @@
     http://www.springframework.org/schema/tx/spring-tx.xsd">
     <!-- Session实例化 -->
 	<bean id="sessionProvider" class="com.guanghua.edms.common.web.session.HttpSessionProvider"></bean>
+	<!-- MD5加密 -->
+	<bean id="md5Pwd" class="com.guanghua.edms.common.encode.Md5PwdImpl"></bean>
 </beans>   

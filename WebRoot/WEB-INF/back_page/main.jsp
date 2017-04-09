@@ -144,7 +144,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     'text':'系统用户管理',
                     'iconCls':'icon-user',
                     'attributes':{
-                        'url':'sm/sysUserMan.html'
+                        'url':'<%=path %>/user/toVipList.action'
                     }
                 },
                 {
