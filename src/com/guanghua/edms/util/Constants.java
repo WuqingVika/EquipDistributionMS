@@ -18,4 +18,8 @@ public interface Constants {
 	 */
 	public static final String USER_SESSION="user_session";//记住关掉浏览器，被占用快捷键了。郁闷
 	
+	/**
+	 * 随机验证码
+	 */
+	public static final String SECTURITY_CODE="secturity_code";
 }

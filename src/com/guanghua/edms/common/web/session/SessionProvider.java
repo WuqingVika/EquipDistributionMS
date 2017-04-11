@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 public interface SessionProvider {
 
 	//往Session设置值
-		//name Constants  buyer_session
+		//name Constants  user_session
 		//value   用户对象
 		public void setAttribute(HttpServletRequest request, String name,Serializable value);
 		
@@ -23,4 +23,5 @@ public interface SessionProvider {
 		
 		//获取SessionID
 		public String getSessionId(HttpServletRequest request);
+		//退出登陆
 }

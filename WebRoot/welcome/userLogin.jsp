@@ -14,6 +14,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<link rel="stylesheet" type="text/css" href="../js/easyui/themes/default/easyui.css">   
 		<link rel="stylesheet" type="text/css" href="../js/easyui/themes/icon.css">  
 		<link rel="stylesheet" type="text/css" href="../css/bootstrap.min.css" />
+		<style type="text/css">
+			.code{width:72px;height:24px;margin-right:6px;cursor:pointer;border:1px solid #e3e3e3}
+		</style>
 		<script type="text/javascript" src="../js/easyui/jquery.min.js"></script>   
 		<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script> 
 		<script type="text/javascript" src="../js/bootstrap.min.js"></script>
@@ -24,7 +27,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			function showMsg(){
 				$("#winMsg").dialog("open");
 			}
-		</script>
+			
+			function changeCode(){
+				$('.code').attr("src","<%=path %>/getSecurityCode.action?timestap="+new Date().getTime());
+			}
+			
+			</script>
 	</head>
 		<body >  
 			<div id="cc" class="easyui-layout" style="width:1000px;height:750px;overflow:hidden;margin: 0 auto;" >   
@@ -58,7 +66,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                 </div>
                                 <div region="center"  border="false">
                                     <div class="easyui-panel" title="欢迎登录"  iconCls="icon-user"
-                                         style="text-align: center;width:300px;height:300px;padding-top:50px;">
+                                         style="text-align: center;width:300px;height:300px;padding-top:20px;">
                                         <form id="jvForm" action="<%=path %>/user/login.action"  method="post">
                                            <%--  <ul class="uls form">
                                             <li id="errorName" class="errorTip" <c:if test="${empty error }">style="display:none"</c:if> >${error}</li>
@@ -73,6 +81,13 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                                        data-options="iconCls:'icon-lock',prompt:'请输入密码'"
                                                        style="width:240px;height:30px;"/>
                                             </div>
+                                             <div style="margin-top: 10px;">
+					                               <input class="easyui-textbox" type="text" id="captcha" name="captcha" 
+					                                      data-options="iconCls:'icon-application_lightning',prompt:'请输入难证码'"
+					                                      style="width:130px;height:30px;"/>
+					                                <img src="<%=path %>/getSecurityCode.action" onclick="changeCode()" class="code" alt="换一张" />
+						                            <a href="javascript:void(0)" onclick="changeCode()" class="easyui-linkbutton" iconCls="icon-reload" title="换一张"></a>
+					                         </div>
                                             <c:if test="${!empty error}">
                                              <div style="margin-top: 10px;">
                                             	<ul class="uls form">
@@ -80,7 +95,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 												</ul>
                                             </div>
                                             </c:if>
-                                            <div style="margin-top: 60px;">
+                                            <div style="margin-top: 50px;">
                                                 <p>
                                                     <a href="javascript:void(0)" onclick="formSub()" style="width:160px;height:30px;" class="easyui-linkbutton" iconCls="icon-accept">登录</a>
                                                     <a style="margin-left:10px;width:80px;height:30px;"  href="<%=path %>/jspRef/forgetPwd.jsp"  >忘记密码?</a>

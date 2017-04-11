@@ -38,6 +38,14 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
 		<servlet-name>Cabinet_QRCodeServlet</servlet-name>
 		<url-pattern>/Cabinet_QRCodeServlet</url-pattern>
 	</servlet-mapping>
+	<!-- <servlet>
+		<servlet-name>captcha</servlet-name>
+		<servlet-class>com.guanghua.edms.common.captcha.JcaptchaServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>captcha</servlet-name>
+		<url-pattern>/captcha.svl</url-pattern>
+	</servlet-mapping> -->
   <!-- 配置struts2 的核心filter -->
 	<filter>
 		<filter-name>struts2</filter-name>
@@ -47,14 +55,7 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
 		<filter-name>struts2</filter-name>
 		<url-pattern>*.action</url-pattern>
 	</filter-mapping>
-	<servlet>
-		<servlet-name>captcha</servlet-name>
-		<servlet-class>com.guanghua.edms.common.captcha.JcaptchaServlet</servlet-class>
-	</servlet>
-	<servlet-mapping>
-		<servlet-name>captcha</servlet-name>
-		<url-pattern>/captcha.svl</url-pattern>
-	</servlet-mapping>
+	
 	<!--设置默认的访问页，访问网址http://localhost:8080/EquipDistributionMS 时可以自动跳转到登录页面 -->
   <welcome-file-list>
     <welcome-file>/welcome/userLogin.jsp</welcome-file>

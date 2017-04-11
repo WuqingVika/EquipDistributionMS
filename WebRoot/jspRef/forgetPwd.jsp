@@ -61,10 +61,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                       data-options="iconCls:'icon-application_lightning',prompt:'请输入难证码'"
                                       style="width:240px;height:30px;"/>
                                 <img src="/captcha.svl" onclick="this.src='/captcha.svl?d='+new Date()" 
-	                                class="code" alt="换一张" /><!-- <a href="javascript:void(0);" 
-	                                onclick="$('.code').attr('src','/captcha.svl?d='+new Date())"
-	                                title="换一张">换一张</a> -->
-	                                <a href="javascript:void(0)" onclick="this.src='/captcha.svl?d='+new Date()" class="easyui-linkbutton" iconCls="icon-reload" title="换一张"></a>
+	                                class="code" alt="换一张" />
+	                                <a href="javascript:void(0)" onclick="$('.code').attr('src','/captcha.svl?d='+new Date())" class="easyui-linkbutton" iconCls="icon-reload" title="换一张"></a>
                            </div>
                            <div style="margin-top: 10px;">
                        		<ul class="uls form">

@@ -12,6 +12,7 @@
 		<constructor-arg type="int" index="2" value="100000"/>
 		<constructor-arg type="int" index="3" value="75000"/>
 	</bean>
+	
 	<bean id="imageEngine" class="com.octo.captcha.engine.GenericCaptchaEngine">
 		<constructor-arg index="0">
 			<list>

@@ -15,10 +15,12 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 import org.apache.struts2.interceptor.ServletRequestAware;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 import com.guanghua.edms.common.web.CustomException;
+import com.guanghua.edms.common.web.session.SessionProvider;
 import com.guanghua.brick.biz.BizUtil;
 import com.guanghua.edms.common.web.BaseAction;
 import com.guanghua.edms.service.CabinetService;
@@ -37,7 +39,8 @@ public class JgxxAction extends BaseAction implements ServletRequestAware{
 	private int pageSize; // 换页：单页最大显示数
 	private int pageNumber; // 换页：页码
 	private Map<String, String> results;
-	
+	@Autowired
+	private SessionProvider sessionProvider;
 	@Override
 	public void setServletRequest(HttpServletRequest request) {
 		this.request = request;
@@ -207,6 +210,8 @@ public class JgxxAction extends BaseAction implements ServletRequestAware{
 		System.out.println("wq------查询设备--信息请求");
 		HttpServletResponse res=ServletActionContext.getResponse();
 		HttpServletRequest req=ServletActionContext.getRequest();
+		System.out.println("action2req--------"+sessionProvider.getSessionId(req));
+		
 		res.setCharacterEncoding("utf-8");
 		try {
 			int pageSize = Integer.parseInt(req.getParameter("page"));

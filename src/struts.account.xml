@@ -59,4 +59,13 @@
             <result type="json"></result>
         </action>
     </package>
+    <package name="securityCode" namespace="/" extends="struts-default">
+		<action name="getSecurityCode" class="captchaAction">
+			<result name="success" type="stream">
+				 <param name="contentType">image/jpeg</param>
+				 <param name="inputName">imageStream</param>
+				 <param name="bufferSize">2048</param>
+			</result>
+		</action>
+	</package>
 </struts>

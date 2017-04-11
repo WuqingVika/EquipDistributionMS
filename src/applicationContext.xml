@@ -22,7 +22,7 @@
     <!-- 导入外部配置文件 -->
 	<import resource="spring-util.xml"/>
 	<!-- 验证码生成文件 -->
-	<import resource="spring-captcha.xml"/>
+	<!-- <import resource="spring-captcha.xml"/> -->
 	
 	 <!-- 开启注解配置 -->
 	<!-- <context:annotation-config /> -->

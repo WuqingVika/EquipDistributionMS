@@ -13,6 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.BeanFactoryUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.WebApplicationContextUtils;
 
@@ -50,8 +51,10 @@ public class JcaptchaServlet extends HttpServlet {
 			// get the session id that will identify the generated captcha.
 			// the same id must be used to validate the response, the session id
 			// is a good candidate!
-
+			//session=(SessionProvider) request.getSession();
 			String captchaId = session.getSessionId(request);
+			System.out.println("servlet--------"+session.getSessionId(request));
+			
 			BufferedImage challenge = captchaService.getImageChallengeForID(
 					captchaId, request.getLocale());
 			// Jimi.putImage("image/jpeg", challenge, jpegOutputStream);
