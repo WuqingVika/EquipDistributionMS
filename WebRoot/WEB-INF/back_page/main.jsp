@@ -1,4 +1,5 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
@@ -50,6 +51,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             padding:8px;
         }
     </style>
+    
 </head>
 <body class="easyui-layout" fit="true" >
 <!-- 网站首部 -->
@@ -68,7 +70,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
     </div>
     <div style="float:right;color:white;font-size:13px;width:260px;height:40px;margin-top:38px;line-height: 40px;">
-         欢迎&nbsp;<span style="font-weight:700;">Admin</span>&nbsp;&nbsp;<a href="#" class="linka">修改密码</a>
+         欢迎&nbsp;<span style="font-weight:700;">${user.workNo }</span>&nbsp;&nbsp;<a href="#" class="linka">修改密码</a>
         &nbsp;&nbsp;<a href="#" class="linka">退出登录</a>
     </div>
 </div>
@@ -77,6 +79,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <div id="aa" class="easyui-accordion" fit="true" border="false" class="menuItem">
         <div title="&nbsp;&nbsp;&nbsp;&nbsp;机房设备管理" style="">
             <ul class="easyui-tree tr" data-options="data:[
+            
                 {
                     'id':101,
                     'text':'机柜管理',
@@ -85,6 +88,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         'url':'<%=path %>/user/toCabinetList.action'
                     }
                 },
+             
                 {
                     'id':102,
                     'text':'设备管理',
@@ -137,8 +141,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             </ul>
         </div>
         
-        <div title="&nbsp;&nbsp;&nbsp;&nbsp;系统维护">
-            <ul class="easyui-tree tr" data-options="data:[
+        <div id="userManage" title="&nbsp;&nbsp;&nbsp;&nbsp;系统维护">
+            <ul id="userAdmission" class="easyui-tree tr" data-options="data:[
+            <c:if test="${user.sp=='1' }">
                 {
                     'id':301,
                     'text':'系统用户管理',
@@ -147,6 +152,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                         'url':'<%=path %>/user/toVipList.action'
                     }
                 },
+               </c:if>
                 {
                     'id':302,
                     'text':'修改密码',
@@ -156,7 +162,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     }
                 },
                 {
-                    'id':503,
+                    'id':303,
                     'text':'系统帮助',
                     'iconCls':'icon-tip',
                     'attributes':{
@@ -269,7 +275,7 @@ background:url(../img/mainbottombg.jpg);line-height: 40px;overflow:hidden;color:
                 }
             }
         }
-
+    	
     });
 </script>
 </body>

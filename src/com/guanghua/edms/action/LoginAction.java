@@ -70,6 +70,7 @@ public class LoginAction extends ActionSupport  implements  ModelDriven<UserInfo
 							if(b.getPassword().equals(md5Pwd.encode(user.getPassword()))){
 								//登录成功！！-------把用户对象放入session中--------
 								sessionProvider.setAttribute(request, Constants.USER_SESSION, b);
+								request.setAttribute("user", b);
 								//跳转到个人中心
 								System.out.println("登录成功---跳转到后台");
 								return SUCCESS;

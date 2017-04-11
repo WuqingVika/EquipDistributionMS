@@ -21,7 +21,7 @@ public class UserDaoImpl  implements UserDao{
 	private SessionFactory sessionFactory;
 	public UserInfo getUserByUserName(String userName) {
 		System.out.println("dao--userId------------"+userName);
-		List<Object[]> list=sessionFactory.openSession().createSQLQuery("select USER_ID,USER_NAME,PASSWORD from user_info where USER_NAME='"+userName+"'").list();
+		List<Object[]> list=sessionFactory.openSession().createSQLQuery("select USER_ID,USER_NAME,PASSWORD,work_no,sp from user_info where USER_NAME='"+userName+"'").list();
 		System.out.println(list.size()+"------------");
 		UserInfo u=new UserInfo();
 		List<UserInfo> users=new ArrayList<UserInfo>();
@@ -29,6 +29,8 @@ public class UserDaoImpl  implements UserDao{
 			u.setUserId(Long.parseLong(list.get(i)[0].toString()));
 			u.setUserName(list.get(i)[1].toString());
 			u.setPassword(list.get(i)[2].toString());
+			u.setWorkNo(list.get(i)[3].toString());
+			u.setSp(Integer.parseInt(list.get(i)[4].toString()));
 			users.add(u);
 		}
 		if(list.size()!=0){

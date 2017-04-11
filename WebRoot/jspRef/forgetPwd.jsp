@@ -33,6 +33,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		width:70%;margin-top:4px;margin-left:-40px;padding:4px 0%;line-height:20px;text-align:center;background-color:#ffc;list-style-type:none;}
 		.code{width:72px;height:24px;margin-right:6px;cursor:pointer;border:1px solid #e3e3e3}
 	</style>
+	<script type="text/javascript">
+			/* function formSub() {
+				$("#jvForm").submit();
+			} */
+			
+			function changeCode(){
+				$('.code').attr("src","<%=path %>/getSecurityCode.action?timestap="+new Date().getTime());
+			}
+			
+	</script>
 
   </head>
   
@@ -60,9 +70,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                <input class="easyui-textbox" type="text" id="captcha" name="captcha" 
                                       data-options="iconCls:'icon-application_lightning',prompt:'请输入难证码'"
                                       style="width:240px;height:30px;"/>
-                                <img src="/captcha.svl" onclick="this.src='/captcha.svl?d='+new Date()" 
+                                <img src="<%=path %>/getSecurityCode.action" onclick="changeCode()" 
 	                                class="code" alt="换一张" />
-	                                <a href="javascript:void(0)" onclick="$('.code').attr('src','/captcha.svl?d='+new Date())" class="easyui-linkbutton" iconCls="icon-reload" title="换一张"></a>
+	                                <a href="javascript:void(0)" onclick="changeCode()" class="easyui-linkbutton" iconCls="icon-reload" title="换一张"></a>
                            </div>
                            <div style="margin-top: 10px;">
                        		<ul class="uls form">
