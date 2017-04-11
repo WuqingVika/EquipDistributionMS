@@ -186,6 +186,45 @@ public class VipAction extends BaseAction implements ServletRequestAware, ModelD
 			e.printStackTrace();
 		}
 	}
+	/**
+	 * 1.5查询邮箱
+	 */
+	public void getEmailByUserName(){
+		HttpServletResponse res=ServletActionContext.getResponse();
+		HttpServletRequest req=ServletActionContext.getRequest();
+		res.setCharacterEncoding("utf-8");
+		String editFlag="0";
+		if(userInfo!=null){
+			userInfo=userService.getUserByUserName(userInfo.getUserName());
+		}
+		if(userInfo==null){
+			editFlag="-1";//不存在该账号
+		}else if(userInfo.getEmail()!=null){
+			editFlag=userInfo.getEmail();
+		}else{
+			editFlag="0";
+		}
+		//将标记传给前台
+		Map<String, String> msg=new HashMap<String, String>();
+		msg.put("msg",editFlag+"");
+		List<Map<String, String>> flags=new ArrayList<Map<String,String>>();
+		flags.add(msg);
+		JSONArray jsonArray = JSONArray.fromObject( flags );
+		try {
+			PrintWriter out=res.getWriter();
+			jsonArray.write(out);
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	/**
+	 * 1.6发送邮箱激活链接
+	 */
+	public void sendMail(){
+		
+	}
 	@Override
 	public void setServletRequest(HttpServletRequest request) {
 		this.request = request;

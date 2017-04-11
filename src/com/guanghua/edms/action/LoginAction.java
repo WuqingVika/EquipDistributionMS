@@ -2,8 +2,16 @@ package com.guanghua.edms.action;
 
 
 
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.ServletActionContext;
@@ -22,6 +30,8 @@ import com.opensymphony.xwork2.ActionContext;
 /*import com.octo.captcha.service.image.ImageCaptchaService;*/
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
+
+import net.sf.json.JSONArray;
 
 @Component("loginAction")
 @Scope("prototype")
@@ -65,7 +75,7 @@ public class LoginAction extends ActionSupport  implements  ModelDriven<UserInfo
 					if(StringUtils.isNotBlank(user.getPassword())){
 						//判断用户密码
 						UserInfo b = userService.getUserByUserName(user.getUserName());//用户名作Key的
-						System.out.println("haha----"+b.toString());
+						//System.out.println("haha----"+b.toString());
 						if(b!=null){//md5Pwd.encode(userInfo.getPassword())
 							if(b.getPassword().equals(md5Pwd.encode(user.getPassword()))){
 								//登录成功！！-------把用户对象放入session中--------
@@ -80,6 +90,8 @@ public class LoginAction extends ActionSupport  implements  ModelDriven<UserInfo
 				            //this.addActionError("用户名或密码错误！");
 							request.setAttribute("error", "用户名或密码错误！");
 							}
+						}else{
+							request.setAttribute("error", "用户不存在！");
 						}
 					}else{
 						//ActionContext.getContext().put("error", "请输入密码");
@@ -97,6 +109,35 @@ public class LoginAction extends ActionSupport  implements  ModelDriven<UserInfo
 			request.setAttribute("error", "请输入验证码！");
 		}
 		return "loginAgain";
+	}
+	
+	/**
+	 * 1.5查询邮箱
+	 */
+	public void verifyCaptcha(){
+		HttpServletResponse res=ServletActionContext.getResponse();
+		HttpServletRequest req=ServletActionContext.getRequest();
+		res.setCharacterEncoding("utf-8");
+		String editFlag="0";
+		if(sessionProvider.getAttribute(req,"secturity_code").toString().toLowerCase().equals(this.captcha.toLowerCase())){
+			editFlag="1";
+		}else{
+			editFlag="0";
+		}
+		//将标记传给前台
+		Map<String, String> msg=new HashMap<String, String>();
+		msg.put("msg",editFlag+"");
+		List<Map<String, String>> flags=new ArrayList<Map<String,String>>();
+		flags.add(msg);
+		JSONArray jsonArray = JSONArray.fromObject( flags );
+		try {
+			PrintWriter out=res.getWriter();
+			jsonArray.write(out);
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	/*

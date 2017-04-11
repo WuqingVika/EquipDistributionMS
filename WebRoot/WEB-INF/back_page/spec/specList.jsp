@@ -137,6 +137,7 @@ function loadSearchData(specName){
        	}
        }
   function saveSpec() {//保存修改记录
+	 // return $("#jvForm").form("validate");
     $("#jvForm").form("submit", {
            url: myurl,
            onsubmit: function () {

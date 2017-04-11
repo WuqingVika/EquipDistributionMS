@@ -34,9 +34,53 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		.code{width:72px;height:24px;margin-right:6px;cursor:pointer;border:1px solid #e3e3e3}
 	</style>
 	<script type="text/javascript">
-			/* function formSub() {
-				$("#jvForm").submit();
-			} */
+		 var  email="";
+		 function formSub() {
+			 var userName=$("#userName").val();
+			 var captcha=$("#captcha").val();
+			 if(userName==""||userName.trim()==""){
+				 $.messager.alert("提示信息", "登录账号不能为空！");
+				 return false;
+			 }
+			 if(captcha==""||captcha.trim()==""){
+				 $.messager.alert("提示信息", "验证码不能为空！");
+				 return false;
+			 }
+			 //判断验证码是否正确
+				 $.post('<%=path%>/user/verifyCaptcha.action', { captcha: captcha }, function (flag) {
+                     if (flag[0].msg=="0") {
+                    	 $.messager.alert("提示信息", "验证码错误！");
+                   		return false;
+                      }else if(flag[0].msg=="1"){
+                   		//获得该用户的邮箱
+						 $.post('<%=path%>/user/getEmail.action', { userName: userName }, function (result) {
+		                     if (result[0].msg=="-1") {
+		                    	 $.messager.alert("提示信息", "请输入正确的登录账号！");
+		                   		return false;
+		                      }else if(result[0].msg=="0"||result[0].msg==""){
+		                   		$.messager.alert("提示信息", "输入账号还没绑定邮箱，请及时联系管理员添加邮箱！");
+		                   		return false;
+		                      }else{
+		                    	  email=result[0].msg;
+		                    	  var myemail=email.substring(0,2);
+		                    	  myemail+='****';
+		                    	  myemail+=email.substring(email.length-5,email.length);
+		                    	  //存在邮箱
+		                    	  $.messager.confirm('发送邮件确认', '您确定要向邮箱['+myemail+']发送激活链接？', function (r) {
+		      	                    if (r) {
+		      	                    	$("#forgetform").submit();
+		      	                    }
+		      	                });
+		                      }
+		                 }, 'json');
+                      }else{
+                    	  $.messager.alert("提示信息", "系统错误,请稍后再试！");
+                     	  return false;
+                      }
+                 }, 'json');
+			 //验证结束
+				 
+			} 
 			
 			function changeCode(){
 				$('.code').attr("src","<%=path %>/getSecurityCode.action?timestap="+new Date().getTime());
@@ -60,28 +104,28 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                        <a class="right-back" href="<%=path %>/welcome/userLogin.jsp"> 返回立即登录</a>
 		             </div>
 					<div class="js-forgotpwd-form-wrap" style="margin-left:30px;">
-	                    <form id="forgetform" action=""  method="post">
+	                    <form id="forgetform" action="<%=path %>/user/sendMail.action"  method="post">
 	                        <div>
-                               <input class="easyui-textbox" id="userName" name="userName" 
+                               <input class="easyui-textbox" id="userName" name="userName" required="true" 
                                       data-options="iconCls:'icon-man',prompt:'请输入账号'"
                                       style="width:240px;height:30px;"/>
                           	 </div>
                            <div style="margin-top: 10px;">
-                               <input class="easyui-textbox" type="text" id="captcha" name="captcha" 
+                               <input class="easyui-textbox" type="text" id="captcha" name="captcha" required="true" 
                                       data-options="iconCls:'icon-application_lightning',prompt:'请输入难证码'"
                                       style="width:240px;height:30px;"/>
                                 <img src="<%=path %>/getSecurityCode.action" onclick="changeCode()" 
 	                                class="code" alt="换一张" />
 	                                <a href="javascript:void(0)" onclick="changeCode()" class="easyui-linkbutton" iconCls="icon-reload" title="换一张"></a>
                            </div>
-                           <div style="margin-top: 10px;">
+                           <!-- <div style="margin-top: 10px;">
                        		<ul class="uls form">
 							<li id="errorName" class="errorTip" >嘿嘿</li>
 							</ul>
-                            </div>
+                            </div> -->
                             <div style="margin-top: 20px;">
                                 <p>
-                                    <a href="javascript:void(0)" onclick="formSub()" style="width:240px;height:40px;" class="easyui-linkbutton" iconCls="icon-accept">提交</a>
+                                    <a href="javascript:void(0)" onclick="formSub()" style="width:240px;height:40px;" class="easyui-linkbutton" iconCls="icon-email_link">发送邮箱激活链接</a>
                                 </p>
                             </div>
 	                    </form>
@@ -91,7 +135,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			<div data-options="region:'east'" style="width:480px" border="false"></div>
 		</div>
     </div>
-    <div region="south" style="text-align: center;height:180px;
+    <div region="south" style="text-align: center;height:150px;
 		line-height: 40px;overflow:hidden;color:black;" border="false">
 	    	版权所有@上海电信机房设备分布管理系统  Copyright 2016-2017
 	</div>

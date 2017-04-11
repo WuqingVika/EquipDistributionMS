@@ -22,6 +22,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		<script type="text/javascript" src="../js/bootstrap.min.js"></script>
 		<script type="text/javascript">
 			function formSub() {
+				//return $("#jvForm").form("validate");
 				$("#jvForm").submit();
 			}
 			function showMsg(){

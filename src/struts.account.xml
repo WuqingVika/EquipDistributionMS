@@ -58,6 +58,14 @@
          <action name="editMyUser" method="editMyvip" class="vipAction">
             <result type="json"></result>
         </action>
+        <!-- 1.5获取邮箱  -->
+         <action name="getEmail" method="getEmailByUserName" class="vipAction">
+            <result type="json"></result>
+        </action>
+         <!-- 1.6忘记密码页面验证随机验证码  -->
+         <action name="verifyCaptcha" method="verifyCaptcha" class="loginAction">
+            <result type="json"></result>
+        </action>
     </package>
     <package name="securityCode" namespace="/" extends="struts-default">
 		<action name="getSecurityCode" class="captchaAction">
