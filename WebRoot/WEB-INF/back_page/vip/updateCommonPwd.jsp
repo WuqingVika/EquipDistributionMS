@@ -57,19 +57,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                    }else if(result[0].msg=="1"){
                 	   $.messager.confirm('修改密码确认', '您确定要修改密码？', function (r) {
                            if (r) {
-                           	/* $("#pwdform").submit(); */ 
-                           	 <%-- action="<%=path %>/user/updateCommonPwd.action" --%> 
+                           	//$("#pwdform").submit(); 
 			                  $.post('<%=path%>/user/updateCommonPwd.action', { userName: userName,password:password}, function (myflag) {
 			                  if (myflag[0].msg=="0") {
 			                 	 $.messager.alert("提示信息", "修改失败,请稍后重试！");
 			                		return false;
 			                   }else if(myflag[0].msg=="1"){
-			                	   window.location='<%=path%>/welcome/userLogin.jsp';
+			                	   top.location.href='<%=path%>/welcome/userLogin.jsp';
 			                   }else{
 			                	   $.messager.alert("提示信息", "系统错误,请稍后重试！");
 			               			return false;
 			                   }
-			              }, 'json');
+			              }, 'json'); 
                            	/**/
                            }
                        });
@@ -88,7 +87,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
  
   <body class="easyui-layout" fit="true" >
-    <div data-options="region:'north'" class="header" style="height:50px" border="false">
+    <div data-options="region:'north'" class="header" style="height:10px" border="false">
     
     </div>
     <div data-options="region:'center'" border="false">
@@ -140,12 +139,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                </div>
 				<!-- end div1 -->
 			</div>
-			<div data-options="region:'east'" style="width:430px" border="false"></div>
+			<div data-options="region:'east'" style="width:10px" border="false"></div>
 		</div>
     </div>
-    <div region="south" style="text-align: center;height:100px;
-		line-height: 40px;overflow:hidden;color:black;" border="false">
-	    	
-	</div>
+    
 </body>
 </html>

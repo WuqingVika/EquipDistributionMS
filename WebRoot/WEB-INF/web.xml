@@ -60,4 +60,26 @@ http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
   <welcome-file-list>
     <welcome-file>/welcome/userLogin.jsp</welcome-file>
   </welcome-file-list>
+  <error-page>  
+        <error-code>500</error-code>  
+        <location>/errorMsg/404.html</location>  
+    </error-page>  
+    <error-page>  
+        <error-code>403</error-code>  
+       <location>/errorMsg/404.html</location>  
+    </error-page>  
+    <error-page>  
+        <error-code>404</error-code>  
+       <location>/errorMsg/404.html</location>  
+    </error-page>  
+  <!--   内部服务器错误 空指针异常   -->
+    <error-page>  
+        <exception-type>java.lang.NullPointerException</exception-type>  
+        <location>/errorMsg/404.html</location>  
+    </error-page>  
+<!--     内部服务器错误 顶层父类异常，捕获所有未配置的异常   -->
+    <error-page>  
+        <exception-type>java.lang.Exception</exception-type>  
+       <location>/errorMsg/404.html</location>  
+    </error-page>  
 </web-app>

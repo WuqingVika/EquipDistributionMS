@@ -91,10 +91,10 @@
         </action>
         <!-- 2.2普通的修改密码 -->
         <action name="updateCommonPwd" method="updateCommonPwd" class="vipAction">
-             <!-- <result name="resultMsg" type="redirect">/WEB-INF/back_page/resultMsg/msgSendEmail.jsp</result>
-        --> 
-        	<!-- <result type="json"></result> -->
-        </action>
+        	<result type="json"></result>
+             <!-- <result name="resultMsg"  type="redirect">/welcome/userLogin.jsp</result>  -->
+        	<!-- <result name="resultMsg">/WEB-INF/back_page/resultMsg/msgSendEmail.jsp</result>
+       -->  </action>
     </package>
     <package name="securityCode" namespace="/" extends="struts-default">
 		<action name="getSecurityCode" class="captchaAction">

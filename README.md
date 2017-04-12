@@ -44,8 +44,15 @@
  MailUtil中的return new PasswordAuthentication("aa@qq.com", "abcxxxxxxxxxx"); // 发件人邮箱账号、授权码
 	//注：授权码不是邮箱密码，可以看如何获取授权码，复制粘贴就Ok.			
  ``` 
+ 
+## :blush: 2017年4月12号跳的如下哈哈哈
++ struts重定向问题
+```
+	window.location.href='';//把它改成top.location.href;
+	我就是把问题想得太复杂了,才走了这么多坑，所以冷静下来好好想毕竟 万变不离其宗。
+	
+ ``` 
 ---
-
 
 ## 系统截图 
 + 1登录界面

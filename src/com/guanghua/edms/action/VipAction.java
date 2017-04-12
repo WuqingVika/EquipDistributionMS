@@ -405,7 +405,7 @@ public class VipAction extends BaseAction implements ServletRequestAware, ModelD
 		HttpServletResponse res=ServletActionContext.getResponse();
 		HttpServletRequest req=ServletActionContext.getRequest();
 		res.setCharacterEncoding("utf-8");
-		String editFlag="";
+		String editFlag="0";
 		if(userInfo!=null&&userInfo.getPassword()!=null&&userInfo.getUserName()!=null){
 			//Md5加密
 			userInfo.setPassword(md5Pwd.encode(userInfo.getPassword()));
@@ -416,13 +416,17 @@ public class VipAction extends BaseAction implements ServletRequestAware, ModelD
 				editFlag="0";
 			}
 		}
-		try {
-			res.sendRedirect(request.getContextPath() +"/WEB-INF/back_page/resultMsg/msgSendEmail.jsp");
+		/*req.setAttribute("msg", editFlag);
+		req.setAttribute("mytitle", "重置密码结果");
+		return "resultMsg";*/
+		
+		/*try {
+			//res.sendRedirect(request.getContextPath() +"/WEB-INF/back_page/resultMsg/msgSendEmail.jsp");
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
-		/*//将标记传给前台
+		}*/
+		//将标记传给前台
 		Map<String, String> msg=new HashMap<String, String>();
 		msg.put("msg",editFlag+"");
 		List<Map<String, String>> flags=new ArrayList<Map<String,String>>();
@@ -435,7 +439,7 @@ public class VipAction extends BaseAction implements ServletRequestAware, ModelD
 			out.close();
 		} catch (IOException e) {
 			e.printStackTrace();
-		}*/
+		}
 	}
 	@Override
 	public void setServletRequest(HttpServletRequest request) {
