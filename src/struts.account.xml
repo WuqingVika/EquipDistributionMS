@@ -41,7 +41,10 @@
     	 <action name="toVipList" method="toVipList" class="loginAction">
             <result name="success">/WEB-INF/back_page/vip/userList.jsp</result>
         </action>
-        
+        <!-- 跳转到开发历程 -->
+        <action name="toIntro" method="toIntro" class="loginAction">
+            <result name="success">/WEB-INF/back_page/hello/intro.jsp</result>
+        </action>
         <!-- 1.2查询用户列表  -->
          <action name="userListQuery" method="userListQuery" class="vipAction">
             <result type="json"></result>
@@ -65,6 +68,32 @@
          <!-- 1.6忘记密码页面验证随机验证码  -->
          <action name="verifyCaptcha" method="verifyCaptcha" class="loginAction">
             <result type="json"></result>
+        </action>
+        <!-- 1.7发送邮箱验证码 -->
+        <action name="sendMail" method="sendMail" class="vipAction">
+            <result name="resultMsg">/WEB-INF/back_page/resultMsg/msgSendEmail.jsp</result>
+        </action>
+        <!-- 1.8邮箱前往修改密码页面-->
+        <action name="toResetPwd" method="toResetPwd" class="vipAction">
+            <result name="updatePwd">/WEB-INF/back_page/vip/updatePwd.jsp</result>
+        </action>
+        <!-- 1.9修改密码 -->
+         <action name="updateForgetPwd" method="updateForgetPwd" class="vipAction">
+             <result name="resultMsg">/WEB-INF/back_page/resultMsg/msgSendEmail.jsp</result>
+        </action>
+        <!-- 2.0普通页面前往修改密码页面 -->
+         <action name="toCommonPwd" method="toCommonPwd" class="vipAction">
+             <result name="updatePwd">/WEB-INF/back_page/vip/updateCommonPwd.jsp</result>
+        </action>
+        <!-- 2.1判断旧密码是否输入正确 -->
+        <action name="checkPwdOld" method="checkPwdOld" class="vipAction">
+            <result type="json"></result>
+        </action>
+        <!-- 2.2普通的修改密码 -->
+        <action name="updateCommonPwd" method="updateCommonPwd" class="vipAction">
+             <!-- <result name="resultMsg" type="redirect">/WEB-INF/back_page/resultMsg/msgSendEmail.jsp</result>
+        --> 
+        	<!-- <result type="json"></result> -->
         </action>
     </package>
     <package name="securityCode" namespace="/" extends="struts-default">

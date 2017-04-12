@@ -21,7 +21,7 @@ public class UserDaoImpl  implements UserDao{
 	private SessionFactory sessionFactory;
 	public UserInfo getUserByUserName(String userName) {
 		System.out.println("dao--userId------------"+userName);
-		List<Object[]> list=sessionFactory.openSession().createSQLQuery("select USER_ID,USER_NAME,PASSWORD,work_no,sp,email from user_info where USER_NAME='"+userName+"'").list();
+		List<Object[]> list=sessionFactory.openSession().createSQLQuery("select USER_ID,USER_NAME,PASSWORD,work_no,sp,email,u_state from user_info where USER_NAME='"+userName+"'").list();
 		System.out.println(list.size()+"------------");
 		UserInfo u=new UserInfo();
 		List<UserInfo> users=new ArrayList<UserInfo>();
@@ -32,6 +32,7 @@ public class UserDaoImpl  implements UserDao{
 			u.setWorkNo(list.get(i)[3].toString());
 			u.setSp(Integer.parseInt(list.get(i)[4].toString()));
 			u.setEmail(list.get(i)[5].toString());
+			u.setuState(Integer.parseInt(list.get(i)[6].toString()));
 			users.add(u);
 		}
 		if(list.size()!=0){
@@ -115,7 +116,7 @@ public class UserDaoImpl  implements UserDao{
 	@Override
 	public int updatePwd(UserInfo userInfo) {
 		//修改密码成功后 需要将code置为空，并且U_state变为0
-		int res=sessionFactory.getCurrentSession().createSQLQuery("update user_info set password='"+userInfo.getPassword()+"',u_state="+userInfo.getuState()+",code= '"+userInfo.getCode()+"' where user_Id="+userInfo.getUserId()).executeUpdate();
+		int res=sessionFactory.getCurrentSession().createSQLQuery("update user_info set password='"+userInfo.getPassword()+"' where user_name='"+userInfo.getUserName()+"'").executeUpdate();
 		return res;
 	}
 	@Override
@@ -148,6 +149,39 @@ public class UserDaoImpl  implements UserDao{
 		}
 		res=1;
 		return res;
+	}
+	@Override
+	public int updateState(UserInfo userInfo) {
+		int res=0;
+		if(userInfo.getCode()!=null){
+			 res=sessionFactory.getCurrentSession().createSQLQuery("update user_info set u_state="+userInfo.getuState()+",code= '"+userInfo.getCode()+"' where user_name='"+userInfo.getUserName()+"'").executeUpdate();
+		}else{
+			 res=sessionFactory.getCurrentSession().createSQLQuery("update user_info set u_state="+userInfo.getuState()+",code= null  where user_name='"+userInfo.getUserName()+"'").executeUpdate();
+		}
+		return res;
+	}
+	@Override
+	public UserInfo getUserByUserName(String userName, String code) {
+		System.out.println("dao--userId------------"+userName);
+		List<Object[]> list=sessionFactory.openSession().createSQLQuery("select USER_ID,USER_NAME,PASSWORD,work_no,sp,email,u_state from user_info where USER_NAME='"+userName+"' and code='"+code+"'").list();
+		System.out.println(list.size()+"------------");
+		UserInfo u=new UserInfo();
+		List<UserInfo> users=new ArrayList<UserInfo>();
+		for(int i=0;i<list.size();i++){
+			u.setUserId(Long.parseLong(list.get(i)[0].toString()));
+			u.setUserName(list.get(i)[1].toString());
+			u.setPassword(list.get(i)[2].toString());
+			u.setWorkNo(list.get(i)[3].toString());
+			u.setSp(Integer.parseInt(list.get(i)[4].toString()));
+			u.setEmail(list.get(i)[5].toString());
+			u.setuState(Integer.parseInt(list.get(i)[6].toString()));
+			users.add(u);
+		}
+		if(list.size()!=0){
+			return users.get(0);
+		}
+		
+		return null;
 	}
 	
 }

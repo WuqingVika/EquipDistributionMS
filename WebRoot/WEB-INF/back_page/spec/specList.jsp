@@ -9,7 +9,6 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
    <title>专业信息</title>
     <jsp:include page="../../../jspRef/MainFrameworkRef.jsp"></jsp:include>
   </head>
-</head>
 <body style="padding:5px;">
     <div class="easyui-layout" fit="true" border="false">
         <div region="center" border="false">

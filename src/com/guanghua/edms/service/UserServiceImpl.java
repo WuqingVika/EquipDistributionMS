@@ -60,4 +60,14 @@ public class UserServiceImpl implements UserService {
 		return userDao.delUsers(userInfos, bs);
 	}
 
+	@Override
+	public int updateState(UserInfo userInfo) {
+		return userDao.updateState(userInfo);
+	}
+
+	@Override
+	public UserInfo getUserByUserName(String userName, String code) {
+		return userDao.getUserByUserName(userName, code);
+	}
+
 }

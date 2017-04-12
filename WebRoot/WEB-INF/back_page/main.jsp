@@ -70,7 +70,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
     </div>
     <div style="float:right;color:white;font-size:13px;width:260px;height:40px;margin-top:38px;line-height: 40px;">
-         欢迎&nbsp;<span style="font-weight:700;">${user.workNo }</span>&nbsp;&nbsp;<a href="#" class="linka">修改密码</a>
+         欢迎&nbsp;<span style="font-weight:700;">${user.workNo }</span>&nbsp;&nbsp;
         &nbsp;&nbsp;<a href="#" class="linka">退出登录</a>
     </div>
 </div>
@@ -158,15 +158,15 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                     'text':'修改密码',
                     'iconCls':'icon-textfield_key',
                     'attributes':{
-                        'url':'sm/modPass.html'
+                        'url':'<%=path %>/user/toCommonPwd.action?userName=${user.userName }'
                     }
                 },
                 {
                     'id':303,
-                    'text':'系统帮助',
+                    'text':'开发者介绍',
                     'iconCls':'icon-tip',
                     'attributes':{
-                        'url':'sm/sysHelp.html'
+                        'url':'<%=path %>/user/toIntro.action'
                     }
                 }
             ]">

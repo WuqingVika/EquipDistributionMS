@@ -1,6 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%
+
 String path = request.getContextPath();
 String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
 %>
@@ -36,16 +37,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	</style>
 	<script type="text/javascript">
 			 function formSub() {
-				 //提交userName,password;
-				 /*1.判断是否为空
-				   2.判断是否从邮箱进入
-				             从邮箱进入：判断两次密码一致不
-				          不从邮箱进入：验证旧密码
-				 */
 				 var userName=$("#userName").val().trim();
 				 var password=$("#password").val().trim();
 				 var passwordAgain=$("#passwordAgain").val().trim();
-				 if(password==""||password.trim()==""||passwordAgain==""||passwordAgain.trim()==""){
+				 var passwordOld=$("#passwordOld").val().trim();
+				 if(password==""||passwordAgain==""||passwordOld==""){
 					 $.messager.alert("提示信息", "密码输入框不得为空！");
 					 return false;
 				 }
@@ -53,14 +49,36 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					 $.messager.alert("提示信息", "两次密码不一致！");
 					 return false;
 				 }
-				
-			  $.messager.confirm('修改密码确认', '您确定要修改密码？', function (r) {
-                    if (r) {
-                    	$("#pwdform").submit();
-                    }
-                });
-				
-				
+				//判断新密码是否和旧密码一致
+				 $.post('<%=path%>/user/checkPwdOld.action', { userName: userName,passwordOld:passwordOld }, function (result) {
+                  if (result[0].msg=="0") {
+                 	 $.messager.alert("提示信息", "旧密码输入错误！");
+                		return false;
+                   }else if(result[0].msg=="1"){
+                	   $.messager.confirm('修改密码确认', '您确定要修改密码？', function (r) {
+                           if (r) {
+                           	/* $("#pwdform").submit(); */ 
+                           	 <%-- action="<%=path %>/user/updateCommonPwd.action" --%> 
+			                  $.post('<%=path%>/user/updateCommonPwd.action', { userName: userName,password:password}, function (myflag) {
+			                  if (myflag[0].msg=="0") {
+			                 	 $.messager.alert("提示信息", "修改失败,请稍后重试！");
+			                		return false;
+			                   }else if(myflag[0].msg=="1"){
+			                	   window.location='<%=path%>/welcome/userLogin.jsp';
+			                   }else{
+			                	   $.messager.alert("提示信息", "系统错误,请稍后重试！");
+			               			return false;
+			                   }
+			              }, 'json');
+                           	/**/
+                           }
+                       });
+                   }else{
+                	   $.messager.alert("提示信息", "系统错误,请稍后重试！");
+               			return false;
+                   }
+              }, 'json');
+			 
 			}
 			
 			
@@ -70,33 +88,31 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   
  
   <body class="easyui-layout" fit="true" >
-    <div data-options="region:'north'" class="header" style="height:150px" border="false">
+    <div data-options="region:'north'" class="header" style="height:50px" border="false">
     
     </div>
     <div data-options="region:'center'" border="false">
 		<div class="easyui-layout" data-options="fit:true" >
-			<div data-options="region:'west'" style="width:480px" border="false"></div>
+			<div data-options="region:'west'" style="width:0px" border="false"></div>
 			<div data-options="region:'center',title:'修改密码', iconCls:'icon-textfield_key'" >
 					<div class="link-info" style="margin-left:50px;">
 		                        <h3 style="font-size: 12px;  color: #b5b9bc;"></h3>
-		                        <a class="right-back" href="<%=path %>/welcome/userLogin.jsp"> 返回立即登录</a>
+		                      
 		             </div>
 					<div class="js-forgotpwd-form-wrap" style="margin-left:30px;">
 					 <c:if test="${!empty user}">
-	                    <form id="pwdform" action="<%=path %>/user/updateForgetPwd.action"  method="post">
+	                    <form id="pwdform"   method="post">
 	                        
 	                        <div>
                                <input class="easyui-textbox" id="userName" name="userName" value="${user.userName }"
                                       data-options="iconCls:'icon-man'" readonly="true"
                                       style="width:240px;height:30px;"/>
                           	 </div>
-                          	<%-- <c:if test="${!empty flag&&flag!=0}"> 
-	                           <div style="margin-top: 20px;">
-	                                <input class="easyui-textbox" type="password" id="passwordOld" 
-	                                       data-options="iconCls:'icon-lock',prompt:'请输入旧密码'"
-	                                       style="width:240px;height:30px;"/>
-	                            </div>
-                            </c:if> --%>
+                           <div style="margin-top: 20px;">
+                                <input class="easyui-textbox" type="password" id="passwordOld" 
+                                       data-options="iconCls:'icon-lock',prompt:'请输入旧密码'"
+                                       style="width:240px;height:30px;"/>
+                            </div>
                             <div style="margin-top: 20px;">
                                 <input class="easyui-textbox" type="password" id="password" name="password"
                                        data-options="iconCls:'icon-lock',prompt:'请输入新密码'"
@@ -109,7 +125,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                              </div>
                             <div style="margin-top: 20px;">
                                 <p>
-                                    <a href="javascript:void(0)" onclick="formSub()" style="width:240px;height:40px;" class="easyui-linkbutton" iconCls="icon-accept">提交</a>
+                                    <a href="javascript:void(0)" onclick="formSub()" style="width:240px;height:40px;" class="easyui-linkbutton" iconCls="icon-accept">修改</a>
                                 </p>
                             </div>
 	                    </form>
@@ -124,12 +140,12 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	                </div>
 				<!-- end div1 -->
 			</div>
-			<div data-options="region:'east'" style="width:380px" border="false"></div>
+			<div data-options="region:'east'" style="width:430px" border="false"></div>
 		</div>
     </div>
     <div region="south" style="text-align: center;height:100px;
 		line-height: 40px;overflow:hidden;color:black;" border="false">
-	    	版权所有@上海电信机房设备分布管理系统  Copyright 2016-2017
+	    	
 	</div>
 </body>
 </html>

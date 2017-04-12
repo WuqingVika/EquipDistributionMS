@@ -60,13 +60,16 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                      }else if(result[0].msg=="0"||result[0].msg==""){
 		                   		$.messager.alert("提示信息", "输入账号还没绑定邮箱，请及时联系管理员添加邮箱！");
 		                   		return false;
+		                      }else if(result[0].msg=="2"){
+		                    	  $.messager.alert("提示信息", "系统已经发送过重置密码链接,请及时去验证！");
+			                   	  return false;
 		                      }else{
 		                    	  email=result[0].msg;
 		                    	  var myemail=email.substring(0,2);
 		                    	  myemail+='****';
 		                    	  myemail+=email.substring(email.length-5,email.length);
 		                    	  //存在邮箱
-		                    	  $.messager.confirm('发送邮件确认', '您确定要向邮箱['+myemail+']发送激活链接？', function (r) {
+		                    	  $.messager.confirm('发送邮件确认', '您确定要向邮箱['+myemail+']发送重置密码链接？', function (r) {
 		      	                    if (r) {
 		      	                    	$("#forgetform").submit();
 		      	                    }
@@ -103,7 +106,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		                        <h3 style="font-size: 12px;  color: #b5b9bc;">通过登录账号关联的邮箱重设密码</h3>
 		                        <a class="right-back" href="<%=path %>/welcome/userLogin.jsp"> 返回立即登录</a>
 		             </div>
-					<div class="js-forgotpwd-form-wrap" style="margin-left:30px;">
+					<div class="js-forgotpwd-form-wrap" style="margin-left:20px;">
 	                    <form id="forgetform" action="<%=path %>/user/sendMail.action"  method="post">
 	                        <div>
                                <input class="easyui-textbox" id="userName" name="userName" required="true" 
@@ -125,7 +128,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                             </div> -->
                             <div style="margin-top: 20px;">
                                 <p>
-                                    <a href="javascript:void(0)" onclick="formSub()" style="width:240px;height:40px;" class="easyui-linkbutton" iconCls="icon-email_link">发送邮箱激活链接</a>
+                                    <a href="javascript:void(0)" onclick="formSub()" style="width:240px;height:40px;" class="easyui-linkbutton" iconCls="icon-email_link">向邮箱发送重置密码链接</a>
                                 </p>
                             </div>
 	                    </form>

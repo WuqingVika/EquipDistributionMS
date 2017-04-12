@@ -182,6 +182,12 @@ public class LoginAction extends ActionSupport  implements  ModelDriven<UserInfo
 	public String toVipList() throws Exception {
 		return SUCCESS;
 	}
+	/*
+	 * 跳转到管理员列表
+	 */
+	public String toIntro() throws Exception {
+		return SUCCESS;
+	}
 	
 	
 	

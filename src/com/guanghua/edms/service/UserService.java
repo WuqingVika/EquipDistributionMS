@@ -47,5 +47,11 @@ public interface UserService {
 	public int updatePwd(UserInfo userInfo);
 	//6.批量删除(除了本身）
 	public int delUsers(List<UserInfo> userInfos,UserInfo bs);
+	/**
+	 * 7.发送邮件更改状态 u_state,code
+	 */
+	public int updateState(UserInfo userInfo);
+	//8.判断链接是否失效
+	public UserInfo getUserByUserName(String userName,String code);
 	
 }

@@ -37,15 +37,23 @@ public class UserInfo implements Serializable{
 		this.email = email;
 	}
 
-	public String getuState() {
+	/*public String getuState() {
 		return uState;
 	}
 
 	public void setuState(String uState) {
 		this.uState = uState;
-	}
-	private String uState;//状态
+	}*/
+	private Integer uState;//状态
 	
+	public Integer getuState() {
+		return uState;
+	}
+
+	public void setuState(Integer uState) {
+		this.uState = uState;
+	}
+
 	public Integer getSp() {
 		return sp;
 	}
