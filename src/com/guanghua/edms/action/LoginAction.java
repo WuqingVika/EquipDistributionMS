@@ -183,12 +183,17 @@ public class LoginAction extends ActionSupport  implements  ModelDriven<UserInfo
 		return SUCCESS;
 	}
 	/*
-	 * 跳转到管理员列表
+	 * 跳转到工程师介绍列表
 	 */
 	public String toIntro() throws Exception {
 		return SUCCESS;
 	}
-	
+	/*
+	 * 跳转到开发历程介绍列表
+	 */
+	public String toWuqingvika() throws Exception {
+		return SUCCESS;
+	}
 	
 	
 	

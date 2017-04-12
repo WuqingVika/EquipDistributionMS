@@ -163,6 +163,14 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                 },
                 {
                     'id':303,
+                    'text':'开发历程',
+                    'iconCls':'icon-clock_add',
+                    'attributes':{
+                        'url':'<%=path %>/user/toWuqingvika.action'
+                    }
+                },
+                 {
+                    'id':304,
                     'text':'开发者介绍',
                     'iconCls':'icon-tip',
                     'attributes':{
@@ -178,7 +186,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div region="center"  border="false">
     <div class="easyui-tabs" fit="true" id="tt">
         <div title="首页" data-options="iconCls:'icon-application_home'" >
-			<span style="font-size:32px;font-weight:400;">欢迎来到上海电信机房设备分布管理系统</span><br/>
+			<span style="font-size:32px;font-weight:400;">欢迎来到上海电信机房设备分布管理系统1.0--开发历程</span><br/>
+			<embed src="../../../jspRef/wuqingvikaHis.pdf" width="100%" height="100%">
         </div>
     </div>
 </div>

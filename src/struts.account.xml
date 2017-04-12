@@ -41,10 +41,15 @@
     	 <action name="toVipList" method="toVipList" class="loginAction">
             <result name="success">/WEB-INF/back_page/vip/userList.jsp</result>
         </action>
-        <!-- 跳转到开发历程 -->
+        <!-- 跳转到开发工程师介绍 -->
         <action name="toIntro" method="toIntro" class="loginAction">
             <result name="success">/WEB-INF/back_page/hello/intro.jsp</result>
         </action>
+        <!-- 跳转到开发历程 -->
+        <action name="toWuqingvika" method="toWuqingvika" class="loginAction">
+            <result name="success">/WEB-INF/back_page/hello/wuqingvikaHis.jsp</result>
+        </action>
+        
         <!-- 1.2查询用户列表  -->
          <action name="userListQuery" method="userListQuery" class="vipAction">
             <result type="json"></result>
@@ -95,6 +100,7 @@
              <!-- <result name="resultMsg"  type="redirect">/welcome/userLogin.jsp</result>  -->
         	<!-- <result name="resultMsg">/WEB-INF/back_page/resultMsg/msgSendEmail.jsp</result>
        -->  </action>
+       
     </package>
     <package name="securityCode" namespace="/" extends="struts-default">
 		<action name="getSecurityCode" class="captchaAction">
