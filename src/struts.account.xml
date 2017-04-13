@@ -13,6 +13,9 @@
             <result name="loginAgain">/welcome/userLogin.jsp</result>
             <result name="success">/WEB-INF/back_page/main.jsp</result>
         </action>
+        <action name="logout" method="logout" class="loginAction">
+            <result name="success" type="redirect">/welcome/userLogin.jsp</result>
+        </action>
         <!-- 跳转到机柜列表 -->
     	 <action name="toCabinetList" method="toCabinetList" class="loginAction">
             <result name="success">/WEB-INF/back_page/cproom/cabinetList.jsp</result>

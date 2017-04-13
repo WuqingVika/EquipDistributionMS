@@ -71,7 +71,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     </div>
     <div style="float:right;color:white;font-size:13px;width:260px;height:40px;margin-top:38px;line-height: 40px;">
          欢迎&nbsp;<span style="font-weight:700;">${user.workNo }</span>&nbsp;&nbsp;
-        &nbsp;&nbsp;<a href="#" class="linka">退出登录</a>
+        &nbsp;&nbsp;<a href="<%=path %>/user/logout.action"  class="linka">退出登录</a>
     </div>
 </div>
 <!-- 菜单面板 -->

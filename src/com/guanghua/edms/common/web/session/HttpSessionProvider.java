@@ -31,7 +31,6 @@ public class HttpSessionProvider implements SessionProvider{
 
 	@Override
 	public void logout(HttpServletRequest request) {
-		// TODO Auto-generated method stub
 		HttpSession session = request.getSession(false);
 		if(session != null){
 			session.invalidate();

@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.struts2.ServletActionContext;
-import org.apache.struts2.interceptor.ServletRequestAware;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -25,8 +24,6 @@ import com.guanghua.edms.common.web.session.SessionProvider;
 import com.guanghua.edms.domain.UserInfo;
 import com.guanghua.edms.service.UserService;
 import com.guanghua.edms.util.Constants;
-import com.octo.captcha.service.CaptchaService;
-import com.opensymphony.xwork2.ActionContext;
 /*import com.octo.captcha.service.image.ImageCaptchaService;*/
 import com.opensymphony.xwork2.ActionSupport;
 import com.opensymphony.xwork2.ModelDriven;
@@ -110,7 +107,17 @@ public class LoginAction extends ActionSupport  implements  ModelDriven<UserInfo
 		}
 		return "loginAgain";
 	}
-	
+	public String logout(){
+		HttpServletRequest request=ServletActionContext.getRequest();
+		sessionProvider.logout(request);
+		/*try{
+			ActionContext context = ActionContext.getContext();
+			context.getSession().clear();
+		} catch(Exception e){
+			throw ExceptionTranslator.translator(e);
+		}*/
+		return SUCCESS;
+	}
 	/**
 	 * 1.5查询邮箱
 	 */
