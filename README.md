@@ -1,79 +1,79 @@
-# EquipDistributionMS ã€Šé‚£äº›å¹´:smirk:å±é¦™é¦™å¡«è¿‡çš„å‘ã€‹
-å±é¦™é¦™çš„æ¯•ä¸šè®¾è®¡-æœºæˆ¿è®¾å¤‡åˆ†å¸ƒç®¡ç†ç³»ç»Ÿ   
+# EquipDistributionMS ¡¶ÄÇĞ©Äê:smirk:ÊºÏãÏãÌî¹ıµÄ¿Ó¡·
+ÊºÏãÏãµÄ±ÏÒµÉè¼Æ-»ú·¿Éè±¸·Ö²¼¹ÜÀíÏµÍ³   
 
-## :blush: 2017å¹´2æœˆ25å·è·³çš„å¦‚ä¸‹å“ˆå“ˆå“ˆ
-+ spring3.xä¸æ”¯æŒJava1.8,å¾—ç”¨spring4.x
-+ commons-lang-xxå’Œcommons-lang3-xx æœ¬é¡¹ç›®é‡Œæœ‰ç”¨åˆ°çš„JaråŒ…æ˜¯ç”¨å‰è€…ï¼Œæ‰€ä»¥è¦ç”¨StringUtilså¾—å†å¯¼å…¥ä¸ªLang3-xx.
-+ é¡¹ç›®å¯åŠ¨è€å¡åœ¨trying to resolve system-id[..dtd:hibernate3.0mapping.. ç½‘æ…¢å°±å¯¼åˆ°å„ç§æŠ¥é”™ è¿™æ˜¯å› ä¸ºå®ƒè€è·‘hibernateå®˜ç½‘è¿æ¥dtdæ–‡ä»¶äº†ï¼Œå¯ä»¥é€‰æ‹©åœ¨æœ¬åœ°é…ç½®ã€‚ï¼ˆç”¨å‹ç¼©åŒ…æ–¹å¼æ‰“å¼€hibernate3.jar å¯ä»¥æ‰¾åˆ°hibernate-mapping-3.0ï¼å‚è€ƒé“¾æ¥ï¼šhttp://blog.csdn.net/huweijian5/article/details/21863161
-+ <result type="json"></result>é—®é¢˜éœ€è¦struts-json-plugin.jarè¿˜æœ‰json-lib.jar(åæ­£è¿™ä¸ªä¹ŸåŠ ä¸Šå§)æœ€åè®°å¾—åŒ…åç»§æ‰¿ Json-default!
+## :blush: 2017Äê2ÔÂ25ºÅÌøµÄÈçÏÂ¹ş¹ş¹ş
++ spring3.x²»Ö§³ÖJava1.8,µÃÓÃspring4.x
++ commons-lang-xxºÍcommons-lang3-xx ±¾ÏîÄ¿ÀïÓĞÓÃµ½µÄJar°üÊÇÓÃÇ°Õß£¬ËùÒÔÒªÓÃStringUtilsµÃÔÙµ¼Èë¸öLang3-xx.
++ ÏîÄ¿Æô¶¯ÀÏ¿¨ÔÚtrying to resolve system-id[..dtd:hibernate3.0mapping.. ÍøÂı¾Íµ¼µ½¸÷ÖÖ±¨´í ÕâÊÇÒòÎªËüÀÏÅÜhibernate¹ÙÍøÁ¬½ÓdtdÎÄ¼şÁË£¬¿ÉÒÔÑ¡ÔñÔÚ±¾µØÅäÖÃ¡££¨ÓÃÑ¹Ëõ°ü·½Ê½´ò¿ªhibernate3.jar ¿ÉÒÔÕÒµ½hibernate-mapping-3.0£¡²Î¿¼Á´½Ó£ºhttp://blog.csdn.net/huweijian5/article/details/21863161
++ <result type="json"></result>ÎÊÌâĞèÒªstruts-json-plugin.jar»¹ÓĞjson-lib.jar(·´ÕıÕâ¸öÒ²¼ÓÉÏ°É)×îºó¼ÇµÃ°üÃû¼Ì³Ğ Json-default!
 
-## :blush: 2017å¹´3æœˆ2å·è·³çš„å¦‚ä¸‹å“ˆå“ˆå“ˆ
-+ strutså’Œservletå…±ç”¨æ—¶ï¼Œæˆ‘æŠŠStruts è¿‡æ»¤ä»/*å˜ä¸º*.action,è¿™æ ·ä½¿ç”¨servletå°±èƒ½ä¼˜å…ˆè¢«æ‹¦æˆªåˆ°å•¦ã€‚
+## :blush: 2017Äê3ÔÂ2ºÅÌøµÄÈçÏÂ¹ş¹ş¹ş
++ strutsºÍservlet¹²ÓÃÊ±£¬ÎÒ°ÑStruts ¹ıÂË´Ó/*±äÎª*.action,ÕâÑùÊ¹ÓÃservlet¾ÍÄÜÓÅÏÈ±»À¹½Øµ½À²¡£
 
-## :blush: 2017å¹´3æœˆ18å·è·³çš„å¦‚ä¸‹å“ˆå“ˆå“ˆ
-+ getCurrentSessionä¸ openSessionåŒºåˆ«ã€‚
-+ ã€Field 'CARD_ID' doesn't have a default valueã€‘mysqlæ³¨æ„ä¸»é”®è®¾ä¸ºè‡ªåŠ¨é€’å¢ï¼Œæˆ‘æŠŠdecimalæ”¹æˆbigintå°±ok.
+## :blush: 2017Äê3ÔÂ18ºÅÌøµÄÈçÏÂ¹ş¹ş¹ş
++ getCurrentSessionÓë openSessionÇø±ğ¡£
++ ¡¾Field 'CARD_ID' doesn't have a default value¡¿mysql×¢ÒâÖ÷¼üÉèÎª×Ô¶¯µİÔö£¬ÎÒ°Ñdecimal¸Ä³Ébigint¾Íok.
 
-## :blush: 2017å¹´3æœˆ25å·è·³çš„å¦‚ä¸‹å“ˆå“ˆå“ˆ
-+ ã€ä¸€ä¸ªå¾ˆå‘çš„ä½çº§çš„ å°±æ˜¯datagridåˆ¤æ–­è·å–è¡Œæ•°æ—¶ï¼Œå½“å‰é¡µé¢å¦‚æœé€‰å‹¾ï¼Œå†åˆ·æ–°æ•°æ®å°±ä¼šæŠŠä¹‹å‰å‹¾ä¸Šçš„æ¡æ•°ç´¯åŠ ã€‘ idField="specId"æ˜¯è¿™ä¸ªå­—æ®µã€‚
-+ ä¿®æ”¹å·²æœ‰è®°å½•çš„mysqlæ•°æ®è¡¨çš„ä¸»é”®ä¸ºè‡ªåŠ¨å¢é•¿æ—¶,æŠ¥å‡ºä»¥ä¸‹é”™è¯¯
-ã€ALTER TABLE causes auto_increment resequencing, resulting in duplicate entry â€™1â€² for key â€˜PRIMARYâ€™ã€‘
+## :blush: 2017Äê3ÔÂ25ºÅÌøµÄÈçÏÂ¹ş¹ş¹ş
++ ¡¾Ò»¸öºÜ¿ÓµÄµÍ¼¶µÄ ¾ÍÊÇdatagridÅĞ¶Ï»ñÈ¡ĞĞÊıÊ±£¬µ±Ç°Ò³ÃæÈç¹ûÑ¡¹´£¬ÔÙË¢ĞÂÊı¾İ¾Í»á°ÑÖ®Ç°¹´ÉÏµÄÌõÊıÀÛ¼Ó¡¿ idField="specId"ÊÇÕâ¸ö×Ö¶Î¡£
++ ĞŞ¸ÄÒÑÓĞ¼ÇÂ¼µÄmysqlÊı¾İ±íµÄÖ÷¼üÎª×Ô¶¯Ôö³¤Ê±,±¨³öÒÔÏÂ´íÎó
+¡¾ALTER TABLE causes auto_increment resequencing, resulting in duplicate entry ¡¯1¡ä for key ¡®PRIMARY¡¯¡¿
  ```  
- ç¬¬1æ­¥ï¼šå°†ä¸»é”®å­—æ®µå€¼ä¸º0çš„é‚£æ¡è®°å½•å€¼æ”¹ä¸ºå…¶ä»–å¤§äº0ä¸”ä¸é‡å¤çš„ä»»æ„æ•°
- ç¬¬2æ­¥ï¼šä¿®æ”¹ä¸»é”®å­—æ®µä¸ºauto_increment
-ç¬¬3æ­¥ï¼šæŠŠåˆšæ‰ä¿®æ”¹è¿‡çš„é‚£æ¡è®°å½•çš„å€¼è¿˜åŸ
+ µÚ1²½£º½«Ö÷¼ü×Ö¶ÎÖµÎª0µÄÄÇÌõ¼ÇÂ¼Öµ¸ÄÎªÆäËû´óÓÚ0ÇÒ²»ÖØ¸´µÄÈÎÒâÊı
+ µÚ2²½£ºĞŞ¸ÄÖ÷¼ü×Ö¶ÎÎªauto_increment
+µÚ3²½£º°Ñ¸Õ²ÅĞŞ¸Ä¹ıµÄÄÇÌõ¼ÇÂ¼µÄÖµ»¹Ô­
  ``` 
  
-## :blush: 2017å¹´3æœˆ28å·è·³çš„å¦‚ä¸‹å“ˆå“ˆå“ˆ
-+ ä¿®æ”¹mysqlé€’å¢çš„id
+## :blush: 2017Äê3ÔÂ28ºÅÌøµÄÈçÏÂ¹ş¹ş¹ş
++ ĞŞ¸ÄmysqlµİÔöµÄid
 
 ![image](https://github.com/WuqingVika/EquipDistributionMS/blob/master/WebRoot/img/helpOne.jpg)
 
-+ åˆ é™¤sqlæœªæ‰§è¡Œ
-è®°å¾—åŠ ä¸Š.executeUpdate();
++ É¾³ısqlÎ´Ö´ĞĞ
+¼ÇµÃ¼ÓÉÏ.executeUpdate();
 
-## :blush: 2017å¹´4æœˆ9å·è·³çš„å¦‚ä¸‹å“ˆå“ˆå“ˆ
-+ easyuiå¤é€‰æ¡†åˆ·æ–°ç´¯è®¡é—®é¢˜
+## :blush: 2017Äê4ÔÂ9ºÅÌøµÄÈçÏÂ¹ş¹ş¹ş
++ easyui¸´Ñ¡¿òË¢ĞÂÀÛ¼ÆÎÊÌâ
 ```  
- //datagridç”¨äº†idField,å»ºè®®google easyui idFieldä½œç”¨;
- $('#dg').datagrid('clearSelections');//æ¯æ¬¡åŠ è½½datagridéœ€è¦æ¸…ç©º
- åŸæ–‡å‚è€ƒï¼šhttp://blog.csdn.net/isea533/article/details/50929752
+ //datagridÓÃÁËidField,½¨Òégoogle easyui idField×÷ÓÃ;
+ $('#dg').datagrid('clearSelections');//Ã¿´Î¼ÓÔØdatagridĞèÒªÇå¿Õ
+ Ô­ÎÄ²Î¿¼£ºhttp://blog.csdn.net/isea533/article/details/50929752
  ``` 
-+ å‘é€é‚®ä»¶éªŒè¯ç æˆæƒç é—®é¢˜
++ ·¢ËÍÓÊ¼şÑéÖ¤ÂëÊÚÈ¨ÂëÎÊÌâ
 ```  
- MailUtilä¸­çš„return new PasswordAuthentication("aa@qq.com", "abcxxxxxxxxxx"); // å‘ä»¶äººé‚®ç®±è´¦å·ã€æˆæƒç 
-	//æ³¨ï¼šæˆæƒç ä¸æ˜¯é‚®ç®±å¯†ç ï¼Œå¯ä»¥çœ‹å¦‚ä½•è·å–æˆæƒç ï¼Œå¤åˆ¶ç²˜è´´å°±Ok.			
+ MailUtilÖĞµÄreturn new PasswordAuthentication("aa@qq.com", "abcxxxxxxxxxx"); // ·¢¼şÈËÓÊÏäÕËºÅ¡¢ÊÚÈ¨Âë
+	//×¢£ºÊÚÈ¨Âë²»ÊÇÓÊÏäÃÜÂë£¬¿ÉÒÔ¿´ÈçºÎ»ñÈ¡ÊÚÈ¨Âë£¬¸´ÖÆÕ³Ìù¾ÍOk.			
  ``` 
  
-## :blush: 2017å¹´4æœˆ12å·è·³çš„å¦‚ä¸‹å“ˆå“ˆå“ˆ
-+ strutsé‡å®šå‘é—®é¢˜
+## :blush: 2017Äê4ÔÂ12ºÅÌøµÄÈçÏÂ¹ş¹ş¹ş
++ strutsÖØ¶¨ÏòÎÊÌâ
 ```
-	window.location.href='';//æŠŠå®ƒæ”¹æˆtop.location.href;
-	æˆ‘å°±æ˜¯æŠŠé—®é¢˜æƒ³å¾—å¤ªå¤æ‚äº†,æ‰èµ°äº†è¿™ä¹ˆå¤šå‘ï¼Œæ‰€ä»¥å†·é™ä¸‹æ¥å¥½å¥½æƒ³æ¯•ç«Ÿ ä¸‡å˜ä¸ç¦»å…¶å®—ã€‚
+	window.location.href='';//°ÑËü¸Ä³Étop.location.href;
+	ÎÒ¾ÍÊÇ°ÑÎÊÌâÏëµÃÌ«¸´ÔÓÁË,²Å×ßÁËÕâÃ´¶à¿Ó£¬ËùÒÔÀä¾²ÏÂÀ´ºÃºÃÏë±Ï¾¹ Íò±ä²»ÀëÆä×Ú¡£
 	
  ``` 
 ---
 
-## ç³»ç»Ÿæˆªå›¾ 
-+ 1ç™»å½•ç•Œé¢
+## ÏµÍ³½ØÍ¼ 
++ 1µÇÂ¼½çÃæ
 ![image](https://github.com/WuqingVika/EquipDistributionMS/blob/master/WebRoot/img/showLogin.jpg)
-+ 2ç³»ç»Ÿä¸»é¡µé¢
++ 2ÏµÍ³Ö÷Ò³Ãæ
 ![image](https://github.com/WuqingVika/EquipDistributionMS/blob/master/WebRoot/img/showMain.jpg)
-+ 3æœºæŸœç®¡ç†é¡µé¢
++ 3»ú¹ñ¹ÜÀíÒ³Ãæ
 ![image](https://github.com/WuqingVika/EquipDistributionMS/blob/master/WebRoot/img/showCabinet.jpg)
-+ 4è®¾å¤‡ç®¡ç†é¡µé¢
++ 4Éè±¸¹ÜÀíÒ³Ãæ
 ![image](https://github.com/WuqingVika/EquipDistributionMS/blob/master/WebRoot/img/showEqu.jpg)
-+ 5æ¿å¡ç®¡ç†é¡µé¢
++ 5°å¿¨¹ÜÀíÒ³Ãæ
 ![image](https://github.com/WuqingVika/EquipDistributionMS/blob/master/WebRoot/img/showCard.jpg)
-+ 6ä¸“ä¸šç®¡ç†é¡µé¢
++ 6×¨Òµ¹ÜÀíÒ³Ãæ
 ![image](https://github.com/WuqingVika/EquipDistributionMS/blob/master/WebRoot/img/showSpec.jpg)
-+ 7å±€ç«™ç®¡ç†é¡µé¢
++ 7¾ÖÕ¾¹ÜÀíÒ³Ãæ
 ![image](https://github.com/WuqingVika/EquipDistributionMS/blob/master/WebRoot/img/showRegion.jpg)
-+ 8æœºæˆ¿ç®¡ç†é¡µé¢
++ 8»ú·¿¹ÜÀíÒ³Ãæ
 ![image](https://github.com/WuqingVika/EquipDistributionMS/blob/master/WebRoot/img/comroomManage.png)
-+ 9ç”¨æˆ·ç®¡ç†é¡µé¢
++ 9ÓÃ»§¹ÜÀíÒ³Ãæ
 ![image](https://github.com/WuqingVika/EquipDistributionMS/blob/master/WebRoot/img/showUser.png)
-+ 10å¿˜è®°å¯†ç é¡µé¢
++ 10Íü¼ÇÃÜÂëÒ³Ãæ
 ![image](https://github.com/WuqingVika/EquipDistributionMS/blob/master/WebRoot/img/showsendEmail.png)
 ---
-ã€åŠŸèƒ½è¿˜åœ¨æ‹¼å‘½å®Œå–„ä¸­ï¼:blush:ã€‘
+¡¾¹¦ÄÜ»¹ÔÚÆ´ÃüÍêÉÆÖĞ£¡:blush:¡¿
