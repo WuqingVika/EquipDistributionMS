@@ -84,7 +84,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
                                             </div>
                                              <div style="margin-top: 10px;">
 					                               <input class="easyui-textbox" type="text" id="captcha" name="captcha" 
-					                                      data-options="iconCls:'icon-application_lightning',prompt:'请输入难证码'"
+					                                      data-options="iconCls:'icon-application_lightning',prompt:'请输入验证码'"
 					                                      style="width:130px;height:30px;"/>
 					                                <img src="<%=path %>/getSecurityCode.action" onclick="changeCode()" class="code" alt="换一张" />
 						                            <a href="javascript:void(0)" onclick="changeCode()" class="easyui-linkbutton" iconCls="icon-reload" title="换一张"></a>

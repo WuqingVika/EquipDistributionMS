@@ -34,11 +34,11 @@ public class RegionDaoImpl implements RegionDao {
 			countSql.append(" where region_name like '%"+regionName+"%' ");
 		}
 		countSql.append(" ) aa");
-		
+		//041801
 		List<Object[]> list=sessionFactory.getCurrentSession().createSQLQuery(sql.toString()).setFirstResult((pageSize - 1) * rows).setMaxResults(rows).list();
 		JSONObject result = new JSONObject();
 		if(pageSize==1){
-			System.out.println();
+			System.out.println();//041801
 			String str=sessionFactory.getCurrentSession().createSQLQuery(countSql.toString()).uniqueResult().toString();
 			int count=Integer.parseInt(str);
 			result.put("total", count);
@@ -64,10 +64,10 @@ public class RegionDaoImpl implements RegionDao {
 	}
 
 	@Override
-	public int addRegion(Region region) {
+	public int addRegion(Region region) {//041801
 		Long regionId=Long.parseLong(sessionFactory.getCurrentSession().createSQLQuery("select max(region_id)+1 from region").uniqueResult().toString());
 		region.setRegionId(regionId);
-		//插入数据库
+		//插入数据库//041801
 		int res = sessionFactory.getCurrentSession().createSQLQuery("insert into region (district,region_id,region_name,address,property_right,re_floor,re_usage,re_state,re_addrress) values (20,"+region.getRegionId()+",'"+region.getRegionName()+"','"
 		+region.getAddress()+"','"+region.getPropertyRight()+"',"+region.getReFloor()+",'"+region.getReUsage()+
 				"','"+region.getReState()+"','"+region.getReAddress()+"')").executeUpdate();
@@ -75,7 +75,7 @@ public class RegionDaoImpl implements RegionDao {
 	}
 
 	@Override
-	public int editRegion(Region region) {
+	public int editRegion(Region region) {//041801
 		int res=sessionFactory.getCurrentSession().createSQLQuery("update region set region_name='"+region.getRegionName()+"',address='"+region.getAddress()+"',property_right='"
 				+ region.getPropertyRight()+"',re_floor="+region.getReFloor()
 				+",re_usage='"+region.getReUsage()+"',re_state='"+region.getReState()
@@ -90,12 +90,12 @@ public class RegionDaoImpl implements RegionDao {
 		Session currentSession = sessionFactory.getCurrentSession();
 		int res=0;
 		for(int i=0;i<regions.size();i++){
-			//判断每个专业下是否有数据。如果有不能删除，如果没有则可以删除
+			//判断每个专业下是否有数据。如果有不能删除，如果没有则可以删除//041801
 			List<Object[]> list=currentSession.createSQLQuery("select * from room where region_id="+regions.get(i).getRegionId()).list();
 			if(list.size()==0){
 				//可以删
 				System.out.println("-------------可以删！");
-			  try {//saveOrUpdate
+			  try {//saveOrUpdate//041801
 				 currentSession.createSQLQuery("delete from region where region_id="+regions.get(i).getRegionId()).executeUpdate();
 			} catch (HibernateException e) {
 				// TODO Auto-generated catch block

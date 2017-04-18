@@ -112,10 +112,10 @@ public class CabinetDaoImpl implements CabinetDao {
 		
 		//org.hibernate.classic.Session session = this.sessionFactory.openSession();
 		List<Object[]> list=sessionFactory.getCurrentSession().createSQLQuery(sql.toString()).setFirstResult((pageSize - 1) * rows).setMaxResults(rows).list();
-		countSql.append(") aa");
+		countSql.append(") aa");//041801
 		JSONObject result = new JSONObject();
 		if(pageSize==1){
-			System.out.println();
+			System.out.println();//041802
 			String str=sessionFactory.getCurrentSession().createSQLQuery(countSql.toString()).uniqueResult().toString();
 			int count=Integer.parseInt(str);
 			result.put("total", count);
@@ -140,16 +140,16 @@ public class CabinetDaoImpl implements CabinetDao {
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public int addCabinetList(List<AddCabinet> cbs) {
 		//查找roomId,posx,posy是否有重复的记录
-				for(int i=0;i<cbs.size();i++){
+				for(int i=0;i<cbs.size();i++){////041803
 					List<Object[]> list=sessionFactory.getCurrentSession().createSQLQuery(" select * from  jfzs_cabinet_manage where room_id="+ cbs.get(i).getRoomId()+" and pos_x="+Integer.parseInt(cbs.get(i).getPos_x())+" and pos_y="+Integer.parseInt(cbs.get(i).getPos_y())).list();
 							if(list.size()==1){
 								//已经有了一条数据不做任何处理
 								System.out.println("is has");
 								continue;
 							}else{
-								//设置机柜Id
+								//设置机柜Id////041804
 								int cabinet_id=Integer.parseInt(sessionFactory.getCurrentSession().createSQLQuery("select max(cabinet_id)+1 from jfzs_cabinet_manage").uniqueResult().toString());
-								//插入数据库
+								//插入数据库//041805
 								int res = sessionFactory.getCurrentSession().createSQLQuery("insert into jfzs_cabinet_manage values ("+cabinet_id+","+cbs.get(i).getRoomId()+",0,'"
 								+cbs.get(i).getCompany()+"','"+cbs.get(i).getCabinet_num()+"','"+cbs.get(i).getCabinet_name()+"','"+cbs.get(i).getCabinet_surface()+
 										"',"+cbs.get(i).getSpec_id()+",'"+cbs.get(i).getAssert_no()+"','"+cbs.get(i).getPower_a()+"','"
@@ -214,12 +214,12 @@ public class CabinetDaoImpl implements CabinetDao {
 			sql.append(" and a.equip_name like '%"+equipmentName+"%' ");
 			countSql.append("  and a.equip_name like '%"+equipmentName+"%' ");
 		}
-		
+		//041806
 		List<Object[]> list=sessionFactory.getCurrentSession().createSQLQuery(sql.toString()).setFirstResult((pageSize - 1) * rows).setMaxResults(rows).list();
 		countSql.append(") aa");
 		JSONObject result = new JSONObject();
 		if(pageSize==1){
-			System.out.println();
+			System.out.println();//041807
 			String str=sessionFactory.getCurrentSession().createSQLQuery(countSql.toString()).uniqueResult().toString();
 			int count=Integer.parseInt(str);
 			result.put("total", count);
@@ -253,9 +253,9 @@ public class CabinetDaoImpl implements CabinetDao {
 		sql.append(" select card_id,sub_rack_id,occupy_slot_num,manufacturer,purPose,CATEGORY,model,ASSET_NO,POS_IDX,CHANGE_DATE from JFZS_BOARD_CARD_MANAGE where SUB_RACK_ID in (select SUB_RACK_ID from JFZS_SUB_RACK_MANAGE where equip_id="+equipId+")");
 		countSql.append("  select count(*) from (select card_id,sub_rack_id,occupy_slot_num,manufacturer,purPose,CATEGORY,model,ASSET_NO,POS_IDX,CHANGE_DATE from JFZS_BOARD_CARD_MANAGE where SUB_RACK_ID in (select SUB_RACK_ID from JFZS_SUB_RACK_MANAGE where equip_id="+equipId+")) aa");
 		List<Object[]> list=sessionFactory.getCurrentSession().createSQLQuery(sql.toString()).setFirstResult((mypageSize - 1) * myrows).setMaxResults(myrows).list();
-		JSONObject result = new JSONObject();
+		JSONObject result = new JSONObject();//041808
 		if(mypageSize==1){
-			System.out.println();
+			System.out.println();//041801
 			String str=sessionFactory.getCurrentSession().createSQLQuery(countSql.toString()).uniqueResult().toString();
 			int count=Integer.parseInt(str);
 			result.put("total", count);
@@ -283,14 +283,14 @@ public class CabinetDaoImpl implements CabinetDao {
 	}
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
-	public void addEquipmentList(List<String[]> equips, int cabinetId) {
+	public void addEquipmentList(List<String[]> equips, int cabinetId) {//041801
 		Long equipId=Long.parseLong(sessionFactory.getCurrentSession().createSQLQuery("select max(equip_id)+1 from jfzs_equipment_manage").uniqueResult().toString());
 		Long subRackId=1L;
 		//Long subRackId=Long.parseLong(sessionFactory.getCurrentSession().createSQLQuery("select max(sub_rack_id)+1 from Jfzs_Sub_Rack_Manage").uniqueResult().toString());
-		List<Object> list  =  sessionFactory.getCurrentSession()
+		List<Object> list  =  sessionFactory.getCurrentSession()//041801
 				.createSQLQuery("select max(sub_rack_id)+1 from Jfzs_Sub_Rack_Manage").list();
 		if(list.get(0)!=null){
-			 subRackId=Long.parseLong(sessionFactory.getCurrentSession()
+			 subRackId=Long.parseLong(sessionFactory.getCurrentSession()//041801
 					 .createSQLQuery("select max(sub_rack_id)+1 from Jfzs_Sub_Rack_Manage").uniqueResult().toString());
 		}
 		
@@ -312,14 +312,14 @@ public class CabinetDaoImpl implements CabinetDao {
 				 * 1. 专业跟当前机柜不一致，则需要更新当前机柜的专业；
 				 * 2. 机柜面不在当前机柜的机柜面里的需要扩充当前机柜的机柜面；
 				 * 	       如（设备插入A面，机柜只有B面，则机柜需要更新为A面，B面）
-				 */
+				 *///041801
 				String spName=(sessionFactory.getCurrentSession().createSQLQuery(" select cabinet_surface from jfzs_cabinet_manage where cabinet_id="+cabinetId).uniqueResult().toString());
 				//插入数据库
-				if(spName.indexOf(a[5])!=-1){//包含
+				if(spName.indexOf(a[5])!=-1){//包含//041801
 					sessionFactory.getCurrentSession().createSQLQuery("update jfzs_cabinet_manage set spec_id="+Integer.parseInt(a[6])+" where cabinet_id="+cabinetId).executeUpdate();
 				}else{
 					//不包含
-					spName+=","+a[5];
+					spName+=","+a[5];//041801
 					sessionFactory.getCurrentSession().createSQLQuery("update jfzs_cabinet_manage set cabinet_surface='"+spName+"',spec_id="+Integer.parseInt(a[6])+" where cabinet_id="+cabinetId).executeUpdate();
 				}
 				//end 2017/2/13
@@ -409,12 +409,12 @@ public class CabinetDaoImpl implements CabinetDao {
 			sql.append(" and c.equip_name like '%"+equipmentName+"%' ");
 			countSql.append("  and c.equip_name like '%"+equipmentName+"%' ");
 		}
-		
+		//041801
 		List<Object[]> list=sessionFactory.getCurrentSession().createSQLQuery(sql.toString()).setFirstResult((pageSize - 1) * rows).setMaxResults(rows).list();
 		countSql.append(") aa");
 		JSONObject result = new JSONObject();
 		if(pageSize==1){
-			System.out.println();
+			System.out.println();//041801
 			String str=sessionFactory.getCurrentSession().createSQLQuery(countSql.toString()).uniqueResult().toString();
 			int count=Integer.parseInt(str);
 			result.put("total", count);
@@ -469,9 +469,9 @@ public class CabinetDaoImpl implements CabinetDao {
 		//Long cardId=Long.parseLong(sessionFactory.getCurrentSession().createSQLQuery("select max(card_id)+1 from jfzs_board_card_manage").uniqueResult().toString());
 		Long cardId=1L;
 		//Long subRackId=Long.parseLong(sessionFactory.getCurrentSession().createSQLQuery("select max(sub_rack_id)+1 from Jfzs_Sub_Rack_Manage").uniqueResult().toString());
-		List<Object> list  =  sessionFactory.getCurrentSession()
+		List<Object> list  =  sessionFactory.getCurrentSession()//041801
 				.createSQLQuery("select max(card_id)+1 from jfzs_board_card_manage").list();
-		if(list.get(0)!=null){
+		if(list.get(0)!=null){//041801
 			cardId=Long.parseLong(sessionFactory.getCurrentSession().createSQLQuery("select max(card_id)+1 from jfzs_board_card_manage").uniqueResult().toString());
 		}
 		for(int i=0;i<cards.size();i++){
@@ -481,7 +481,7 @@ public class CabinetDaoImpl implements CabinetDao {
 					JfzsBoardCardManage bcm=new JfzsBoardCardManage();
 					bcm.setCardId(cardId+i);//板卡Id
 					
-					//查询子框Id(根据标志和设备Id得到子框Id)
+					//查询子框Id(根据标志和设备Id得到子框Id)//041801
 					Long subRackId=Long.parseLong(sessionFactory.getCurrentSession().createSQLQuery("select sub_rack_id from JFZS_SUB_RACK_MANAGE where equip_id="+equipId+" and label='"+a[0]+"'").uniqueResult().toString());
 					bcm.setSubRackId(subRackId);//子框Id
 					
@@ -502,7 +502,7 @@ public class CabinetDaoImpl implements CabinetDao {
 	@Override
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 	public int getSubrackId(int equipId, String label) {
-		System.out.println("hahha"+equipId+label);
+		System.out.println("hahha"+equipId+label);//041801
 		List<Object[]> list=sessionFactory.getCurrentSession().createSQLQuery("select sub_rack_id from JFZS_SUB_RACK_MANAGE where equip_id="+equipId+" and label='"+label+"'").list();
 		if(list.size()>0){
 			return 1;
@@ -522,11 +522,11 @@ public class CabinetDaoImpl implements CabinetDao {
 			sql.append(" where  spec_name  like '%"+specName+"%' ");
 			countSql.append(" where spec_name like '%"+specName+"%' ");
 		}
-		countSql.append(" ) aa");
+		countSql.append(" ) aa");//041801
 		List<Object[]> list=sessionFactory.getCurrentSession().createSQLQuery(sql.toString()).setFirstResult((pageSize - 1) * rows).setMaxResults(rows).list();
 		JSONObject result = new JSONObject();
 		if(pageSize==1){
-			System.out.println();
+			System.out.println();//041801
 			String str=sessionFactory.getCurrentSession().createSQLQuery(countSql.toString()).uniqueResult().toString();
 			int count=Integer.parseInt(str);
 			result.put("total", count);
