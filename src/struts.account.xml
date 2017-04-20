@@ -4,7 +4,7 @@
 	"http://struts.apache.org/dtds/struts-2.3.dtd">
 
 <struts>
-	<package name="account" namespace="/user" extends="json-default">
+	<package name="account" namespace="/user" extends="wq-default">
 		<result-types>
             <result-type name="noAction" class="com.guanghua.edms.common.NoActionResult"/>
         </result-types>

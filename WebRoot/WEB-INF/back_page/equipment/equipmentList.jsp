@@ -47,9 +47,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 						striped="true" remoteSort="true" pagination="true" singleSelect="false" toolbar="#tbar">
 					</table>
 			
-					<div id="cardInfo" class="easyui-window" closed="true" title="板卡信息"  
-				 	 	style="width:1100px;padding:5px;">
-						<table style="width:1060px;" id="lstCardInfos" class="easyui-datagrid"  pageSize="20" url="" rownumbers="true" 
+					<div id="cardInfo" fit="true" class="easyui-window" closed="true" title="板卡信息"  
+				 	 	style="width:800px;padding:5px;">
+						<table  fit="true" style="width:660px;" id="lstCardInfos" class="easyui-datagrid"  pageSize="20" url="" rownumbers="true" 
 							striped="true" remoteSort="true"  pagination="true" singleSelect="false" >
 						</table>
 					</div>

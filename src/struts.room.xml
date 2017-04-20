@@ -6,7 +6,7 @@
 <struts>
 	<!-- 4.信息管理 -->
 	<package name="myRoom" namespace="/myRoom"
-		extends="json-default">
+		extends="wq-default">
 		<result-types>
             <result-type name="noAction" class="com.guanghua.edms.common.NoActionResult"/>
         </result-types>

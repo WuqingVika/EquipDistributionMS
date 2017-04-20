@@ -6,7 +6,7 @@
 <struts>
 	<!-- 1.专业信息管理 -->
 	<package name="mySpec" namespace="/mySpec"
-		extends="json-default">
+		extends="wq-default">
 		<result-types>
             <result-type name="noAction" class="com.guanghua.edms.common.NoActionResult"/>
         </result-types>

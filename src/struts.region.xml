@@ -6,7 +6,7 @@
 <struts>
 	<!-- 4.局站信息管理 -->
 	<package name="myRegion" namespace="/myRegion"
-		extends="json-default">
+		extends="wq-default">
 		<result-types>
             <result-type name="noAction" class="com.guanghua.edms.common.NoActionResult"/>
         </result-types>

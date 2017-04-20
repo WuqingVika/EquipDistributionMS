@@ -5,7 +5,7 @@
 
 <struts>
 	<!-- 机柜信息 -->
-	<package name="jgxx" namespace="/jgxx" extends="json-default">
+	<package name="jgxx" namespace="/jgxx" extends="wq-default">
 		<result-types>
             <result-type name="noAction" class="com.guanghua.edms.common.NoActionResult"/>
         </result-types>

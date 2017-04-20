@@ -139,6 +139,8 @@ public class CabinetDaoImpl implements CabinetDao {
 	@Override
 	@Transactional(readOnly = false, propagation = Propagation.REQUIRED)
 	public int addCabinetList(List<AddCabinet> cbs) {
+		int k=cbs.size();
+		int m=0;
 		//查找roomId,posx,posy是否有重复的记录
 				for(int i=0;i<cbs.size();i++){////041803
 					List<Object[]> list=sessionFactory.getCurrentSession().createSQLQuery(" select * from  jfzs_cabinet_manage where room_id="+ cbs.get(i).getRoomId()+" and pos_x="+Integer.parseInt(cbs.get(i).getPos_x())+" and pos_y="+Integer.parseInt(cbs.get(i).getPos_y())).list();
@@ -150,15 +152,18 @@ public class CabinetDaoImpl implements CabinetDao {
 								//设置机柜Id////041804
 								int cabinet_id=Integer.parseInt(sessionFactory.getCurrentSession().createSQLQuery("select max(cabinet_id)+1 from jfzs_cabinet_manage").uniqueResult().toString());
 								//插入数据库//041805
-								int res = sessionFactory.getCurrentSession().createSQLQuery("insert into jfzs_cabinet_manage values ("+cabinet_id+","+cbs.get(i).getRoomId()+",0,'"
+								m =m+( sessionFactory.getCurrentSession().createSQLQuery("insert into jfzs_cabinet_manage values ("+cabinet_id+","+cbs.get(i).getRoomId()+",0,'"
 								+cbs.get(i).getCompany()+"','"+cbs.get(i).getCabinet_num()+"','"+cbs.get(i).getCabinet_name()+"','"+cbs.get(i).getCabinet_surface()+
 										"',"+cbs.get(i).getSpec_id()+",'"+cbs.get(i).getAssert_no()+"','"+cbs.get(i).getPower_a()+"','"
 								+cbs.get(i).getPower_b()+"',"+cbs.get(i).getLayerCount()+","+cbs.get(i).getPos_x()+","+cbs.get(i).getPos_y()+
-								",'"+cbs.get(i).getLabel()+"'"+")").executeUpdate();
-								return res;
+								",'"+cbs.get(i).getLabel()+"'"+")").executeUpdate());
+								//return res;
 							}
 				}
-				return 0;
+				if(m<k){
+					return 0;
+				}
+				return k;
 	}
 	@Override
 	public List<Map<String, String>> selCabinetByJiFangId(int roomId) {
