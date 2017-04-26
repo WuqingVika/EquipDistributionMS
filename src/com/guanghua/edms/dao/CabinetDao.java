@@ -115,4 +115,6 @@ public interface CabinetDao {
 	 */
 	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
 	public JSONObject selSpecsByQuery(int pageSize, int rows,String specName);
+	@Transactional(readOnly = true, propagation = Propagation.REQUIRED)
+	public List<Map<String, String>> getDistribution();
 }

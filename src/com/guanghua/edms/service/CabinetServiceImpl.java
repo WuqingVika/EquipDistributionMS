@@ -86,5 +86,10 @@ public class CabinetServiceImpl implements CabinetService {
 	public JSONObject selSpecsByQuery(int pageSize, int rows,String specName) {
 		return cabinetDao.selSpecsByQuery( pageSize,  rows,specName);
 	}
+	@Override
+	public List<Map<String, String>> getDistribution() {
+		// TODO Auto-generated method stub
+		return cabinetDao.getDistribution();
+	}
 
 }

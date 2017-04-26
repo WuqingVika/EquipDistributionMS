@@ -374,5 +374,22 @@ public class JgxxAction extends BaseAction implements ServletRequestAware{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}	
+	}
+	
+	public void getDistribution(){
+		System.out.println("wq------饼图数据查询请求");
+		HttpServletResponse res=ServletActionContext.getResponse();
+		HttpServletRequest req=ServletActionContext.getRequest();
+		res.setCharacterEncoding("utf-8");
+		List<Map<String, String>> list =cabinetService.getDistribution();
+		JSONArray jsonArray = JSONArray.fromObject( list );
+		try {
+			PrintWriter out=res.getWriter();
+			jsonArray.write(out);
+			out.flush();
+			out.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
 }

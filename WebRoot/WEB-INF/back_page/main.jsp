@@ -14,6 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     <script type="text/javascript" src="../js/easyui/jquery.min.js"></script>   
 	<script type="text/javascript" src="../js/easyui/jquery.easyui.min.js"></script> 
     <script type="text/javascript" src="../js/easyui/locale/easyui-lang-zh_CN.js"></script>
+     <script type="text/javascript" src="../js/echarts.js"></script>
     <style>
         .linka{
             color:white;
@@ -186,8 +187,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 <div region="center"  border="false">
     <div class="easyui-tabs" fit="true" id="tt">
         <div title="首页" data-options="iconCls:'icon-application_home'" >
-			<span style="font-size:32px;font-weight:400;">欢迎来到上海电信机房设备分布管理系统1.0--开发历程</span><br/>
-			<embed src="../../../jspRef/wuqingvikaHis.pdf" width="100%" height="100%">
+			<span style="font-size:32px;font-weight:400;"></span><br/>
+			<!-- <embed src="../../../jspRef/wuqingvikaHis.pdf" width="100%" height="100%"> -->
+			<div align="center" id="chart" style="height:400px"></div>  
         </div>
     </div>
 </div>
@@ -206,12 +208,6 @@ background:url(../img/mainbottombg.jpg);line-height: 40px;overflow:hidden;color:
     $(function(){
         // 改变tree的样式效果
         $(".tr").tree({
-//            onLoadSuccess:function(node, data){
-//                console.log(node,data);
-//                var id = data[0].children[0].children[0].id;
-//                var n = $(this).tree('find',id);
-//                $(this).tree('select', n.target);
-//            },
             onSelect:function(node){
                 $(node.target).addClass("border-orange").parent().siblings().find("div").removeClass('border-orange');
                 // 动态添加tab标签
@@ -284,7 +280,52 @@ background:url(../img/mainbottombg.jpg);line-height: 40px;overflow:hidden;color:
                 }
             }
         }
-    	
+        var wqdata=[{value:1, name:'机柜'},{value:1, name:'设备'},{value:1, name:'板卡'}];
+        $.ajax({
+			async:false,
+			dataType:"json",
+			url:'<%=path%>/jgxx/getDistribution.action',
+			success:(function(data){
+				wqdata=data;
+			})
+		});
+        
+        //定义echarts
+        var option = {
+        	    title : {
+        	        text: '欢迎来到上海电信机房设备分布管理系统1.0',
+        	        subtext: '机房设备分布情况',
+        	        x:'center'
+        	    },
+        	    tooltip : {
+        	        trigger: 'item',
+        	        formatter: "{a} <br/>{b} : {c} ({d}%)"
+        	    },
+        	    legend: {
+        	        orient: 'vertical',
+        	        left: 'left',
+        	        data: ['机柜','设备','板卡']
+        	    },
+        	    series : [
+        	        {
+        	            name: '机房设备分布情况',
+        	            type: 'pie',
+        	            radius : '55%',
+        	            center: ['50%', '60%'],
+        	            data:wqdata,
+        	            itemStyle: {
+        	                emphasis: {
+        	                    shadowBlur: 10,
+        	                    shadowOffsetX: 0,
+        	                    shadowColor: 'rgba(0, 0, 0, 0.5)'
+        	                }
+        	            }
+        	        }
+        	    ]
+        	};
+
+        var myChart = echarts.init(document.getElementById('chart'));  
+        myChart.setOption(option);  
     });
 </script>
 </body>

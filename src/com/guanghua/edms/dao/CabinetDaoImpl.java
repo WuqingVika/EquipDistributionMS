@@ -319,8 +319,10 @@ public class CabinetDaoImpl implements CabinetDao {
 				 * 	       如（设备插入A面，机柜只有B面，则机柜需要更新为A面，B面）
 				 *///041801
 				String spName=(sessionFactory.getCurrentSession().createSQLQuery(" select cabinet_surface from jfzs_cabinet_manage where cabinet_id="+cabinetId).uniqueResult().toString());
+				System.out.println("spname---------------------"+spName);
 				//插入数据库
 				if(spName.indexOf(a[5])!=-1){//包含//041801
+					System.out.println("spname包含---------------------"+a[5]);
 					sessionFactory.getCurrentSession().createSQLQuery("update jfzs_cabinet_manage set spec_id="+Integer.parseInt(a[6])+" where cabinet_id="+cabinetId).executeUpdate();
 				}else{
 					//不包含
@@ -354,6 +356,7 @@ public class CabinetDaoImpl implements CabinetDao {
 				for(int j=0;j<c;j++){
 					JfzsSubRack sr=new JfzsSubRack();
 					sr.setEquipId(equipId+i);
+					System.out.println("halo--------------"+(equipId+i));
 					sr.setSlotCount(Integer.parseInt(a[12]));
 					if(flag==1){
 						int x=65+j;
@@ -546,5 +549,21 @@ public class CabinetDaoImpl implements CabinetDao {
 		result.put("rows", jsonArray);
 		result.put("specSql", sql.toString());
 		return result;
+	}
+	@Override
+	public List<Map<String, String>> getDistribution() {
+		Connection conn = this.sessionFactory.getCurrentSession().connection();
+		StringBuffer sql = new StringBuffer();
+		sql.append("select count(*) value,'机柜'  name from jfzs_cabinet_manage "+ 
+		" union select count(*) value,'设备'  name from jfzs_equipment_manage "+
+		" union  select count(*) value,'板卡' name from jfzs_board_card_manage ");
+		try {
+			List<Map<String, String>> list = SQLUtil
+					.query(conn, sql.toString());
+			return list;
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return null;
 	}
 }

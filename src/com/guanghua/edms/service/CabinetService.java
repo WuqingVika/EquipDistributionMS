@@ -102,5 +102,10 @@ public interface CabinetService {
 	 * @return
 	 */
 	public JSONObject selSpecsByQuery(int pageSize, int rows,String specName);
+	/**
+	 * 4-2.获取设备分布数
+	 * @return
+	 */
+	public List<Map<String, String>> getDistribution();
 	
 }
