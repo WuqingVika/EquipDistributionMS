@@ -48,6 +48,7 @@
 			class="exportCabinetAction">
 			<result type="json"></result>
 		</action>
+		
 		<action name="getDistribution" method="getDistribution" class="jgxxAction">
 			<result type="json"></result>
 		</action>
