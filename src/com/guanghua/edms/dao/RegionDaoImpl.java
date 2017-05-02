@@ -54,7 +54,7 @@ public class RegionDaoImpl implements RegionDao {
 			jsonObject.put("reFloor", objects[4]);
 			jsonObject.put("reUsage", objects[5]);
 			jsonObject.put("reState", objects[6]);
-			jsonObject.put("reAddrress", objects[7]);
+			jsonObject.put("reAddress", objects[7]);
 			
 			jsonArray.add(jsonObject);
 		}

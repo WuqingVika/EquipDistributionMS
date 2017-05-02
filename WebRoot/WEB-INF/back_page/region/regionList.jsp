@@ -49,7 +49,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				    		</tr>
 				    		<tr>
 				    			<td>楼层:</td>
-				    			<td><input id="reFloor" class="easyui-textbox" type="text" name="reFloor" data-options="required:true"></input></td>
+				    			<td><input id="reFloor" class="easyui-textbox" type="text" name="reFloor" data-options="required:true,validType:'INTPlus'"></input></td>
 				    		</tr>
 				    		<tr>
 				    			<td>用途:</td>
@@ -101,7 +101,7 @@ function loadSearchData(regionName){
                     {field:'reFloor',width:100,align:'center',sortable:true,title:'楼层'},
                     {field:'reUsage',width:60,align:'center',sortable:true,title:'用途'},
                     {field:'reState',width:100,align:'center',sortable:true,title:'使用状态'},
-                    {field:'reAddrress',width:100,align:'center',sortable:true,title:'说细地址'}
+                    {field:'reAddress',width:100,align:'center',sortable:true,title:'说细地址'}
                 ]],
         method:'post'
         });
@@ -207,6 +207,12 @@ function loadSearchData(regionName){
          //end 增删改
         
      $.extend($.fn.validatebox.defaults.rules, {
+	    INTPlus:{
+	    	validator:function(value){
+	    		return /^[0-9]*[1-9][0-9]*$/.test(value);
+	    	},
+	    	message:"请输入正整数!"
+	    },
 	    INTPlus:{
 	    	validator:function(value){
 	    		return /^[0-9]*[1-9][0-9]*$/.test(value);

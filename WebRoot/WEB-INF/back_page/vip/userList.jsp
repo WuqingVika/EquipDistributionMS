@@ -36,7 +36,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
             		<input  name="userId" hidden="true" />
             		  	<table cellpadding="5">
             		  		<tr>
-				    			<td>管理员简称:</td>
+				    			<td>登录账号:</td>
 				    			<td><input id="usernamewq" class="easyui-textbox"  name="userName" data-options="required:true"></input></td>
 				    		</tr>
 				    		<tr>
@@ -91,8 +91,8 @@ function loadSearchData(userName){
             columns:[[
             		{field:'ck',width:50,align:'center',checkbox:'true'},
                     {field:'userId',width:60,align:'center',sortable:true,title:'管理员ID'},
-                    {field:'userName',width:100,align:'center',sortable:true,title:'管理员名称'},
-                    {field:'workNo',width:100,align:'center',sortable:true,title:'工号'},
+                    {field:'userName',width:100,align:'center',sortable:true,title:'登录账号'},
+                    {field:'workNo',width:100,align:'center',sortable:true,title:'姓名'},
                     {field:'email',width:100,align:'center',sortable:true,title:'邮箱'},
                     {field:'sp',width:100,align:'center',sortable:true,title:'权限'  
                     	,formatter:function(value,row,index){
