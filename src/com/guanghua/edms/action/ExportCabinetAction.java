@@ -209,7 +209,7 @@ public class ExportCabinetAction extends ActionSupport{
 					}else{
 						
 						if(spec_name.equals("其他")){
-							spec_id=0;
+							spec_id=4;
 						}else if(spec_name.equals("传输")){
 							spec_id=1;
 						}else if(spec_name.equals("数据")){
@@ -409,7 +409,7 @@ public class ExportCabinetAction extends ActionSupport{
 							}
 							if(j==6){//专业
 								if(a.equals("其他")){
-									stringList.get(c)[j]="0";
+									stringList.get(c)[j]="4";
 								}else if(a.equals("传输")){
 									stringList.get(c)[j]="1";
 								}else if(a.equals("数据")){
@@ -417,7 +417,7 @@ public class ExportCabinetAction extends ActionSupport{
 								}else if(a.equals("电源")){
 									stringList.get(c)[j]="3";
 								}else{//就是其他
-									stringList.get(c)[j]="0";
+									stringList.get(c)[j]="4";
 								}
 							}
 							
